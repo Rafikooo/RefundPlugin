@@ -1,6 +1,10 @@
 <p align="center">
     <a href="https://sylius.com" target="_blank">
-        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://media.sylius.com/sylius-logo-800-dark.png">
+          <source media="(prefers-color-scheme: light)" srcset="https://media.sylius.com/sylius-logo-800.png">
+          <img alt="Sylius Logo." src="https://media.sylius.com/sylius-logo-800.png">
+        </picture>
     </a>
 </p>
 
@@ -130,9 +134,9 @@ Tagged services would be executed according to their priority (descending).
 
 ## Supported branches
 
-* `1.3` (v1.3.*) - security fixes
-* `1.4` (v1.4.*) - bug fixes, improvements
-* `1.5` (v1.5.*) - new features
+* `1.4` (v1.4.*) - security fixes
+* `1.5` (v1.5.*) - bug fixes, improvements
+* `1.6` (v1.6.*) - new features
 * `2.0` (v2.0.*) - new features, removing deprecations, BC breaks
 
 ## Security issues

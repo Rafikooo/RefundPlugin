@@ -3,7 +3,7 @@
 /*
  * This file is part of the Sylius package.
  *
- * (c) Paweł Jędrzejewski
+ * (c) Sylius Sp. z o.o.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -20,6 +20,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Entity\LineItem;
 use Sylius\RefundPlugin\Entity\LineItemInterface;
 use Sylius\RefundPlugin\Exception\MoreThanOneTaxAdjustment;
+use Sylius\RefundPlugin\Factory\LineItemFactoryInterface;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 use Sylius\RefundPlugin\Provider\TaxRateProviderInterface;
 use Webmozart\Assert\Assert;
@@ -29,7 +30,16 @@ final class ShipmentLineItemsConverter implements LineItemsConverterUnitRefundAw
     public function __construct(
         private RepositoryInterface $adjustmentRepository,
         private TaxRateProviderInterface $taxRateProvider,
+        private ?LineItemFactoryInterface $lineItemFactory = null,
     ) {
+        if (null === $this->lineItemFactory) {
+            trigger_deprecation(
+                'sylius/refund-plugin',
+                '1.5',
+                'Not passing a line item factory to "%s" is deprecated and will be removed in 2.0.',
+                self::class,
+            );
+        }
     }
 
     public function convert(array $units): array
@@ -77,15 +87,28 @@ final class ShipmentLineItemsConverter implements LineItemsConverterUnitRefundAw
         $label = $shippingAdjustment->getLabel();
         Assert::notNull($label);
 
-        return new LineItem(
-            $label,
-            1,
-            $netValue,
-            $grossValue,
-            $netValue,
-            $grossValue,
-            $taxAmount,
-            $this->taxRateProvider->provide($shipment),
+        if (null === $this->lineItemFactory) {
+            return new LineItem(
+                $label,
+                1,
+                $netValue,
+                $grossValue,
+                $netValue,
+                $grossValue,
+                $taxAmount,
+                $this->taxRateProvider->provide($shipment),
+            );
+        }
+
+        return $this->lineItemFactory->createWithData(
+            name: $label,
+            quantity: 1,
+            unitNetPrice: $netValue,
+            unitGrossPrice: $grossValue,
+            netValue: $netValue,
+            grossValue: $grossValue,
+            taxAmount: $taxAmount,
+            taxRate: $this->taxRateProvider->provide($shipment),
         );
     }
 
