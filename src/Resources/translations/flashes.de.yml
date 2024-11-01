@@ -1,0 +1,13 @@
+sylius_refund:
+    at_least_one_unit_should_be_selected_to_refund: 'Es muss mindestens eine Einheit ausgewählt werden, um eine Rückerstattung zu beantragen.'
+    error_occurred: 'Unerwarteter Fehler ist aufgetreten.'
+    free_order_should_not_be_refund: 'Eine kostenlose Bestellung kann nicht zurückerstattet werden.'
+    order_should_be_paid: 'Die Bestellung muss bezahlt sein, damit die Einheiten zurückerstattet werden können.'
+    refund_amount_must_be_greater: 'Der Rückerstattungsbetrag muss größer als 0 sein.'
+    refund_amount_must_be_less: 'Sie können nicht mehr Geld zurückerstatten, als der Gesamtbetrag der zurückerstatteten Einheiten beträgt.'
+    refund_units_must_belong_to_order: 'Die zurückerstatteten Einheiten müssen zur Bestellung gehören.'
+    refund_payment_completed: 'Die Rückerstattung wurde erfolgreich abgeschlossen.'
+    resend_credit_memo_failed: 'Das erneute Senden der Gutschrift ist fehlgeschlagen.'
+    resend_credit_memo_success: 'Die ausgewählte Gutschrift wurde erfolgreich erneut gesendet.'
+    unit_refund_exceeded: 'Sie können nicht mehr Geld zurückerstatten, als der Gesamtbetrag der Bestellung beträgt.'
+    units_successfully_refunded: 'Die ausgewählten Bestelleinheiten wurden erfolgreich zurückerstattet.'
