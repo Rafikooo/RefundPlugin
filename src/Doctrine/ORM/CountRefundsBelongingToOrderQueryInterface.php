@@ -15,5 +15,6 @@ namespace Sylius\RefundPlugin\Doctrine\ORM;
 
 interface CountRefundsBelongingToOrderQueryInterface
 {
+    /** @param array<array-key, int> $unitRefundIds */
     public function count(array $unitRefundIds, string $orderNumber): int;
 }

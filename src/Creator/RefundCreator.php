@@ -24,24 +24,13 @@ use Webmozart\Assert\Assert;
 
 final class RefundCreator implements RefundCreatorInterface
 {
-    private RefundFactoryInterface $refundFactory;
-
-    private RemainingTotalProviderInterface $remainingTotalProvider;
-
-    private OrderRepositoryInterface $orderRepository;
-
-    private ObjectManager $refundManager;
-
+    /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
-        RefundFactoryInterface $refundFactory,
-        RemainingTotalProviderInterface $remainingTotalProvider,
-        OrderRepositoryInterface $orderRepository,
-        ObjectManager $refundManager,
+        private readonly RefundFactoryInterface $refundFactory,
+        private readonly RemainingTotalProviderInterface $remainingTotalProvider,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly ObjectManager $refundManager,
     ) {
-        $this->refundFactory = $refundFactory;
-        $this->remainingTotalProvider = $remainingTotalProvider;
-        $this->orderRepository = $orderRepository;
-        $this->refundManager = $refundManager;
     }
 
     public function __invoke(string $orderNumber, int $unitId, int $amount, RefundTypeInterface $refundType): void

@@ -29,36 +29,19 @@ use Webmozart\Assert\Assert;
 
 final class RefundPaymentProcessManager implements UnitsRefundedProcessStepInterface
 {
-    private OrderFullyRefundedStateResolverInterface $orderFullyRefundedStateResolver;
-
-    private RelatedPaymentIdProviderInterface $relatedPaymentIdProvider;
-
-    private RefundPaymentFactoryInterface $refundPaymentFactory;
-
-    private OrderRepositoryInterface $orderRepository;
-
-    private PaymentMethodRepositoryInterface $paymentMethodRepository;
-
-    private EntityManagerInterface $entityManager;
-
-    private MessageBusInterface $eventBus;
-
+    /**
+     * @param OrderRepositoryInterface<OrderInterface> $orderRepository
+     * @param PaymentMethodRepositoryInterface<PaymentMethodInterface> $paymentMethodRepository
+     */
     public function __construct(
-        OrderFullyRefundedStateResolverInterface $orderFullyRefundedStateResolver,
-        RelatedPaymentIdProviderInterface $relatedPaymentIdProvider,
-        RefundPaymentFactoryInterface $refundPaymentFactory,
-        OrderRepositoryInterface $orderRepository,
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        EntityManagerInterface $entityManager,
-        MessageBusInterface $eventBus,
+        private readonly OrderFullyRefundedStateResolverInterface $orderFullyRefundedStateResolver,
+        private readonly RelatedPaymentIdProviderInterface $relatedPaymentIdProvider,
+        private readonly RefundPaymentFactoryInterface $refundPaymentFactory,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly MessageBusInterface $eventBus,
     ) {
-        $this->orderFullyRefundedStateResolver = $orderFullyRefundedStateResolver;
-        $this->relatedPaymentIdProvider = $relatedPaymentIdProvider;
-        $this->refundPaymentFactory = $refundPaymentFactory;
-        $this->orderRepository = $orderRepository;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->entityManager = $entityManager;
-        $this->eventBus = $eventBus;
     }
 
     public function next(UnitsRefunded $unitsRefunded): void

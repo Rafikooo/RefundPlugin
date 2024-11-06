@@ -15,6 +15,7 @@ namespace Sylius\RefundPlugin\Model;
 
 use MyCLabs\Enum\Enum;
 
+/** @extends Enum<string> */
 class RefundType extends Enum implements RefundTypeInterface
 {
     public static function orderItemUnit(): self

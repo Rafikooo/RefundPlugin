@@ -27,15 +27,15 @@ final class CreditMemoPdfFileGenerator implements CreditMemoPdfFileGeneratorInte
     private const FILE_EXTENSION = '.pdf';
 
     public function __construct(
-        private RepositoryInterface $creditMemoRepository,
-        private ?Environment $twig,
-        private ?GeneratorInterface $pdfGenerator,
-        private FileLocatorInterface $fileLocator,
-        private string $template,
-        private string $creditMemoLogoPath,
-        private ?PdfOptionsGeneratorInterface $pdfOptionsGenerator = null,
-        private ?TwigToPdfGeneratorInterface $twigToPdfGenerator = null,
-        private ?CreditMemoFileNameGeneratorInterface $creditMemoFileNameGenerator = null,
+        private readonly RepositoryInterface $creditMemoRepository,
+        private readonly ?Environment $twig,
+        private readonly ?GeneratorInterface $pdfGenerator,
+        private readonly FileLocatorInterface $fileLocator,
+        private readonly string $template,
+        private readonly string $creditMemoLogoPath,
+        private readonly ?PdfOptionsGeneratorInterface $pdfOptionsGenerator = null,
+        private readonly ?TwigToPdfGeneratorInterface $twigToPdfGenerator = null,
+        private readonly ?CreditMemoFileNameGeneratorInterface $creditMemoFileNameGenerator = null,
     ) {
         $this->checkDeprecations();
     }
@@ -57,6 +57,7 @@ final class CreditMemoPdfFileGenerator implements CreditMemoPdfFileGeneratorInte
         return new CreditMemoPdf($this->generateFileName($creditMemo), $pdf);
     }
 
+    /** @param array<string, mixed> $templateParams */
     private function generateFromTemplate(array $templateParams): string
     {
         if (null !== $this->twigToPdfGenerator) {

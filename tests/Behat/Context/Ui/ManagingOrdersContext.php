@@ -31,14 +31,6 @@ final class ManagingOrdersContext implements Context
     }
 
     /**
-     * @Given I am viewing the summary of the order :order
-     */
-    public function viewingTheSummaryOfTheOrder(OrderInterface $order): void
-    {
-        $this->showPage->open(['id' => $order->getId()]);
-    }
-
-    /**
      * @Then I should be notified that the order should be paid
      */
     public function shouldBeNotifiedThatTheOrderShouldBePaid(): void

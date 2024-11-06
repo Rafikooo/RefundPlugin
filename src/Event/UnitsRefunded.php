@@ -23,10 +23,14 @@ class UnitsRefunded
     /** @var array|ShipmentRefund[] */
     private array $shipments = [];
 
+    /**
+     * @param array<UnitRefundInterface[]|OrderItemUnitRefund[]> $units
+     * @param int|array<int, int> $paymentMethodId
+     */
     public function __construct(
-        private string $orderNumber,
+        private readonly string $orderNumber,
         /** @var array|UnitRefundInterface[]|OrderItemUnitRefund[] */
-        private array $units,
+        private readonly array $units,
         private int|array $paymentMethodId,
         private int $amount,
         private string|int $currencyCode,
@@ -39,6 +43,7 @@ class UnitsRefunded
                 throw new \InvalidArgumentException('The 7th argument must be present.');
             }
 
+            /** @phpstan-ignore-next-line */
             $this->shipments = $paymentMethodId;
             $this->paymentMethodId = $amount;
             /** @phpstan-ignore-next-line */

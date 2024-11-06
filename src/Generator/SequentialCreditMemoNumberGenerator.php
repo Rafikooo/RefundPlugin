@@ -22,35 +22,20 @@ use Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface;
 
 final class SequentialCreditMemoNumberGenerator implements CreditMemoNumberGeneratorInterface
 {
-    private ObjectRepository $sequenceRepository;
-
-    private CreditMemoSequenceFactoryInterface $sequenceFactory;
-
-    private EntityManagerInterface $sequenceManager;
-
-    private int $startNumber;
-
-    private int $numberLength;
-
+    /** @param ObjectRepository<CreditMemoSequenceInterface> $sequenceRepository */
     public function __construct(
-        ObjectRepository $sequenceRepository,
-        CreditMemoSequenceFactoryInterface $sequenceFactory,
-        EntityManagerInterface $sequenceManager,
-        int $startNumber = 1,
-        int $numberLength = 9,
+        private readonly ObjectRepository $sequenceRepository,
+        private readonly CreditMemoSequenceFactoryInterface $sequenceFactory,
+        private readonly EntityManagerInterface $sequenceManager,
+        private readonly int $startNumber = 1,
+        private readonly int $numberLength = 9,
     ) {
-        $this->sequenceRepository = $sequenceRepository;
-        $this->sequenceFactory = $sequenceFactory;
-        $this->sequenceManager = $sequenceManager;
-        $this->startNumber = $startNumber;
-        $this->numberLength = $numberLength;
     }
 
     public function generate(OrderInterface $order, \DateTimeInterface $issuedAt): string
     {
         $identifierPrefix = $issuedAt->format('Y/m') . '/';
 
-        /** @var CreditMemoSequenceInterface $sequence */
         $sequence = $this->getSequence();
 
         $this->sequenceManager->lock($sequence, LockMode::OPTIMISTIC, $sequence->getVersion());
@@ -76,7 +61,6 @@ final class SequentialCreditMemoNumberGenerator implements CreditMemoNumberGener
             return $sequence;
         }
 
-        /** @var CreditMemoSequenceInterface $sequence */
         $sequence = $this->sequenceFactory->createNew();
         $this->sequenceManager->persist($sequence);
 

@@ -20,11 +20,8 @@ use Webmozart\Assert\Assert;
 
 class CustomerBillingDataFactory implements CustomerBillingDataFactoryInterface
 {
-    private FactoryInterface $customerBillingDataFactory;
-
-    public function __construct(FactoryInterface $customerBillingDataFactory)
+    public function __construct(private readonly FactoryInterface $customerBillingDataFactory)
     {
-        $this->customerBillingDataFactory = $customerBillingDataFactory;
     }
 
     public function createNew(): CustomerBillingDataInterface

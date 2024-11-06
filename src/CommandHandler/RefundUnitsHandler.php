@@ -31,8 +31,13 @@ final class RefundUnitsHandler
 
     private ?RefunderInterface $orderShipmentsRefunder = null;
 
+    /**
+     * @param iterable<RefunderInterface>|RefunderInterface $refunders
+     * @param OrderRepositoryInterface<OrderInterface>|MessageBusInterface $orderRepository
+     * @param RefundUnitsCommandValidatorInterface|OrderRepositoryInterface<OrderInterface> $refundUnitsCommandValidator
+     */
     public function __construct(
-        private iterable|RefunderInterface $refunders,
+        private readonly iterable|RefunderInterface $refunders,
         private MessageBusInterface|RefunderInterface $eventBus,
         private OrderRepositoryInterface|MessageBusInterface $orderRepository,
         private RefundUnitsCommandValidatorInterface|OrderRepositoryInterface $refundUnitsCommandValidator,

@@ -20,7 +20,7 @@ final class RequestToRefundUnitsConverter implements RequestToRefundUnitsConvert
 {
     public function __construct(
         /** @var RequestToRefundUnitsConverterInterface[] $refundUnitsConverters */
-        private iterable $refundUnitsConverters,
+        private readonly iterable $refundUnitsConverters,
     ) {
     }
 

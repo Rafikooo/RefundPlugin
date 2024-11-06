@@ -19,11 +19,8 @@ use Webmozart\Assert\Assert;
 
 final class RefundedShipmentFeeProvider implements RefundedShipmentFeeProviderInterface
 {
-    private RepositoryInterface $adjustmentRepository;
-
-    public function __construct(RepositoryInterface $adjustmentRepository)
+    public function __construct(private readonly RepositoryInterface $adjustmentRepository)
     {
-        $this->adjustmentRepository = $adjustmentRepository;
     }
 
     public function getFeeOfShipment(int $adjustmentId): int

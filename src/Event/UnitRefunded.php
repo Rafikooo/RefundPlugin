@@ -15,17 +15,11 @@ namespace Sylius\RefundPlugin\Event;
 
 class UnitRefunded implements UnitRefundedInterface
 {
-    private string $orderNumber;
-
-    private int $unitId;
-
-    private int $amount;
-
-    public function __construct(string $orderNumber, int $unitId, int $amount)
-    {
-        $this->orderNumber = $orderNumber;
-        $this->unitId = $unitId;
-        $this->amount = $amount;
+    public function __construct(
+        private readonly string $orderNumber,
+        private readonly int $unitId,
+        private readonly int $amount,
+    ) {
     }
 
     public function orderNumber(): string

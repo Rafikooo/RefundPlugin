@@ -34,7 +34,7 @@ final class CreditMemoGenerator implements CreditMemoGeneratorInterface
     private LineItemsConverterInterface $shipmentLineItemsConverter;
 
     public function __construct(
-        private LineItemsConverterInterface|LegacyLineItemsConverterInterface $lineItemsConverter,
+        private readonly LineItemsConverterInterface|LegacyLineItemsConverterInterface $lineItemsConverter,
         private TaxItemsGeneratorInterface|LineItemsConverterInterface $taxItemsGenerator,
         private CreditMemoFactoryInterface|TaxItemsGeneratorInterface $creditMemoFactory,
         private CustomerBillingDataFactoryInterface|CreditMemoFactoryInterface $customerBillingDataFactory,
@@ -60,6 +60,10 @@ final class CreditMemoGenerator implements CreditMemoGeneratorInterface
         }
     }
 
+    /**
+     * @param OrderItemUnitRefund[]|ShipmentRefund[] $units
+     * @param string|array<string, ShipmentRefund> $comment
+     */
     public function generate(
         OrderInterface $order,
         int $total,

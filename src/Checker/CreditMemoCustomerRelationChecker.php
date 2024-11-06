@@ -22,16 +22,10 @@ use Sylius\RefundPlugin\Exception\CreditMemoNotAccessible;
 
 final class CreditMemoCustomerRelationChecker implements CreditMemoCustomerRelationCheckerInterface
 {
-    private CustomerContextInterface $customerContext;
-
-    private RepositoryInterface $creditMemoRepository;
-
     public function __construct(
-        CustomerContextInterface $customerContext,
-        RepositoryInterface $creditMemoRepository,
+        private readonly CustomerContextInterface $customerContext,
+        private readonly RepositoryInterface $creditMemoRepository,
     ) {
-        $this->customerContext = $customerContext;
-        $this->creditMemoRepository = $creditMemoRepository;
     }
 
     public function check(string $creditMemoId): void

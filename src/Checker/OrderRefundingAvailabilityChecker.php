@@ -20,11 +20,9 @@ use Webmozart\Assert\Assert;
 
 final class OrderRefundingAvailabilityChecker implements OrderRefundingAvailabilityCheckerInterface
 {
-    private OrderRepositoryInterface $orderRepository;
-
-    public function __construct(OrderRepositoryInterface $orderRepository)
+    /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
+    public function __construct(private readonly OrderRepositoryInterface $orderRepository)
     {
-        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(string $orderNumber): bool

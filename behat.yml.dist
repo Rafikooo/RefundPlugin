@@ -1,3 +1,6 @@
+# This file is part of the Sylius package.
+# (c) Sylius Sp. z o.o.
+
 imports:
     - vendor/sylius/sylius/src/Sylius/Behat/Resources/config/suites.yml
     - tests/Behat/Resources/suites.yml
@@ -61,3 +64,5 @@ default:
         FriendsOfBehat\ExcludeSpecificationsExtension:
             features:
                 - features/pdf_generation_disabled
+
+        SyliusLabs\SuiteTagsExtension: ~
