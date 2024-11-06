@@ -38,7 +38,6 @@
             class="Sylius\RefundPlugin\Factory\CreditMemoFactory"
             decorates="sylius_refund.factory.credit_memo"
             decoration-priority="256"
-            public="false"
         >
             <argument type="service" id=".inner" />
             <argument type="service" id="sylius_refund.generator.credit_memo_identifier" />
@@ -51,7 +50,6 @@
             class="Sylius\RefundPlugin\Factory\ShopBillingDataFactory"
             decorates="sylius_refund.factory.shop_billing_data"
             decoration-priority="256"
-            public="false"
         >
             <argument type="service" id=".inner" />
         </service>
@@ -61,7 +59,6 @@
             class="Sylius\RefundPlugin\Factory\CustomerBillingDataFactory"
             decorates="sylius_refund.factory.customer_billing_data"
             decoration-priority="256"
-            public="false"
         >
             <argument type="service" id=".inner" />
         </service>

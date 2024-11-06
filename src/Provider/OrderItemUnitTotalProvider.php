@@ -18,10 +18,10 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Model\RefundTypeInterface;
 use Webmozart\Assert\Assert;
 
-final class OrderItemUnitTotalProvider implements RefundUnitTotalProviderInterface
+final readonly class OrderItemUnitTotalProvider implements RefundUnitTotalProviderInterface
 {
     public function __construct(
-        private readonly RepositoryInterface $orderItemUnitRepository,
+        private RepositoryInterface $orderItemUnitRepository,
     ) {
     }
 

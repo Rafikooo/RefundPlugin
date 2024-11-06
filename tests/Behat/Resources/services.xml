@@ -13,11 +13,11 @@
     <services>
         <defaults public="true" />
 
-        <service id="Tests\Sylius\RefundPlugin\Behat\Page\Admin\OrderRefundsPage" parent="sylius.behat.symfony_page" public="true" />
-        <service id="Tests\Sylius\RefundPlugin\Behat\Page\Admin\CreditMemoDetailsPage" parent="sylius.behat.symfony_page" public="true">
+        <service id="Tests\Sylius\RefundPlugin\Behat\Page\Admin\OrderRefundsPage" parent="sylius.behat.symfony_page" />
+        <service id="Tests\Sylius\RefundPlugin\Behat\Page\Admin\CreditMemoDetailsPage" parent="sylius.behat.symfony_page">
             <argument type="service" id="sylius.behat.table_accessor" />
         </service>
-        <service id="Tests\Sylius\RefundPlugin\Behat\Page\Admin\CreditMemoIndexPage" parent="sylius.behat.page.admin.crud.index" public="true">
+        <service id="Tests\Sylius\RefundPlugin\Behat\Page\Admin\CreditMemoIndexPage" parent="sylius.behat.page.admin.crud.index">
             <argument>sylius_refund_admin_credit_memo_index</argument>
         </service>
 
@@ -108,7 +108,7 @@
             <argument type="service" id="sylius.behat.context.setup.product" />
         </service>
 
-        <service id="Tests\Sylius\RefundPlugin\Behat\Context\Hook\CreditMemosContext" public="true">
+        <service id="Tests\Sylius\RefundPlugin\Behat\Context\Hook\CreditMemosContext">
             <argument>%sylius_refund.credit_memo_save_path%</argument>
         </service>
     </services>

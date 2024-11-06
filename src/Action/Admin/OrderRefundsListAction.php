@@ -22,24 +22,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
-final class OrderRefundsListAction
+final readonly class OrderRefundsListAction
 {
     /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
-        private readonly OrderRepositoryInterface $orderRepository,
-        private readonly OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
-        private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
-        private readonly Environment $twig,
-        private readonly SessionInterface | RequestStack $requestStackOrSession,
-        private readonly UrlGeneratorInterface $router,
+        private OrderRepositoryInterface $orderRepository,
+        private OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
+        private RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
+        private Environment $twig,
+        private RequestStack $requestStack,
+        private UrlGeneratorInterface $router,
     ) {
-        if ($this->requestStackOrSession instanceof SessionInterface) {
-            trigger_deprecation('sylius/refund-plugin', '1.3', sprintf('Passing an instance of %s as constructor argument for %s is deprecated as of Sylius Refund Plugin 1.3 and will be removed in 2.0. Pass an instance of %s instead.', SessionInterface::class, self::class, RequestStack::class));
-        }
     }
 
     public function __invoke(Request $request): Response
@@ -72,10 +68,9 @@ final class OrderRefundsListAction
 
     private function getFlashBag(): FlashBagInterface
     {
-        if ($this->requestStackOrSession instanceof RequestStack) {
-            return $this->requestStackOrSession->getSession()->getBag('flashes');
-        }
+        /** @var FlashBagInterface $flashBag */
+        $flashBag = $this->requestStack->getSession()->getBag('flashes');
 
-        return $this->requestStackOrSession->getBag('flashes');
+        return $flashBag;
     }
 }

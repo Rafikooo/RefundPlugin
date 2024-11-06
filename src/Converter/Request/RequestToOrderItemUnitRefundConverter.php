@@ -17,9 +17,9 @@ use Sylius\RefundPlugin\Converter\RefundUnitsConverterInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 use Symfony\Component\HttpFoundation\Request;
 
-final class RequestToOrderItemUnitRefundConverter implements RequestToRefundUnitsConverterInterface
+final readonly class RequestToOrderItemUnitRefundConverter implements RequestToRefundUnitsConverterInterface
 {
-    public function __construct(private readonly RefundUnitsConverterInterface $refundUnitsConverter)
+    public function __construct(private RefundUnitsConverterInterface $refundUnitsConverter)
     {
     }
 
@@ -34,5 +34,3 @@ final class RequestToOrderItemUnitRefundConverter implements RequestToRefundUnit
         );
     }
 }
-
-class_alias(RequestToOrderItemUnitRefundConverter::class, \Sylius\RefundPlugin\Converter\RequestToOrderItemUnitRefundConverter::class);

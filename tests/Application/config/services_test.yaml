@@ -1,6 +1,5 @@
 imports:
     - { resource: "../../../vendor/sylius/sylius/src/Sylius/Behat/Resources/config/services.xml" }
-    - { resource: "../../Behat/Resources/services.xml" }
 
 services:
     Tests\Sylius\RefundPlugin\Behat\Services\Generator\FailedCreditMemoGenerator:

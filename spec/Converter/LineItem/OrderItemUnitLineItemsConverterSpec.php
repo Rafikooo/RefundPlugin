@@ -73,10 +73,13 @@ final class OrderItemUnitLineItemsConverterSpec extends ObjectBehavior
         TaxRateProviderInterface $taxRateProvider,
         OrderItemUnitInterface $orderItemUnit,
         OrderItemInterface $orderItem,
+        LineItemFactoryInterface $lineItemFactory,
     ): void {
-        $this->beConstructedWith($orderItemUnitRepository, $taxRateProvider);
+        $this->beConstructedWith($orderItemUnitRepository, $taxRateProvider, $lineItemFactory);
 
         $unitRefund = new OrderItemUnitRefund(1, 500);
+
+        $lineItemFactory->createWithData('Portal gun', 1, 400, 500, 400, 500, 100, '25%')->willReturn(new LineItem('Portal gun', 1, 400, 500, 400, 500, 100, '25%'));
 
         $orderItemUnitRepository->find(1)->willReturn($orderItemUnit);
 
@@ -149,49 +152,6 @@ final class OrderItemUnitLineItemsConverterSpec extends ObjectBehavior
         $this
             ->convert([$firstUnitRefund, $secondUnitRefund, $thirdUnitRefund])
             ->shouldBeLike([$firstLineItem, $secondLineItem])
-        ;
-    }
-
-    function it_groups_the_same_line_items_during_converting_without_using_factory(
-        RepositoryInterface $orderItemUnitRepository,
-        TaxRateProviderInterface $taxRateProvider,
-        OrderItemUnitInterface $firstOrderItemUnit,
-        OrderItemUnitInterface $secondOrderItemUnit,
-        OrderItemInterface $firstOrderItem,
-        OrderItemInterface $secondOrderItem,
-    ): void {
-        $this->beConstructedWith($orderItemUnitRepository, $taxRateProvider);
-
-        $firstUnitRefund = new OrderItemUnitRefund(1, 500);
-        $secondUnitRefund = new OrderItemUnitRefund(2, 960);
-        $thirdUnitRefund = new OrderItemUnitRefund(2, 960);
-
-        $orderItemUnitRepository->find(1)->willReturn($firstOrderItemUnit);
-
-        $firstOrderItemUnit->getOrderItem()->willReturn($firstOrderItem);
-        $firstOrderItemUnit->getTotal()->willReturn(1500);
-        $firstOrderItemUnit->getTaxTotal()->willReturn(300);
-
-        $taxRateProvider->provide($firstOrderItemUnit)->willReturn('25%');
-
-        $firstOrderItem->getProductName()->willReturn('Portal gun');
-
-        $orderItemUnitRepository->find(2)->willReturn($secondOrderItemUnit);
-
-        $secondOrderItemUnit->getOrderItem()->willReturn($secondOrderItem);
-        $secondOrderItemUnit->getTotal()->willReturn(960);
-        $secondOrderItemUnit->getTaxTotal()->willReturn(160);
-
-        $taxRateProvider->provide($secondOrderItemUnit)->willReturn('20%');
-
-        $secondOrderItem->getProductName()->willReturn('Space gun');
-
-        $this
-            ->convert([$firstUnitRefund, $secondUnitRefund, $thirdUnitRefund])
-            ->shouldBeLike([
-                new LineItem('Portal gun', 1, 400, 500, 400, 500, 100, '25%'),
-                new LineItem('Space gun', 2, 800, 960, 1600, 1920, 320, '20%'),
-            ])
         ;
     }
 

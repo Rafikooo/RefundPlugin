@@ -17,7 +17,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\RefundPlugin\Converter\RefundUnitsConverterInterface;
 use Sylius\RefundPlugin\Converter\Request\RequestToRefundUnitsConverterInterface;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 
 final class RequestToShipmentRefundConverterSpec extends ObjectBehavior
@@ -38,7 +38,7 @@ final class RequestToShipmentRefundConverterSpec extends ObjectBehavior
     ): void {
         $shipmentRefund = new ShipmentRefund(1, 5000);
 
-        $request->request = new ParameterBag([
+        $request->request = new InputBag([
             'sylius_refund_shipments' => [
                 1 => ['full' => 'on'],
             ],

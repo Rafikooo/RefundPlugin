@@ -17,17 +17,14 @@ use Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityCheckerInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Exception\OrderNotAvailableForRefunding;
 
-final class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorInterface
+final readonly class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorInterface
 {
     public function __construct(
         private OrderRefundingAvailabilityCheckerInterface $orderRefundingAvailabilityChecker,
         private RefundAmountValidatorInterface $refundAmountValidator,
         /** @var iterable<UnitRefundsBelongingToOrderValidatorInterface> */
-        private ?iterable $refundUnitsBelongingToOrderValidators = null,
+        private iterable $refundUnitsBelongingToOrderValidators,
     ) {
-        if (null === $this->refundUnitsBelongingToOrderValidators) {
-            trigger_deprecation('sylius/refund-plugin', '1.4', sprintf('Not passing a $refundUnitsBelongingToOrderValidators to %s constructor is deprecated since sylius/refund-plugin 1.4 and will be prohibited in 2.0.', self::class));
-        }
     }
 
     public function validate(RefundUnits $command): void
@@ -36,7 +33,7 @@ final class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorIn
             throw OrderNotAvailableForRefunding::withOrderNumber($command->orderNumber());
         }
 
-        $units = array_merge($command->units(), $command->shipments());
+        $units = $command->units();
 
         foreach ($this->refundUnitsBelongingToOrderValidators ?? [] as $refundUnitsBelongToOrderValidator) {
             $refundUnitsBelongToOrderValidator->validateUnits($units, $command->orderNumber());

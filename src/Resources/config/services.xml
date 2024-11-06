@@ -68,7 +68,6 @@
         <service id="sylius_refund.email_sender.credit_memo" class="Sylius\RefundPlugin\Sender\CreditMemoEmailSender">
             <argument>null</argument>
             <argument type="service" id="sylius.email_sender" />
-            <argument>null</argument>
             <argument type="string">%sylius_refund.pdf_generator.enabled%</argument>
             <argument type="service" id="sylius_refund.resolver.credit_memo_file" />
             <argument type="service" id="sylius_refund.resolver.credit_memo_file_path" />

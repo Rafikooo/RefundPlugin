@@ -22,13 +22,13 @@ use Sylius\RefundPlugin\Provider\CreditMemoFileProviderInterface;
 use Sylius\RefundPlugin\Repository\CreditMemoRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-final class CreditMemoFileResolver implements CreditMemoFileResolverInterface
+final readonly class CreditMemoFileResolver implements CreditMemoFileResolverInterface
 {
     public function __construct(
-        private readonly CreditMemoRepositoryInterface $creditMemoRepository,
-        private readonly CreditMemoFileProviderInterface $creditMemoFileProvider,
-        private readonly CreditMemoPdfFileGeneratorInterface $creditMemoPdfFileGenerator,
-        private readonly CreditMemoFileManagerInterface $creditMemoFileManager,
+        private CreditMemoRepositoryInterface $creditMemoRepository,
+        private CreditMemoFileProviderInterface $creditMemoFileProvider,
+        private CreditMemoPdfFileGeneratorInterface $creditMemoPdfFileGenerator,
+        private CreditMemoFileManagerInterface $creditMemoFileManager,
     ) {
     }
 

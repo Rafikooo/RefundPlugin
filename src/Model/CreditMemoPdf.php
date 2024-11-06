@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Model;
 
-final class CreditMemoPdf
+final readonly class CreditMemoPdf
 {
     public function __construct(
         private string $filename,

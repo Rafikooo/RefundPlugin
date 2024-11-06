@@ -33,6 +33,18 @@ winzou_state_machine:
                 from: [new]
                 to: completed
 
+framework:
+    messenger:
+        buses:
+            sylius.command_bus: &command_bus
+                middleware:
+                    - 'validation'
+                    - 'doctrine_transaction'
+            sylius.event_bus: &event_bus
+                default_middleware: allow_no_handlers
+            sylius_refund_plugin.command_bus: *command_bus
+            sylius_refund_plugin.event_bus: *event_bus
+
 sylius_grid:
     grids:
         sylius_refund_credit_memo:

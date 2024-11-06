@@ -19,7 +19,6 @@ use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Converter\LineItem\LineItemsConverterInterface;
-use Sylius\RefundPlugin\Entity\LineItem;
 use Sylius\RefundPlugin\Entity\LineItemInterface;
 use Sylius\RefundPlugin\Exception\MoreThanOneTaxAdjustment;
 use Sylius\RefundPlugin\Factory\LineItemFactoryInterface;
@@ -75,39 +74,6 @@ final class ShipmentLineItemsConverterSpec extends ObjectBehavior
         ;
 
         $this->convert([$shipmentRefund])->shouldBeLike([$lineItem]);
-    }
-
-    function it_converts_shipment_unit_refunds_to_line_items_without_using_factory(
-        RepositoryInterface $adjustmentRepository,
-        TaxRateProviderInterface $taxRateProvider,
-        AdjustmentInterface $shippingAdjustment,
-        AdjustmentInterface $taxAdjustment,
-        ShipmentInterface $shipment,
-    ): void {
-        $this->beConstructedWith($adjustmentRepository, $taxRateProvider);
-
-        $shipmentRefund = new ShipmentRefund(1, 575);
-
-        $adjustmentRepository
-            ->findOneBy(['id' => 1, 'type' => AdjustmentInterface::SHIPPING_ADJUSTMENT])
-            ->willReturn($shippingAdjustment)
-        ;
-        $shippingAdjustment->getLabel()->willReturn('Galaxy post');
-        $shippingAdjustment->getShipment()->willReturn($shipment);
-
-        $shipment->getAdjustmentsTotal()->willReturn(1150);
-        $shipment
-            ->getAdjustments(AdjustmentInterface::TAX_ADJUSTMENT)
-            ->willReturn(new ArrayCollection([$taxAdjustment->getWrappedObject()]))
-        ;
-
-        $taxAdjustment->getAmount()->willReturn(150);
-        $taxRateProvider->provide($shipment)->willReturn('15%');
-
-        $this
-            ->convert([$shipmentRefund])
-            ->shouldBeLike([new LineItem('Galaxy post', 1, 500, 575, 500, 575, 75, '15%')])
-        ;
     }
 
     function it_throws_an_error_if_one_of_units_is_not_order_item_unit_refund(): void
