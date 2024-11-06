@@ -19,12 +19,13 @@ use Twig\Environment;
 final class TwigToPdfGenerator implements TwigToPdfGeneratorInterface
 {
     public function __construct(
-        private Environment $twig,
-        private GeneratorInterface $pdfGenerator,
-        private PdfOptionsGeneratorInterface $pdfOptionsGenerator,
+        private readonly Environment $twig,
+        private readonly GeneratorInterface $pdfGenerator,
+        private readonly PdfOptionsGeneratorInterface $pdfOptionsGenerator,
     ) {
     }
 
+    /** @param array<string, mixed> $templateParams */
     public function generate(string $templateName, array $templateParams): string
     {
         return $this->pdfGenerator->getOutputFromHtml(

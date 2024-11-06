@@ -21,14 +21,14 @@ use Webmozart\Assert\Assert;
 
 final class SupportedRefundPaymentMethodsProvider implements RefundPaymentMethodsProviderInterface
 {
-    private PaymentMethodRepositoryInterface $paymentMethodRepository;
-
-    private array $supportedGateways;
-
-    public function __construct(PaymentMethodRepositoryInterface $paymentMethodRepository, array $supportedGateways)
-    {
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->supportedGateways = $supportedGateways;
+    /**
+     * @param PaymentMethodRepositoryInterface<PaymentMethodInterface> $paymentMethodRepository
+     * @param string[] $supportedGateways
+     */
+    public function __construct(
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly array $supportedGateways,
+    ) {
     }
 
     public function findForChannel(ChannelInterface $channel): array
@@ -38,6 +38,7 @@ final class SupportedRefundPaymentMethodsProvider implements RefundPaymentMethod
         return $this->find($channel);
     }
 
+    /** @return PaymentMethodInterface[] */
     public function findForOrder(OrderInterface $order): array
     {
         /** @var ChannelInterface|null $channel */
@@ -47,6 +48,7 @@ final class SupportedRefundPaymentMethodsProvider implements RefundPaymentMethod
         return $this->find($channel);
     }
 
+    /** @return PaymentMethodInterface[] */
     private function find(ChannelInterface $channel): array
     {
         return array_values(array_filter(

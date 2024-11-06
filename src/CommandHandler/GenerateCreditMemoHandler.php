@@ -26,13 +26,14 @@ use Webmozart\Assert\Assert;
 
 final class GenerateCreditMemoHandler
 {
+    /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
-        private CreditMemoGeneratorInterface $creditMemoGenerator,
-        private ObjectManager $creditMemoManager,
-        private MessageBusInterface $eventBus,
-        private OrderRepositoryInterface $orderRepository,
-        private bool $hasEnabledPdfFileGenerator = true,
-        private ?CreditMemoFileResolverInterface $creditMemoFileResolver = null,
+        private readonly CreditMemoGeneratorInterface $creditMemoGenerator,
+        private readonly ObjectManager $creditMemoManager,
+        private readonly MessageBusInterface $eventBus,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly bool $hasEnabledPdfFileGenerator = true,
+        private readonly ?CreditMemoFileResolverInterface $creditMemoFileResolver = null,
     ) {
         if (null === $this->creditMemoFileResolver) {
             @trigger_error(

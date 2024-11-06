@@ -15,5 +15,6 @@ namespace Sylius\RefundPlugin\Generator;
 
 interface PdfOptionsGeneratorInterface
 {
+    /** @return array<string, mixed> */
     public function generate(): array;
 }

@@ -19,7 +19,9 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\RefundPlugin\Entity\CreditMemoInterface;
 use Sylius\RefundPlugin\Entity\CustomerBillingDataInterface;
+use Sylius\RefundPlugin\Entity\LineItemInterface;
 use Sylius\RefundPlugin\Entity\ShopBillingDataInterface;
+use Sylius\RefundPlugin\Entity\TaxItemInterface;
 use Sylius\RefundPlugin\Generator\CreditMemoIdentifierGeneratorInterface;
 use Sylius\RefundPlugin\Generator\CreditMemoNumberGeneratorInterface;
 use Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProviderInterface;
@@ -27,24 +29,12 @@ use Webmozart\Assert\Assert;
 
 final class CreditMemoFactory implements CreditMemoFactoryInterface
 {
-    private FactoryInterface $creditMemoFactory;
-
-    private CreditMemoIdentifierGeneratorInterface $creditMemoIdentifierGenerator;
-
-    private CreditMemoNumberGeneratorInterface $creditMemoNumberGenerator;
-
-    private CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider;
-
     public function __construct(
-        FactoryInterface $creditMemoFactory,
-        CreditMemoIdentifierGeneratorInterface $creditMemoIdentifierGenerator,
-        CreditMemoNumberGeneratorInterface $creditMemoNumberGenerator,
-        CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider,
+        private readonly FactoryInterface $creditMemoFactory,
+        private readonly CreditMemoIdentifierGeneratorInterface $creditMemoIdentifierGenerator,
+        private readonly CreditMemoNumberGeneratorInterface $creditMemoNumberGenerator,
+        private readonly CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider,
     ) {
-        $this->creditMemoFactory = $creditMemoFactory;
-        $this->creditMemoIdentifierGenerator = $creditMemoIdentifierGenerator;
-        $this->creditMemoNumberGenerator = $creditMemoNumberGenerator;
-        $this->currentDateTimeImmutableProvider = $currentDateTimeImmutableProvider;
     }
 
     public function createNew(): CreditMemoInterface
@@ -55,6 +45,10 @@ final class CreditMemoFactory implements CreditMemoFactoryInterface
         return $creditMemo;
     }
 
+    /**
+     * @param LineItemInterface[] $lineItems
+     * @param TaxItemInterface[] $taxItems
+     */
     public function createWithData(
         OrderInterface $order,
         int $total,

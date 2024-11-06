@@ -21,8 +21,8 @@ use Sylius\RefundPlugin\Model\CreditMemoPdf;
 final class CreditMemoFileProvider implements CreditMemoFileProviderInterface
 {
     public function __construct(
-        private CreditMemoFileNameGeneratorInterface $creditMemoFileNameGenerator,
-        private CreditMemoFileManagerInterface $creditMemoFileManager,
+        private readonly CreditMemoFileNameGeneratorInterface $creditMemoFileNameGenerator,
+        private readonly CreditMemoFileManagerInterface $creditMemoFileManager,
     ) {
     }
 

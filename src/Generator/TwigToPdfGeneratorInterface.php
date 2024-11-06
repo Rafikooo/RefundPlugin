@@ -15,5 +15,6 @@ namespace Sylius\RefundPlugin\Generator;
 
 interface TwigToPdfGeneratorInterface
 {
+    /** @param array<string, mixed> $templateParams */
     public function generate(string $templateName, array $templateParams): string;
 }

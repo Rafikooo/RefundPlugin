@@ -16,22 +16,21 @@ namespace Sylius\RefundPlugin\Checker;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Webmozart\Assert\Assert;
 
 final class OrderRefundsListAvailabilityChecker implements OrderRefundingAvailabilityCheckerInterface
 {
-    private OrderRepositoryInterface $orderRepository;
-
-    public function __construct(OrderRepositoryInterface $orderRepository)
+    /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
+    public function __construct(private readonly OrderRepositoryInterface $orderRepository)
     {
-        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(string $orderNumber): bool
     {
-        /** @var OrderInterface $order */
+        /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneByNumber($orderNumber);
-        Assert::notNull($order);
+        if ($order === null) {
+            throw new \InvalidArgumentException(sprintf('Order with number "%s" does not exist.', $orderNumber));
+        }
 
         return
             in_array($order->getPaymentState(), [

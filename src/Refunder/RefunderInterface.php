@@ -13,9 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Refunder;
 
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
+
 interface RefunderInterface
 {
     /**
+     * @param UnitRefundInterface[] $units
+     *
      * @return int refunded units total
      */
     public function refundFromOrder(array $units, string $orderNumber): int;

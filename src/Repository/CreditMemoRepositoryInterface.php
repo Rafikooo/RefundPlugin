@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Sylius\RefundPlugin\Repository;
 
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\RefundPlugin\Entity\CreditMemoInterface;
 
 interface CreditMemoRepositoryInterface extends RepositoryInterface
 {
+    /** @return CreditMemoInterface[] */
     public function findByOrderId(string $orderId): array;
 }

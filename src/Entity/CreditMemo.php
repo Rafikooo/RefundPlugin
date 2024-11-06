@@ -34,10 +34,10 @@ class CreditMemo implements CreditMemoInterface
 
     protected ?ChannelInterface $channel = null;
 
-    /** @var Collection|LineItemInterface[] */
+    /** @var Collection<int, LineItemInterface> */
     protected Collection $lineItems;
 
-    /** @var Collection|TaxItemInterface[] */
+    /** @var Collection<int, TaxItemInterface> */
     protected Collection $taxItems;
 
     protected ?string $comment = null;

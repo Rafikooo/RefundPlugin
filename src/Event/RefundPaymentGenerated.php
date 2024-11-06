@@ -15,32 +15,14 @@ namespace Sylius\RefundPlugin\Event;
 
 class RefundPaymentGenerated
 {
-    private int $id;
-
-    private string $orderNumber;
-
-    private int $amount;
-
-    private string $currencyCode;
-
-    private int $paymentMethodId;
-
-    private int $paymentId;
-
     public function __construct(
-        int $id,
-        string $orderNumber,
-        int $amount,
-        string $currencyCode,
-        int $paymentMethodId,
-        int $paymentId,
+        private readonly int $id,
+        private readonly string $orderNumber,
+        private readonly int $amount,
+        private readonly string $currencyCode,
+        private readonly int $paymentMethodId,
+        private readonly int $paymentId,
     ) {
-        $this->id = $id;
-        $this->orderNumber = $orderNumber;
-        $this->amount = $amount;
-        $this->currencyCode = $currencyCode;
-        $this->paymentMethodId = $paymentMethodId;
-        $this->paymentId = $paymentId;
     }
 
     public function id(): int

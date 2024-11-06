@@ -17,10 +17,11 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class CountShipmentRefundsBelongingToOrderQuery implements CountRefundsBelongingToOrderQueryInterface
 {
-    public function __construct(private RepositoryInterface $adjustmentRepository)
+    public function __construct(private readonly RepositoryInterface $adjustmentRepository)
     {
     }
 
+    /** @param array<array-key, int> $unitRefundIds */
     public function count(array $unitRefundIds, string $orderNumber): int
     {
         return (int) $this->adjustmentRepository->createQueryBuilder('o')

@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Validator;
 
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
+
 interface RefundAmountValidatorInterface
 {
+    /** @param UnitRefundInterface[] $unitRefunds */
     public function validateUnits(array $unitRefunds): void;
 }

@@ -43,7 +43,11 @@ final class TaxItemsGenerator implements TaxItemsGeneratorInterface
         return $this->prepareTaxItemsArray($temporaryTaxItems);
     }
 
-    /** @return array<TaxItemInterface> */
+    /**
+     * @param array<string, int> $temporaryTaxItems
+     *
+     * @return TaxItemInterface[]
+     */
     private function prepareTaxItemsArray(array $temporaryTaxItems): array
     {
         $taxItems = [];
