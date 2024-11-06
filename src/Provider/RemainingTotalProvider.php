@@ -28,7 +28,6 @@ final class RemainingTotalProvider implements RemainingTotalProviderInterface
 
     private ?RepositoryInterface $adjustmentRepository = null;
 
-    /** @phpstan-ignore-next-line */
     public function __construct(
         private readonly ServiceProviderInterface|RepositoryInterface $refundUnitTotalProvider,
         private RepositoryInterface $refundRepository,
