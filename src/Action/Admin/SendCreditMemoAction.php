@@ -29,10 +29,10 @@ use Webmozart\Assert\Assert;
 final class SendCreditMemoAction
 {
     public function __construct(
-        private MessageBusInterface $commandBus,
-        private RepositoryInterface $creditMemoRepository,
-        private SessionInterface | RequestStack $requestStackOrSession,
-        private UrlGeneratorInterface $router,
+        private readonly MessageBusInterface $commandBus,
+        private readonly RepositoryInterface $creditMemoRepository,
+        private readonly SessionInterface | RequestStack $requestStackOrSession,
+        private readonly UrlGeneratorInterface $router,
     ) {
         if ($this->requestStackOrSession instanceof SessionInterface) {
             trigger_deprecation('sylius/refund-plugin', '1.3', sprintf('Passing an instance of %s as constructor argument for %s is deprecated as of Sylius Refund Plugin 1.3 and will be removed in 2.0. Pass an instance of %s instead.', SessionInterface::class, self::class, RequestStack::class));

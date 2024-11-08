@@ -28,8 +28,9 @@ final class RemainingTotalProvider implements RemainingTotalProviderInterface
 
     private ?RepositoryInterface $adjustmentRepository = null;
 
+    /** @param ServiceProviderInterface<RepositoryInterface>|RepositoryInterface $refundUnitTotalProvider */
     public function __construct(
-        private ServiceProviderInterface|RepositoryInterface $refundUnitTotalProvider,
+        private readonly ServiceProviderInterface|RepositoryInterface $refundUnitTotalProvider,
         private RepositoryInterface $refundRepository,
     ) {
         $args = func_get_args();

@@ -17,12 +17,9 @@ use Sylius\RefundPlugin\Event\UnitsRefunded;
 
 final class UnitsRefundedProcessManager implements UnitsRefundedProcessManagerInterface
 {
-    /** @var iterable|UnitsRefundedProcessStepInterface[] */
-    private iterable $steps;
-
-    public function __construct(iterable $steps)
+    /** @param UnitsRefundedProcessStepInterface[] $steps */
+    public function __construct(private readonly iterable $steps)
     {
-        $this->steps = $steps;
     }
 
     public function __invoke(UnitsRefunded $event): void

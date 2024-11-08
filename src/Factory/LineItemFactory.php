@@ -18,11 +18,8 @@ use Webmozart\Assert\Assert;
 
 class LineItemFactory implements LineItemFactoryInterface
 {
-    private string $className;
-
-    public function __construct(string $className)
+    public function __construct(private readonly string $className)
     {
-        $this->className = $className;
     }
 
     public function createNew(): LineItemInterface

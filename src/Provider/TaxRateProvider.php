@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Provider;
 
-use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Order\Model\AdjustableInterface;
 use Sylius\RefundPlugin\Exception\MoreThanOneTaxAdjustment;
@@ -23,7 +22,6 @@ final class TaxRateProvider implements TaxRateProviderInterface
 {
     public function provide(AdjustableInterface $adjustable): ?string
     {
-        /** @var Collection|AdjustmentInterface[] $taxAdjustments */
         $taxAdjustments = $adjustable->getAdjustments(AdjustmentInterface::TAX_ADJUSTMENT);
 
         if (count($taxAdjustments) > 1) {
@@ -34,7 +32,10 @@ final class TaxRateProvider implements TaxRateProviderInterface
             return null;
         }
 
-        $details = $taxAdjustments->first()->getDetails();
+        /** @var AdjustmentInterface $adjustment */
+        $adjustment = $taxAdjustments->first();
+
+        $details = $adjustment->getDetails();
 
         Assert::keyExists(
             $details,

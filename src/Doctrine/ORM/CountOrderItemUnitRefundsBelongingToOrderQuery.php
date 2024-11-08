@@ -13,16 +13,20 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Doctrine\ORM;
 
+use Sylius\Component\Core\Model\OrderItemUnitInterface;
 use Sylius\Component\Core\Repository\OrderItemUnitRepositoryInterface;
 
 final class CountOrderItemUnitRefundsBelongingToOrderQuery implements CountRefundsBelongingToOrderQueryInterface
 {
-    public function __construct(private OrderItemUnitRepositoryInterface $orderItemUnitRepository)
+    /** @param OrderItemUnitRepositoryInterface<OrderItemUnitInterface> $orderItemUnitRepository */
+    public function __construct(private readonly OrderItemUnitRepositoryInterface $orderItemUnitRepository)
     {
     }
 
+    /** @param array<int> $unitRefundIds */
     public function count(array $unitRefundIds, string $orderNumber): int
     {
+        /** @phpstan-ignore-next-line */
         return (int) $this->orderItemUnitRepository->createQueryBuilder('o')
             ->select('COUNT(o.id)')
             ->innerJoin('o.orderItem', 'orderItem')

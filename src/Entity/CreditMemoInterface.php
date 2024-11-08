@@ -46,12 +46,16 @@ interface CreditMemoInterface extends ResourceInterface
 
     public function setChannel(ChannelInterface $channel): void;
 
+    /** @return Collection<int, LineItemInterface> */
     public function getLineItems(): Collection;
 
+    /** @param Collection<int, LineItemInterface> $lineItems */
     public function setLineItems(Collection $lineItems): void;
 
+    /** @return Collection<int, TaxItemInterface> */
     public function getTaxItems(): Collection;
 
+    /** @param Collection<int, TaxItemInterface> $taxItems */
     public function setTaxItems(Collection $taxItems): void;
 
     public function getComment(): ?string;

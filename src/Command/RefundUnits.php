@@ -13,16 +13,23 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Command;
 
+use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\RefundPlugin\Model\UnitRefundInterface;
 use Webmozart\Assert\Assert;
 
 class RefundUnits
 {
+    /** @var ShipmentInterface[] */
     private array $shipments = [];
 
+    /**
+     * @param UnitRefundInterface[] $units
+     *
+     * @phpstan-ignore-next-line
+     */
     public function __construct(
-        private string $orderNumber,
-        private array $units,
+        private readonly string $orderNumber,
+        private readonly array $units,
         private int|array $paymentMethodId,
         private string|int $comment,
     ) {
@@ -64,6 +71,7 @@ class RefundUnits
     {
         trigger_deprecation('sylius/refund-plugin', '1.4', sprintf('The "%s::shipments" method is deprecated and will be removed in 2.0.', self::class));
 
+        /** @phpstan-ignore-next-line */
         return $this->shipments;
     }
 

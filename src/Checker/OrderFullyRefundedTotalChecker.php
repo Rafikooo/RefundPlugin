@@ -18,11 +18,8 @@ use Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface;
 
 final class OrderFullyRefundedTotalChecker implements OrderFullyRefundedTotalCheckerInterface
 {
-    private OrderRefundedTotalProviderInterface $orderRefundedTotalProvider;
-
-    public function __construct(OrderRefundedTotalProviderInterface $orderRefundedTotalProvider)
+    public function __construct(private readonly OrderRefundedTotalProviderInterface $orderRefundedTotalProvider)
     {
-        $this->orderRefundedTotalProvider = $orderRefundedTotalProvider;
     }
 
     public function isOrderFullyRefunded(OrderInterface $order): bool

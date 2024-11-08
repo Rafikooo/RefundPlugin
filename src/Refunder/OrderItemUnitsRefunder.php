@@ -59,6 +59,11 @@ final class OrderItemUnitsRefunder implements RefunderInterface
         return $refundedTotal;
     }
 
+    /**
+     * @param UnitRefundInterface[] $units
+     *
+     * @return OrderItemUnitRefund[]
+     */
     private function filterOrderItemUnitRefunds(array $units): array
     {
         return array_filter($units, fn (UnitRefundInterface $unitRefund) => $unitRefund instanceof OrderItemUnitRefund);

@@ -17,6 +17,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityCheckerInterface;
+use Sylius\RefundPlugin\Entity\RefundPaymentInterface;
 use Sylius\RefundPlugin\Factory\RefundTypeFactoryInterface;
 use Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface;
 use Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface;
@@ -25,32 +26,15 @@ use Twig\TwigFunction;
 
 final class OrderRefundsExtension extends AbstractExtension
 {
-    private OrderRefundedTotalProviderInterface $orderRefundedTotalProvider;
-
-    private UnitRefundedTotalProviderInterface $unitRefundedTotalProvider;
-
-    private UnitRefundingAvailabilityCheckerInterface $unitRefundingAvailabilityChecker;
-
-    private OrderRepositoryInterface $orderRepository;
-
-    private RepositoryInterface $refundPaymentRepository;
-
-    private RefundTypeFactoryInterface $refundTypeFactory;
-
+    /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
-        OrderRefundedTotalProviderInterface $orderRefundedTotalProvider,
-        UnitRefundedTotalProviderInterface $unitRefundedTotalProvider,
-        UnitRefundingAvailabilityCheckerInterface $unitRefundingAvailabilityChecker,
-        OrderRepositoryInterface $orderRepository,
-        RepositoryInterface $refundPaymentRepository,
-        RefundTypeFactoryInterface $refundTypeFactory,
+        private readonly OrderRefundedTotalProviderInterface $orderRefundedTotalProvider,
+        private readonly UnitRefundedTotalProviderInterface $unitRefundedTotalProvider,
+        private readonly UnitRefundingAvailabilityCheckerInterface $unitRefundingAvailabilityChecker,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly RepositoryInterface $refundPaymentRepository,
+        private readonly RefundTypeFactoryInterface $refundTypeFactory,
     ) {
-        $this->orderRefundedTotalProvider = $orderRefundedTotalProvider;
-        $this->unitRefundedTotalProvider = $unitRefundedTotalProvider;
-        $this->unitRefundingAvailabilityChecker = $unitRefundingAvailabilityChecker;
-        $this->orderRepository = $orderRepository;
-        $this->refundPaymentRepository = $refundPaymentRepository;
-        $this->refundTypeFactory = $refundTypeFactory;
     }
 
     public function getFunctions(): array
@@ -102,8 +86,12 @@ final class OrderRefundsExtension extends AbstractExtension
         return ($this->orderRefundedTotalProvider)($order);
     }
 
+    /** @return RefundPaymentInterface[] */
     public function getAllRefundPaymentsByOrder(OrderInterface $order): array
     {
-        return $this->refundPaymentRepository->findBy(['order' => $order]);
+        /** @var RefundPaymentInterface[] $refundPayments */
+        $refundPayments = $this->refundPaymentRepository->findBy(['order' => $order]);
+
+        return $refundPayments;
     }
 }

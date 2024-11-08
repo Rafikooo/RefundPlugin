@@ -17,13 +17,18 @@ use Symfony\Component\Config\FileLocatorInterface;
 
 final class PdfOptionsGenerator implements PdfOptionsGeneratorInterface
 {
+    /**
+     * @param array<string, mixed> $knpSnappyOptions
+     * @param string[] $allowedFiles
+     */
     public function __construct(
-        private FileLocatorInterface $fileLocator,
-        private array $knpSnappyOptions,
-        private array $allowedFiles,
+        private readonly FileLocatorInterface $fileLocator,
+        private readonly array $knpSnappyOptions,
+        private readonly array $allowedFiles,
     ) {
     }
 
+    /** @return array<string, mixed> */
     public function generate(): array
     {
         $options = $this->knpSnappyOptions;

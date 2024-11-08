@@ -26,12 +26,12 @@ final class CreditMemoEmailSender implements CreditMemoEmailSenderInterface
     private const UNITS_REFUNDED = 'units_refunded';
 
     public function __construct(
-        private ?CreditMemoPdfFileGeneratorInterface $creditMemoPdfFileGenerator,
-        private SenderInterface $sender,
-        private ?FileManagerInterface $fileManager,
-        private bool $hasEnabledPdfFileGenerator,
-        private ?CreditMemoFileResolverInterface $creditMemoFileResolver = null,
-        private ?CreditMemoFilePathResolverInterface $creditMemoFilePathResolver = null,
+        private readonly ?CreditMemoPdfFileGeneratorInterface $creditMemoPdfFileGenerator,
+        private readonly SenderInterface $sender,
+        private readonly ?FileManagerInterface $fileManager,
+        private readonly bool $hasEnabledPdfFileGenerator,
+        private readonly ?CreditMemoFileResolverInterface $creditMemoFileResolver = null,
+        private readonly ?CreditMemoFilePathResolverInterface $creditMemoFilePathResolver = null,
     ) {
         if (null !== $this->creditMemoPdfFileGenerator) {
             @trigger_error(

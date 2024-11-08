@@ -26,9 +26,9 @@ use Webmozart\Assert\Assert;
 final class OrderItemUnitLineItemsConverter implements LineItemsConverterUnitRefundAwareInterface
 {
     public function __construct(
-        private RepositoryInterface $orderItemUnitRepository,
-        private TaxRateProviderInterface $taxRateProvider,
-        private ?LineItemFactoryInterface $lineItemFactory = null,
+        private readonly RepositoryInterface $orderItemUnitRepository,
+        private readonly TaxRateProviderInterface $taxRateProvider,
+        private readonly ?LineItemFactoryInterface $lineItemFactory = null,
     ) {
         if (null === $this->lineItemFactory) {
             trigger_deprecation(

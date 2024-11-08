@@ -15,9 +15,11 @@ namespace Sylius\RefundPlugin\Generator;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\RefundPlugin\Entity\CreditMemoInterface;
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
 interface CreditMemoGeneratorInterface
 {
+    /** @param UnitRefundInterface[] $units */
     public function generate(
         OrderInterface $order,
         int $total,

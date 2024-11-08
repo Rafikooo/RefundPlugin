@@ -24,24 +24,13 @@ use Webmozart\Assert\Assert;
 
 final class OrderFullyRefundedStateResolver implements OrderFullyRefundedStateResolverInterface
 {
-    private FactoryInterface $stateMachineFactory;
-
-    private ObjectManager $orderManager;
-
-    private OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker;
-
-    private OrderRepositoryInterface $orderRepository;
-
+    /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
-        FactoryInterface $stateMachineFactory,
-        ObjectManager $orderManager,
-        OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
-        OrderRepositoryInterface $orderRepository,
+        private readonly FactoryInterface $stateMachineFactory,
+        private readonly ObjectManager $orderManager,
+        private readonly OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
+        private readonly OrderRepositoryInterface $orderRepository,
     ) {
-        $this->stateMachineFactory = $stateMachineFactory;
-        $this->orderManager = $orderManager;
-        $this->orderFullyRefundedTotalChecker = $orderFullyRefundedTotalChecker;
-        $this->orderRepository = $orderRepository;
     }
 
     public function resolve(string $orderNumber): void

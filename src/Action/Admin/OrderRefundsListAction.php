@@ -28,13 +28,14 @@ use Twig\Environment;
 
 final class OrderRefundsListAction
 {
+    /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
-        private OrderRepositoryInterface $orderRepository,
-        private OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
-        private RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
-        private Environment $twig,
-        private SessionInterface | RequestStack $requestStackOrSession,
-        private UrlGeneratorInterface $router,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
+        private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
+        private readonly Environment $twig,
+        private readonly SessionInterface | RequestStack $requestStackOrSession,
+        private readonly UrlGeneratorInterface $router,
     ) {
         if ($this->requestStackOrSession instanceof SessionInterface) {
             trigger_deprecation('sylius/refund-plugin', '1.3', sprintf('Passing an instance of %s as constructor argument for %s is deprecated as of Sylius Refund Plugin 1.3 and will be removed in 2.0. Pass an instance of %s instead.', SessionInterface::class, self::class, RequestStack::class));

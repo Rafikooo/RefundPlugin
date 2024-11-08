@@ -18,8 +18,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface RequestToRefundUnitsConverterInterface
 {
-    /**
-     * @return UnitRefundInterface[]
-     */
+    /** @return UnitRefundInterface[] */
     public function convert(Request $request): array;
 }

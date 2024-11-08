@@ -20,11 +20,8 @@ use Webmozart\Assert\Assert;
 
 final class RefundFactory implements RefundFactoryInterface
 {
-    private string $className;
-
-    public function __construct(string $className)
+    public function __construct(private readonly string $className)
     {
-        $this->className = $className;
     }
 
     public function createNew(): RefundInterface

@@ -28,12 +28,16 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class CompleteRefundPaymentAction
 {
+    /**
+     * @param ObjectRepository<RefundPaymentInterface> $refundPaymentRepository
+     * @param OrderRepositoryInterface<OrderInterface> $orderRepository
+     */
     public function __construct(
-        private SessionInterface | RequestStack $requestStackOrSession,
-        private ObjectRepository $refundPaymentRepository,
-        private OrderRepositoryInterface $orderRepository,
-        private RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier,
-        private RouterInterface $router,
+        private readonly SessionInterface | RequestStack $requestStackOrSession,
+        private readonly ObjectRepository $refundPaymentRepository,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier,
+        private readonly RouterInterface $router,
     ) {
         if ($this->requestStackOrSession instanceof SessionInterface) {
             trigger_deprecation('sylius/refund-plugin', '1.3', sprintf('Passing an instance of %s as constructor argument for %s is deprecated as of Sylius Refund Plugin 1.3 and will be removed in 2.0. Pass an instance of %s instead.', SessionInterface::class, self::class, RequestStack::class));

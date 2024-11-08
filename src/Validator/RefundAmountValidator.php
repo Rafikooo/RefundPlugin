@@ -27,6 +27,7 @@ final class RefundAmountValidator implements RefundAmountValidatorInterface
         $this->remainingTotalProvider = $unitRefundedTotalProvider;
     }
 
+    /** @param UnitRefundInterface[] $unitRefunds */
     public function validateUnits(array $unitRefunds): void
     {
         $args = func_get_args();

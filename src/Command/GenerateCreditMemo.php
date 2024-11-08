@@ -19,13 +19,18 @@ use Webmozart\Assert\Assert;
 
 class GenerateCreditMemo
 {
+    /** @var ShipmentRefund[] */
     private array $shipments = [];
 
+    /**
+     * @param array|UnitRefundInterface[] $units
+     * @param string|array<string, string> $comment
+     */
     public function __construct(
         private string $orderNumber,
         private int $total,
         /** @var array|UnitRefundInterface[] */
-        private array $units,
+        private readonly array $units,
         private string|array $comment,
     ) {
         $args = func_get_args();
@@ -35,6 +40,7 @@ class GenerateCreditMemo
                 throw new \InvalidArgumentException('The 5th argument must be present.');
             }
 
+            /** @phpstan-ignore-next-line */
             $this->shipments = $comment;
             $this->comment = $args[4];
 

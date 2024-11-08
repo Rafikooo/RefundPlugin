@@ -21,7 +21,7 @@ use Webmozart\Assert\Assert;
 final class OrderItemUnitTotalProvider implements RefundUnitTotalProviderInterface
 {
     public function __construct(
-        private RepositoryInterface $orderItemUnitRepository,
+        private readonly RepositoryInterface $orderItemUnitRepository,
     ) {
     }
 

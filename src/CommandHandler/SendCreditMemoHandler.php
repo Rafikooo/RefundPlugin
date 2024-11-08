@@ -24,16 +24,10 @@ use Webmozart\Assert\Assert;
 
 final class SendCreditMemoHandler
 {
-    private RepositoryInterface $creditMemoRepository;
-
-    private CreditMemoEmailSenderInterface $creditMemoEmailSender;
-
     public function __construct(
-        RepositoryInterface $creditMemoRepository,
-        CreditMemoEmailSenderInterface $creditMemoEmailSender,
+        private readonly RepositoryInterface $creditMemoRepository,
+        private readonly CreditMemoEmailSenderInterface $creditMemoEmailSender,
     ) {
-        $this->creditMemoRepository = $creditMemoRepository;
-        $this->creditMemoEmailSender = $creditMemoEmailSender;
     }
 
     public function __invoke(SendCreditMemo $command): void

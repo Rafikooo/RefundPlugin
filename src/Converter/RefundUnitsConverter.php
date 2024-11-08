@@ -20,14 +20,15 @@ use Webmozart\Assert\Assert;
 
 final class RefundUnitsConverter implements RefundUnitsConverterInterface
 {
-    private UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator;
-
-    public function __construct(UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator)
+    public function __construct(private readonly UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator)
     {
-        $this->unitRefundTotalCalculator = $unitRefundTotalCalculator;
     }
 
-    /** @return UnitRefundInterface[] */
+    /**
+     * @param UnitRefundInterface[] $units
+     *
+     * @return UnitRefundInterface[]
+     */
     public function convert(array $units, string|RefundTypeInterface $unitRefundClass): array
     {
         $args = func_get_args();
@@ -53,6 +54,7 @@ final class RefundUnitsConverter implements RefundUnitsConverterInterface
                 ->calculateForUnitWithIdAndType(
                     $id,
                     null === $refundType ? $unitRefundClass::type() : $refundType,
+                    /** @phpstan-ignore-next-line  */
                     $this->getAmount($unit),
                 )
             ;
@@ -66,13 +68,20 @@ final class RefundUnitsConverter implements RefundUnitsConverterInterface
         return $refundUnits;
     }
 
+    /**
+     * @param UnitRefundInterface[] $units
+     *
+     * @return UnitRefundInterface[]
+     */
     private function filterEmptyRefundUnits(array $units): array
     {
+        /** @phpstan-ignore-next-line  */
         return array_filter($units, function (array $refundUnit): bool {
             return (isset($refundUnit['amount']) && $refundUnit['amount'] !== '') || isset($refundUnit['full']);
         });
     }
 
+    /** @param UnitRefundInterface[] $unit */
     private function getAmount(array $unit): ?float
     {
         if (isset($unit['full'])) {
@@ -81,6 +90,7 @@ final class RefundUnitsConverter implements RefundUnitsConverterInterface
 
         Assert::keyExists($unit, 'amount');
 
+        /** @phpstan-ignore-next-line  */
         return (float) $unit['amount'];
     }
 }

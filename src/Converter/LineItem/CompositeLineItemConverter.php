@@ -18,10 +18,10 @@ use Webmozart\Assert\Assert;
 
 final class CompositeLineItemConverter implements LineItemsConverterInterface
 {
+    /** @param LineItemsConverterUnitRefundAwareInterface[] $lineItemsConverters */
     public function __construct(
-        /** @param LineItemsConverterUnitRefundAwareInterface[] $lineItemsConverters */
-        private iterable $lineItemsConverters,
-        private UnitRefundFilterInterface $unitRefundFilter,
+        private readonly iterable $lineItemsConverters,
+        private readonly UnitRefundFilterInterface $unitRefundFilter,
     ) {
     }
 

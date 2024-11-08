@@ -30,6 +30,7 @@ final class SyliusRefundExtension extends AbstractResourceExtension implements P
 {
     use PrependDoctrineMigrationsTrait;
 
+    /** @param array<string, mixed> $configs */
     public function load(array $configs, ContainerBuilder $container): void
     {
         /** @var ConfigurationInterface $configuration */
@@ -72,6 +73,7 @@ final class SyliusRefundExtension extends AbstractResourceExtension implements P
         return '@SyliusRefundPlugin/Migrations';
     }
 
+    /** @return string[] */
     protected function getNamespacesOfMigrationsExecutedBefore(): array
     {
         return [
@@ -79,6 +81,7 @@ final class SyliusRefundExtension extends AbstractResourceExtension implements P
         ];
     }
 
+    /** @return array<string, mixed> */
     private function getCurrentConfiguration(ContainerBuilder $container): array
     {
         /** @var ConfigurationInterface $configuration */

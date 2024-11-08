@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class RequestToOrderItemUnitRefundConverter implements RequestToRefundUnitsConverterInterface
 {
-    public function __construct(private RefundUnitsConverterInterface $refundUnitsConverter)
+    public function __construct(private readonly RefundUnitsConverterInterface $refundUnitsConverter)
     {
     }
 
