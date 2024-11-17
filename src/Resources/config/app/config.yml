@@ -1,5 +1,5 @@
 imports:
-    - { resource: "@SyliusRefundPlugin/Resources/config/app/events.yaml" }
+    - { resource: "@SyliusRefundPlugin/Resources/config/app/twig_hooks/**/*.yaml" }
     - { resource: "@SyliusRefundPlugin/Resources/config/app/integrations.php" }
 
 parameters:
@@ -76,7 +76,7 @@ sylius_grid:
                     path: .
                     sortable: total
                     options:
-                        template: "@SyliusAdmin/Order/Grid/Field/total.html.twig"
+                        template: "@SyliusAdmin/order/grid/field/order_total.html.twig"
                 issuedAt:
                     type: datetime
                     label: sylius_refund.ui.issued_at
@@ -87,7 +87,7 @@ sylius_grid:
                     show:
                         type: show
                         label: sylius.ui.show
-                        icon: eye
+                        icon: "tabler:eye"
                         options:
                             link:
                                 route: sylius_refund_credit_memo_details
@@ -98,7 +98,7 @@ sylius_grid:
                         type: default
                         label: sylius_refund.ui.download
                         enabled: '%sylius_refund.pdf_generator.enabled%'
-                        icon: download
+                        icon: "tabler:download"
                         options:
                             link:
                                 route: sylius_refund_admin_credit_memo_download
@@ -107,7 +107,7 @@ sylius_grid:
                     resend:
                         type: default
                         label: sylius_refund.ui.resend
-                        icon: send
+                        icon: "tabler:send"
                         options:
                             link:
                                 route: sylius_refund_admin_credit_memo_send

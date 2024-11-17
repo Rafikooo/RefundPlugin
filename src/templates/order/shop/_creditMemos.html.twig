@@ -1,5 +1,3 @@
-{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
-
 {% if credit_memos|length > 0 %}
     <div class="ui segment" id="credit-memos">
         <h3 class="ui dividing header">{{ 'sylius_refund.ui.credit_memos'|trans }}</h3>
@@ -19,7 +17,7 @@
                     <td>{{ credit_memo.total|sylius_format_money(credit_memo.currencyCode, credit_memo.localeCode) }}</td>
                     <td>{{ credit_memo.issuedAt|date('d-m-Y') }}</td>
                     <td>
-                        {{ sylius_template_event('sylius_refund.shop.order.credit_memos.list.actions.buttons', _context) }}
+                        {% hook 'sylius_shop.account.order.show.content.main.credit_memos' %}
                     </td>
                 </tr>
             {% endfor %}

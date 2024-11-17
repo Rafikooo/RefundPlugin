@@ -12,17 +12,13 @@ use Webmozart\Assert\Assert;
 
 final class CreditMemoDetailsPage extends SymfonyPage implements CreditMemoDetailsPageInterface
 {
-    private TableAccessorInterface $tableAccessor;
-
     public function __construct(
         Session $session,
         $minkParameters,
         RouterInterface $router,
-        TableAccessorInterface $tableAccessor
+        private readonly TableAccessorInterface $tableAccessor
     ) {
         parent::__construct($session, $minkParameters, $router);
-
-        $this->tableAccessor = $tableAccessor;
     }
 
     public function getRouteName(): string

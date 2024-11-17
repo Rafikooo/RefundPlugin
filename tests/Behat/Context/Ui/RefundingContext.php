@@ -9,7 +9,6 @@ use FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Checker\EmailCheckerInterface as BehatEmailCheckerInterface;
-use Sylius\Component\Core\Test\Services\EmailCheckerInterface as CoreEmailCheckerInterface;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Tests\Sylius\RefundPlugin\Behat\Page\Admin\OrderRefundsPageInterface;
 use Webmozart\Assert\Assert;
@@ -17,9 +16,9 @@ use Webmozart\Assert\Assert;
 final class RefundingContext implements Context
 {
     public function __construct(
-        private OrderRefundsPageInterface $orderRefundsPage,
-        private NotificationCheckerInterface $notificationChecker,
-        private BehatEmailCheckerInterface|CoreEmailCheckerInterface $emailChecker
+        private readonly OrderRefundsPageInterface $orderRefundsPage,
+        private readonly NotificationCheckerInterface $notificationChecker,
+        private readonly BehatEmailCheckerInterface $emailChecker
     ) {
     }
 

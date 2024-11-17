@@ -16,7 +16,7 @@ final class ShowPage extends BaseOrderShowPage implements ShowPageInterface
     public function downloadCreditMemo(int $index): void
     {
         $creditMemo = $this->getCreditMemosList()[$index];
-        $creditMemo->clickLink('Download');
+        $creditMemo->find('css', '[data-test-download-button]')->click();
     }
 
     public function hasDownloadCreditMemoButton(int $index): bool

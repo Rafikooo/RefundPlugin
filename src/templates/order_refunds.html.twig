@@ -1,4 +1,4 @@
-{% extends '@SyliusAdmin/layout.html.twig' %}
+{% extends '@SyliusAdmin/shared/layout/base.html.twig' %}
 
 {% block title %}{{ 'sylius.ui.order'|trans ~' #'~ order.number }} {{ 'sylius_refund.ui.refunds'|trans }} {{ parent() }}{% endblock %}
 
@@ -12,7 +12,7 @@
     <div class="ui stackable grid">
         <div class="sixteen wide column">
             <div class="ui segment">
-                {{ sylius_template_event('sylius_refund.admin.order.refund', _context) }}
+                {% hook 'sylius_refund.admin.order.refund' %}
             </div>
         </div>
     </div>

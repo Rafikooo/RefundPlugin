@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <imports>
-        <import resource="services/*"/>
-    </imports>
-
     <parameters>
         <parameter key="sylius.behat.page.admin.order.show.class">Tests\Sylius\RefundPlugin\Behat\Page\Admin\Order\ShowPage</parameter>
         <parameter key="sylius.behat.page.shop.order.show.class">Tests\Sylius\RefundPlugin\Behat\Page\Shop\Order\ShowPage</parameter>
@@ -48,12 +44,12 @@
         <service id="Tests\Sylius\RefundPlugin\Behat\Context\Ui\ManagingOrdersContext">
             <argument type="service" id="sylius.behat.page.admin.order.show" />
             <argument type="service" id="sylius.behat.page.admin.order.index" />
-            <argument type="service" id="sylius.behat.notification_checker" />
+            <argument type="service" id="sylius.behat.notification_checker.shop" />
         </service>
 
         <service id="Tests\Sylius\RefundPlugin\Behat\Context\Ui\RefundingContext">
             <argument type="service" id="Tests\Sylius\RefundPlugin\Behat\Page\Admin\OrderRefundsPage" />
-            <argument type="service" id="sylius.behat.notification_checker" />
+            <argument type="service" id="sylius.behat.notification_checker.admin" />
             <argument type="service" id="sylius.behat.email_checker" />
         </service>
 

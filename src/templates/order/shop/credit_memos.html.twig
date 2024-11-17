@@ -1,1 +1,3 @@
+{% set order = hookable_metadata.context.order %}
+
 {{ render(url('sylius_refund_plugin_shop_order_credit_memos_partial', {'orderId': order.id})) }}

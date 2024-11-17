@@ -7,21 +7,26 @@ namespace Tests\Sylius\RefundPlugin\Behat\Context\Application;
 use Behat\Behat\Context\Context;
 use Doctrine\Persistence\ObjectRepository;
 use Sylius\Component\Addressing\Model\CountryInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\RefundPlugin\Entity\CreditMemoInterface;
+use Sylius\RefundPlugin\Entity\CustomerBillingDataInterface;
+use Sylius\RefundPlugin\Entity\ShopBillingDataInterface;
 use Sylius\RefundPlugin\Entity\TaxItemInterface;
 use Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class CreditMemoContext implements Context
 {
-    /** @var CreditMemoInterface */
-    private $creditMemo;
+    private CreditMemoInterface $creditMemo;
 
+    /**
+     * @param ObjectRepository<CreditMemoInterface> $creditMemoRepository
+     */
     public function __construct(
-        private ObjectRepository $creditMemoRepository,
-        private CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider,
-        private string $creditMemosPath,
+        private readonly ObjectRepository $creditMemoRepository,
+        private readonly CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider,
+        private readonly string $creditMemosPath,
     ) {
     }
 
@@ -66,7 +71,6 @@ final class CreditMemoContext implements Context
         int $netValue,
         int $taxAmount,
         int $grossValue,
-        string $currencyCode
     ): void {
         $lineItems = $this->creditMemo->getLineItems();
 
@@ -105,6 +109,7 @@ final class CreditMemoContext implements Context
      */
     public function creditMemoShouldBeIssuedInChannel(string $channelName): void
     {
+        Assert::implementsInterface($this->creditMemo->getChannel(), ChannelInterface::class);
         Assert::same($this->creditMemo->getChannel()->getName(), $channelName);
     }
 
@@ -153,6 +158,7 @@ final class CreditMemoContext implements Context
     ): void {
         $customerBillingData = $this->creditMemo->getFrom();
 
+        Assert::implementsInterface($customerBillingData, CustomerBillingDataInterface::class);
         Assert::same($customerBillingData->getFullName(), $customerName);
         Assert::same($customerBillingData->getStreet(), $street);
         Assert::same($customerBillingData->getPostcode(), $postcode);
@@ -173,6 +179,7 @@ final class CreditMemoContext implements Context
     ): void {
         $shopBillingData = $this->creditMemo->getTo();
 
+        Assert::implementsInterface($shopBillingData, ShopBillingDataInterface::class);
         Assert::same($company, $shopBillingData->getCompany());
         Assert::same($street, $shopBillingData->getStreet());
         Assert::same($postcode, $shopBillingData->getPostcode());
@@ -186,7 +193,6 @@ final class CreditMemoContext implements Context
      */
     public function theCreditMemoForOrderShouldBeSavedOnTheServer(OrderInterface $order): void
     {
-        /** @var CreditMemoInterface $creditMemo */
         $creditMemo = $this->creditMemoRepository->findOneBy(['order' => $order]);
         $filePath = $this->creditMemosPath . '/' . str_replace('/', '_', $creditMemo->getNumber()) . '.pdf';
 

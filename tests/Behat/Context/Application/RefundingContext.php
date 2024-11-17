@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\OrderItemUnitInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Behat\Service\Checker\EmailCheckerInterface as BehatEmailCheckerInterface;
-use Sylius\Component\Core\Test\Services\EmailCheckerInterface as CoreEmailCheckerInterface;
+use Sylius\Component\Order\Model\OrderInterface as CoreOrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Entity\RefundInterface;
@@ -25,14 +25,17 @@ use Webmozart\Assert\Assert;
 
 final class RefundingContext implements Context
 {
-    private ?\Sylius\Component\Order\Model\OrderInterface $order = null;
+    private ?CoreOrderInterface $order = null;
 
+    /**
+     * @param RepositoryInterface<RefundInterface> $refundRepository
+     */
     public function __construct(
-        private OrderRepositoryInterface $orderRepository,
-        private RepositoryInterface $refundRepository,
-        private RemainingTotalProviderInterface $remainingTotalProvider,
-        private MessageBusInterface $commandBus,
-        private BehatEmailCheckerInterface|CoreEmailCheckerInterface $emailChecker
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly RepositoryInterface $refundRepository,
+        private readonly RemainingTotalProviderInterface $remainingTotalProvider,
+        private readonly MessageBusInterface $commandBus,
+        private readonly BehatEmailCheckerInterface $emailChecker
     ) {
     }
 

@@ -11,11 +11,8 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class OrderContext implements Context
 {
-    private ObjectManager $orderManager;
-
-    public function __construct(ObjectManager $orderManager)
+    public function __construct(private readonly ObjectManager $orderManager)
     {
-        $this->orderManager = $orderManager;
     }
 
     /**

@@ -52,7 +52,7 @@ final readonly class OrderRefundsListAction
         }
 
         return new Response(
-            $this->twig->render('@SyliusRefundPlugin/orderRefunds.html.twig', [
+            $this->twig->render('@SyliusRefundPlugin/order_refunds.html.twig', [
                 'order' => $order,
                 'payment_methods' => $this->refundPaymentMethodsProvider->findForOrder($order),
             ]),
