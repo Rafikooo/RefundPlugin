@@ -5,19 +5,6 @@
 {% set customer = order.customer %}
 {% set disableButton = order.paymentState == constant('Sylius\\Component\\Core\\OrderPaymentStates::STATE_REFUNDED') ? 'disabled' : '' %}
 
-{% block content %}
-    {% include '@SyliusRefundPlugin/_header.html.twig' %}
-    {% include '@SyliusRefundPlugin/_breadcrumb.html.twig' %}
-
-    <div class="ui stackable grid">
-        <div class="sixteen wide column">
-            <div class="ui segment">
-                {% hook 'sylius_refund.admin.order.refund' %}
-            </div>
-        </div>
-    </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
+{% block body %}
+    {% hook 'sylius_refund.admin.order.refund' with { order } %}
 {% endblock %}

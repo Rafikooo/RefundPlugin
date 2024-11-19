@@ -1,0 +1,12 @@
+{% from '@SyliusAdmin/shared/helper/breadcrumbs.html.twig' import breadcrumbs %}
+
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+{% set order = credit_memo.order %}
+
+{{ breadcrumbs([
+    { name: 'sylius.ui.dashboard'|trans, url: path('sylius_admin_dashboard'), active: false },
+    { name: 'sylius.ui.orders'|trans, url: path('sylius_admin_order_index'), active: false },
+    { name: '#' ~ credit_memo.order.number, url: path('sylius_admin_order_show', {'id': credit_memo.order.id}) },
+    { name: 'sylius_refund.ui.credit_memo'|trans },
+    { name:  credit_memo.number },
+]) }}

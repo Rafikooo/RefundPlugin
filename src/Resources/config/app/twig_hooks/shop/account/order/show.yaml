@@ -8,5 +8,5 @@ sylius_twig_hooks:
         'sylius_shop.account.order.show.content.main.credit_memos':
             list_action_buttons:
                 template: '@SyliusRefundPlugin/order/shop/download_button.html.twig'
-#                enabled: '%sylius_refund.pdf_generator.enabled%'
+                enabled: '%sylius_refund.pdf_generator.enabled%'
                 priority: 100

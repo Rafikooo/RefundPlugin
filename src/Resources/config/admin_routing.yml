@@ -41,7 +41,7 @@ sylius_refund_credit_memo_details:
     defaults:
         _controller: sylius_refund.controller.credit_memo::showAction
         _sylius:
-            template: "@SyliusRefundPlugin/order/admin/credit_memo/details.html.twig"
+            template: "@SyliusRefundPlugin/order/admin/credit_memo/show.html.twig"
             criteria:
                 id: $id
 

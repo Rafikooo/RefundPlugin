@@ -1,0 +1,7 @@
+{% extends '@SyliusAdmin/shared/layout/base.html.twig' %}
+
+{% block title %}{{ 'sylius_refund.ui.credit_memo'|trans ~ ' ' ~ credit_memo.number }} {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% hook 'sylius_refund.admin.credit_memos' %}
+{% endblock %}

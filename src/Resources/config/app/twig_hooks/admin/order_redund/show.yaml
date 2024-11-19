@@ -1,9 +1,0 @@
-sylius_twig_hooks:
-    hooks:
-        'sylius_refund.admin.order.refund':
-            bulk_buttons:
-                template: '@SyliusRefundPlugin/Order/Admin/Refund/_buttons.html.twig'
-                priority: 20
-            form:
-                template: '@SyliusRefundPlugin/Order/Admin/Refund/_form.html.twig'
-                priority: 10

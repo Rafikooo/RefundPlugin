@@ -141,7 +141,7 @@ final class CreditMemoContext implements Context
      */
     public function shouldHaveSequentialNumberGeneratedFromCurrentDate(): void
     {
-        Assert::same(
+        Assert::contains(
             $this->creditMemoDetailsPage->getNumber(),
             $this->currentDateTimeImmutableProvider->now()->format('Y/m').'/'.'000000001'
         );

@@ -95,7 +95,7 @@ final class OrderRefundsPage extends SymfonyPage implements OrderRefundsPageInte
 
     public function refund(): void
     {
-        $this->getDocument()->find('css', '#page-button')->click();
+        $this->getElement('refund_submit_button')->click();
     }
 
     public function isUnitWithProductAvailableToRefund(string $productName, int $unitNumber): bool
@@ -165,6 +165,7 @@ final class OrderRefundsPage extends SymfonyPage implements OrderRefundsPageInte
             'original_payment_method' => '#original-payment-method',
             'payment_methods' => '#payment-methods',
             'refunded_total' => '#refunded-total',
+            'refund_submit_button' => '[data-test-refund-submit-button]',
         ];
     }
 

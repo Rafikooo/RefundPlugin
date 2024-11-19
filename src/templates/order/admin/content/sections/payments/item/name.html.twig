@@ -1,0 +1,5 @@
+{% set refund_payment = hookable_metadata.context.refund_payment %}
+
+<td class="py-2">
+    <strong {{ sylius_test_html_attribute('refundd-payment-method') }}>{{ refund_payment.paymentMethod }}</strong>
+</td>
