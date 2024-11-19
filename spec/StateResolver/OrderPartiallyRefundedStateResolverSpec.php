@@ -15,9 +15,9 @@ namespace spec\Sylius\RefundPlugin\StateResolver;
 
 use Doctrine\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use SM\Factory\FactoryInterface;
-use SM\StateMachine\StateMachineInterface;
+use SM\StateMachine\StateMachineInterface as WinzouStateMachineInterface;
+use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Core\OrderPaymentTransitions;
@@ -36,10 +36,67 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
 
     function it_marks_order_as_partially_refunded(
         OrderRepositoryInterface $orderRepository,
+        StateMachineInterface $stateMachine,
+        ObjectManager $orderManager,
+        OrderInterface $order,
+    ): void {
+        $this->beConstructedWith($orderRepository, $stateMachine, $orderManager);
+
+        $orderRepository->findOneByNumber('000777')->willReturn($order);
+
+        $order->getPaymentState()->willReturn(OrderPaymentStates::STATE_PAID);
+
+        $stateMachine
+            ->apply($order, OrderPaymentTransitions::GRAPH, OrderPaymentTransitions::TRANSITION_PARTIALLY_REFUND)
+            ->shouldBeCalled()
+        ;
+
+        $orderManager->flush()->shouldBeCalled();
+
+        $this->resolve('000777');
+    }
+
+    function it_does_nothing_if_order_is_already_marked_as_partially_refunded(
+        OrderRepositoryInterface $orderRepository,
+        StateMachineInterface $stateMachine,
+        ObjectManager $orderManager,
+        OrderInterface $order,
+    ): void {
+        $this->beConstructedWith($orderRepository, $stateMachine, $orderManager);
+
+        $orderRepository->findOneByNumber('000777')->willReturn($order);
+
+        $order->getPaymentState()->willReturn(OrderPaymentStates::STATE_PARTIALLY_REFUNDED);
+
+        $stateMachine
+            ->apply($order, OrderPaymentTransitions::GRAPH, OrderPaymentTransitions::TRANSITION_PARTIALLY_REFUND)
+            ->shouldNotBeCalled()
+        ;
+
+        $this->resolve('000777');
+    }
+
+    function it_throws_exception_if_there_is_no_order_with_given_number(
+        OrderRepositoryInterface $orderRepository,
+        StateMachineInterface $stateMachine,
+        ObjectManager $orderManager,
+    ): void {
+        $this->beConstructedWith($orderRepository, $stateMachine, $orderManager);
+
+        $orderRepository->findOneByNumber('000777')->willReturn(null);
+
+        $this
+            ->shouldThrow(OrderNotFound::withNumber('000777'))
+            ->during('resolve', ['000777'])
+        ;
+    }
+
+    function it_uses_winzou_state_machine_if_abstraction_not_passed_to_mark_order_as_partially_refunded(
+        OrderRepositoryInterface $orderRepository,
         FactoryInterface $stateMachineFactory,
         ObjectManager $orderManager,
         OrderInterface $order,
-        StateMachineInterface $stateMachine,
+        WinzouStateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneByNumber('000777')->willReturn($order);
 
@@ -51,29 +108,5 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
         $orderManager->flush()->shouldBeCalled();
 
         $this->resolve('000777');
-    }
-
-    function it_does_nothing_if_order_is_already_marked_as_partially_refunded(
-        OrderRepositoryInterface $orderRepository,
-        FactoryInterface $stateMachineFactory,
-        OrderInterface $order,
-    ): void {
-        $orderRepository->findOneByNumber('000777')->willReturn($order);
-
-        $order->getPaymentState()->willReturn(OrderPaymentStates::STATE_PARTIALLY_REFUNDED);
-
-        $stateMachineFactory->get(Argument::any())->shouldNotBeCalled();
-
-        $this->resolve('000777');
-    }
-
-    function it_throws_exception_if_there_is_no_order_with_given_number(OrderRepositoryInterface $orderRepository): void
-    {
-        $orderRepository->findOneByNumber('000777')->willReturn(null);
-
-        $this
-            ->shouldThrow(OrderNotFound::withNumber('000777'))
-            ->during('resolve', ['000777'])
-        ;
     }
 }
