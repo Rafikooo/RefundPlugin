@@ -1,0 +1,38 @@
+sylius_refund:
+    ui:
+        buyer: Käufer
+        clear_refunds: Alle zurücksetzen
+        new: Neu
+        completed: Abgeschlossen
+        credit_memo: Gutschrift
+        credit_memos: Gutschriften
+        download: Herunterladen
+        gross_value: Bruttowert
+        issued_at: Ausgestellt am
+        issued_for_order: Ausgestellt für Bestellung
+        issued_from: Ausgestellt von
+        manage_credit_memos: Gutschriften verwalten
+        net_total: Nettogesamt
+        net_value: Nettowert
+        no: Nr.
+        order_number: Bestellnummer
+        partial_refund: Teilweise Rückerstattung
+        refund: Rückerstattung
+        refund_all: Alle zurückerstatten
+        refund_payment_completed: Rückerstattung wurde erfolgreich abgeschlossen
+        refund_payments: Rückzahlungen
+        refund_value: Rückerstattungsbetrag
+        refunded: Rückerstattet
+        refunded_total: Gesamtbetrag erstattet
+        refunds: Rückerstattungen
+        resend: Erneut senden
+        seller: Verkäufer
+        tax_amount: Steuerbetrag
+        tax_rate: Steuerquote %
+        tax_total: Steuer gesamt
+        unit_net_price: Nettopreis pro Einheit
+
+sylius:
+    ui:
+        original_payment_method: Ursprüngliche Zahlungsmethode
+        partially_refunded: Teilweise zurückerstattet
