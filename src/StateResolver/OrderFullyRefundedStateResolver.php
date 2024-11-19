@@ -15,6 +15,8 @@ namespace Sylius\RefundPlugin\StateResolver;
 
 use Doctrine\Persistence\ObjectManager;
 use SM\Factory\FactoryInterface;
+use Sylius\Abstraction\StateMachine\StateMachineInterface;
+use Sylius\Abstraction\StateMachine\WinzouStateMachineAdapter;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Core\OrderPaymentTransitions;
@@ -26,11 +28,22 @@ final class OrderFullyRefundedStateResolver implements OrderFullyRefundedStateRe
 {
     /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
-        private readonly FactoryInterface $stateMachineFactory,
+        private readonly FactoryInterface|StateMachineInterface $stateMachineFactory,
         private readonly ObjectManager $orderManager,
         private readonly OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         private readonly OrderRepositoryInterface $orderRepository,
     ) {
+        if ($this->stateMachineFactory instanceof FactoryInterface) {
+            trigger_deprecation(
+                'sylius/refund-plugin',
+                '1.6',
+                sprintf(
+                    'Passing an instance of "%s" as the first argument is deprecated. It will accept only instances of "%s" in RefundPlugin 2.0.',
+                    FactoryInterface::class,
+                    StateMachineInterface::class,
+                ),
+            );
+        }
     }
 
     public function resolve(string $orderNumber): void
@@ -46,10 +59,20 @@ final class OrderFullyRefundedStateResolver implements OrderFullyRefundedStateRe
             return;
         }
 
-        $stateMachine = $this->stateMachineFactory->get($order, OrderPaymentTransitions::GRAPH);
-
-        $stateMachine->apply(OrderPaymentTransitions::TRANSITION_REFUND);
+        $this
+            ->getStateMachine()
+            ->apply($order, OrderPaymentTransitions::GRAPH, OrderPaymentTransitions::TRANSITION_REFUND)
+        ;
 
         $this->orderManager->flush();
+    }
+
+    private function getStateMachine(): StateMachineInterface
+    {
+        if ($this->stateMachineFactory instanceof FactoryInterface) {
+            return new WinzouStateMachineAdapter($this->stateMachineFactory);
+        }
+
+        return $this->stateMachineFactory;
     }
 }

@@ -35,7 +35,6 @@ default:
                 - sylius.behat.context.setup.zone
                 - Tests\Sylius\RefundPlugin\Behat\Context\Setup\ChannelContext
                 - Tests\Sylius\RefundPlugin\Behat\Context\Setup\OrderContext
-                - Tests\Sylius\RefundPlugin\Behat\Context\Setup\OrderShipmentContext
                 - Tests\Sylius\RefundPlugin\Behat\Context\Setup\ProductContext
                 - Tests\Sylius\RefundPlugin\Behat\Context\Setup\RefundingContext
 

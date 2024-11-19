@@ -15,9 +15,9 @@ namespace spec\Sylius\RefundPlugin\StateResolver;
 
 use Doctrine\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use SM\Factory\FactoryInterface;
-use SM\StateMachine\StateMachineInterface;
+use SM\StateMachine\StateMachineInterface as WinzouStateMachineInterface;
+use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Core\OrderPaymentTransitions;
@@ -41,12 +41,92 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
     }
 
     function it_applies_refund_transition_on_order(
-        OrderRepositoryInterface $orderRepository,
+        StateMachineInterface $stateMachine,
+        ObjectManager $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
+        OrderRepositoryInterface $orderRepository,
+        OrderInterface $order,
+    ): void {
+        $this->beConstructedWith($stateMachine, $orderManager, $orderFullyRefundedTotalChecker, $orderRepository);
+
+        $orderRepository->findOneByNumber('000222')->willReturn($order);
+        $orderFullyRefundedTotalChecker->isOrderFullyRefunded($order)->willReturn(true);
+        $order->getPaymentState()->willReturn(OrderPaymentStates::STATE_PAID);
+
+        $stateMachine
+            ->apply($order, OrderPaymentTransitions::GRAPH, OrderPaymentTransitions::TRANSITION_REFUND)
+            ->shouldBeCalled()
+        ;
+
+        $orderManager->flush()->shouldBeCalled();
+
+        $this->resolve('000222');
+    }
+
+    function it_does_nothing_if_order_state_is_fully_refunded(
+        StateMachineInterface $stateMachine,
+        ObjectManager $orderManager,
+        OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
+        OrderRepositoryInterface $orderRepository,
+        OrderInterface $order,
+    ): void {
+        $this->beConstructedWith($stateMachine, $orderManager, $orderFullyRefundedTotalChecker, $orderRepository);
+
+        $orderRepository->findOneByNumber('000222')->willReturn($order);
+        $orderFullyRefundedTotalChecker->isOrderFullyRefunded($order)->willReturn(true);
+        $order->getPaymentState()->willReturn(OrderPaymentStates::STATE_REFUNDED);
+
+        $stateMachine
+            ->apply($order, OrderPaymentTransitions::GRAPH, OrderPaymentTransitions::TRANSITION_REFUND)
+            ->shouldNotBeCalled()
+        ;
+
+        $this->resolve('000222');
+    }
+
+    function it_does_nothing_if_order_is_not_fully_refunded(
+        StateMachineInterface $stateMachine,
+        ObjectManager $orderManager,
+        OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
+        OrderRepositoryInterface $orderRepository,
+        OrderInterface $order,
+    ): void {
+        $this->beConstructedWith($stateMachine, $orderManager, $orderFullyRefundedTotalChecker, $orderRepository);
+
+        $orderRepository->findOneByNumber('000222')->willReturn($order);
+        $orderFullyRefundedTotalChecker->isOrderFullyRefunded($order)->willReturn(false);
+
+        $stateMachine
+            ->apply($order, OrderPaymentTransitions::GRAPH, OrderPaymentTransitions::TRANSITION_REFUND)
+            ->shouldNotBeCalled()
+        ;
+
+        $this->resolve('000222');
+    }
+
+    function it_throws_an_exception_if_there_is_no_order_with_given_number(
+        StateMachineInterface $stateMachine,
+        ObjectManager $orderManager,
+        OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
+        OrderRepositoryInterface $orderRepository,
+    ): void {
+        $this->beConstructedWith($stateMachine, $orderManager, $orderFullyRefundedTotalChecker, $orderRepository);
+
+        $orderRepository->findOneByNumber('000222')->willReturn(null);
+
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('resolve', ['000222'])
+        ;
+    }
+
+    function it_uses_winzou_state_machine_if_abstraction_not_passed_to_apply_refund_transition_on_order(
         FactoryInterface $stateMachineFactory,
         ObjectManager $orderManager,
+        OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
+        OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
-        StateMachineInterface $stateMachine,
+        WinzouStateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneByNumber('000222')->willReturn($order);
         $orderFullyRefundedTotalChecker->isOrderFullyRefunded($order)->willReturn(true);
@@ -58,44 +138,5 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
         $orderManager->flush()->shouldBeCalled();
 
         $this->resolve('000222');
-    }
-
-    function it_does_nothing_if_order_state_is_fully_refunded(
-        OrderRepositoryInterface $orderRepository,
-        OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
-        FactoryInterface $stateMachineFactory,
-        OrderInterface $order,
-    ): void {
-        $orderRepository->findOneByNumber('000222')->willReturn($order);
-        $orderFullyRefundedTotalChecker->isOrderFullyRefunded($order)->willReturn(true);
-        $order->getPaymentState()->willReturn(OrderPaymentStates::STATE_REFUNDED);
-
-        $stateMachineFactory->get(Argument::any())->shouldNotBeCalled();
-
-        $this->resolve('000222');
-    }
-
-    function it_does_nothing_if_order_is_not_fully_refunded(
-        OrderRepositoryInterface $orderRepository,
-        OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
-        FactoryInterface $stateMachineFactory,
-        OrderInterface $order,
-    ): void {
-        $orderRepository->findOneByNumber('000222')->willReturn($order);
-        $orderFullyRefundedTotalChecker->isOrderFullyRefunded($order)->willReturn(false);
-
-        $stateMachineFactory->get(Argument::any())->shouldNotBeCalled();
-
-        $this->resolve('000222');
-    }
-
-    function it_throws_an_exception_if_there_is_no_order_with_given_number(OrderRepositoryInterface $orderRepository): void
-    {
-        $orderRepository->findOneByNumber('000222')->willReturn(null);
-
-        $this
-            ->shouldThrow(\InvalidArgumentException::class)
-            ->during('resolve', ['000222'])
-        ;
     }
 }
