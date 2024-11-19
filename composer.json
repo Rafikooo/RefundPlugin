@@ -29,7 +29,6 @@
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
-        "behat/mink-selenium2-driver": "^1.4",
         "dmore/behat-chrome-extension": "^1.3",
         "dmore/chrome-mink-driver": "^2.7",
         "friends-of-behat/exclude-specifications-extension": "^0.2 || ^0.3",
@@ -56,9 +55,6 @@
         "symfony/intl": "^5.4 || ^6.4",
         "symfony/web-profiler-bundle": "^5.4.21 || ^6.4",
         "symfony/webpack-encore-bundle": "^1.15"
-    },
-    "conflict": {
-        "behat/mink-selenium2-driver": ">=1.7.0"
     },
     "autoload": {
         "psr-4": {
