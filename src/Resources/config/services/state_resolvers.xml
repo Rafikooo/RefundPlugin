@@ -17,8 +17,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults public="true" />
-
         <service id="sylius_refund.state_resolver.order_fully_refunded" class="Sylius\RefundPlugin\StateResolver\OrderFullyRefundedStateResolver">
             <argument type="service" id="sylius_abstraction.state_machine" />
             <argument type="service" id="sylius.manager.order" />

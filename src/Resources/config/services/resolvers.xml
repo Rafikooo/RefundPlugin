@@ -17,8 +17,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults public="true" />
-
         <service id="sylius_refund.resolver.credit_memo_file" class="Sylius\RefundPlugin\Resolver\CreditMemoFileResolver">
             <argument type="service" id="sylius_refund.repository.credit_memo" />
             <argument type="service" id="sylius_refund.provider.credit_memo_file" />

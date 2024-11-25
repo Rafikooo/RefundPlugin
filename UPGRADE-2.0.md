@@ -129,3 +129,9 @@
 
 1. The buses `sylius_refund_plugin.command_bus` and `sylius_refund_plugin.event_bus` have been replaced
    accordingly by `sylius.command_bus` and `sylius.event_bus`.
+
+1. The visibility of services has been changed to `private` by default. This change enhances the performance 
+   and maintainability of the application and also follows Symfony's best practices for service encapsulation.
+
+   Exceptions:
+   - Services required by Symfony to be `public` (e.g., controllers, event listeners) remain public.

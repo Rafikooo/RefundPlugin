@@ -17,8 +17,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults public="true" />
-
         <service id="sylius_refund.validator.refund_units_command" class="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator">
             <argument type="service" id="sylius_refund.checker.order_refunding_availability"/>
             <argument type="service" id="sylius_refund.validator.refund_amount" />

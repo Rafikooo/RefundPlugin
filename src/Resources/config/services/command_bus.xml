@@ -17,8 +17,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults public="true" />
-
         <service id="sylius_refund.command_handler.refund_units" class="Sylius\RefundPlugin\CommandHandler\RefundUnitsHandler">
             <argument type="tagged_iterator" tag="sylius_refund.refunder" />
             <argument type="service" id="sylius.event_bus" />
