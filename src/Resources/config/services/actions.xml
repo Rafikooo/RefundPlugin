@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <services>
         <defaults autowire="false" autoconfigure="false" public="true" />
 
@@ -9,6 +24,7 @@
             <argument type="service" id="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface" />
             <argument type="string">%sylius_refund.pdf_generator.enabled%</argument>
         </service>
+        <service id="sylius_refund.controller.admin.download_credit_memo" alias="Sylius\RefundPlugin\Action\Admin\DownloadCreditMemoAction" />
 
         <service id="Sylius\RefundPlugin\Action\Shop\DownloadCreditMemoAction">
             <argument type="service" id="Sylius\RefundPlugin\Resolver\CreditMemoFileResolverInterface" />
@@ -16,6 +32,7 @@
             <argument type="service" id="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface" />
             <argument type="string">%sylius_refund.pdf_generator.enabled%</argument>
         </service>
+        <service id="sylius_refund.controller.shop.download_credit_memo" alias="Sylius\RefundPlugin\Action\Shop\DownloadCreditMemoAction" />
 
         <service id="Sylius\RefundPlugin\Action\Admin\OrderRefundsListAction">
             <argument type="service" id="sylius.repository.order" />
@@ -25,6 +42,7 @@
             <argument type="service" id="request_stack" />
             <argument type="service" id="router" />
         </service>
+        <service id="sylius_refund.controller.admin.order_refunds_list" alias="Sylius\RefundPlugin\Action\Admin\OrderRefundsListAction" />
 
         <service id="Sylius\RefundPlugin\Action\Admin\RefundUnitsAction">
             <argument type="service" id="sylius.command_bus" />
@@ -34,6 +52,7 @@
             <argument type="service" id="monolog.logger" />
             <argument type="service" id="security.csrf.token_manager" />
         </service>
+        <service id="sylius_refund.controller.admin.refund_units" alias="Sylius\RefundPlugin\Action\Admin\RefundUnitsAction" />
 
         <service id="Sylius\RefundPlugin\Action\CompleteRefundPaymentAction">
             <argument type="service" id="request_stack" />
@@ -42,6 +61,7 @@
             <argument type="service" id="Sylius\RefundPlugin\StateResolver\RefundPaymentCompletedStateApplierInterface" />
             <argument type="service" id="router" />
         </service>
+        <service id="sylius_refund.controller.complete_refund_payment" alias="Sylius\RefundPlugin\Action\CompleteRefundPaymentAction" />
 
         <service id="Sylius\RefundPlugin\Action\Admin\SendCreditMemoAction">
             <argument type="service" id="sylius.command_bus"/>
@@ -49,5 +69,6 @@
             <argument type="service" id="request_stack"/>
             <argument type="service" id="router"/>
         </service>
+        <service id="sylius_refund.controller.admin.send_credit_memo" alias="Sylius\RefundPlugin\Action\Admin\SendCreditMemoAction" />
     </services>
 </container>

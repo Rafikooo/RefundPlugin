@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <imports>
         <import resource="services/**/*.xml" />
@@ -19,6 +31,7 @@
         <service id="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface" class="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculator">
             <argument type="service" id="Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface" />
         </service>
+        <service id="sylius_refund.calculator.unit_refund_total" alias="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface" />
         <service id="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculator" alias="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface instead.</deprecated>
         </service>
@@ -29,6 +42,7 @@
             <argument type="service" id="Sylius\RefundPlugin\Filter\UnitRefundFilterInterface" />
             <tag name="sylius_refund.refunder" />
         </service>
+        <service id="sylius_refund.refunder.order_item_units" alias="Sylius\RefundPlugin\Refunder\OrderItemUnitsRefunder" />
 
         <service id="Sylius\RefundPlugin\Refunder\OrderShipmentsRefunder">
             <argument type="service" id="Sylius\RefundPlugin\Creator\RefundCreatorInterface" />
@@ -36,6 +50,7 @@
             <argument type="service" id="Sylius\RefundPlugin\Filter\UnitRefundFilterInterface" />
             <tag name="sylius_refund.refunder" />
         </service>
+        <service id="sylius_refund.refunder.order_shipments" alias="Sylius\RefundPlugin\Refunder\OrderShipmentsRefunder" />
 
         <service id="Sylius\RefundPlugin\Twig\OrderRefundsExtension">
             <argument type="service" id="Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface" />
@@ -46,11 +61,13 @@
             <argument type="service" id="Sylius\RefundPlugin\Factory\RefundTypeFactoryInterface" />
             <tag name="twig.extension"/>
         </service>
+        <service id="sylius_refund.twig.extension.order_refunds" alias="Sylius\RefundPlugin\Twig\OrderRefundsExtension" />
 
         <service id="sylius_refund_plugin.repository.credit_memo_sequence" class="Doctrine\ORM\EntityRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
             <argument type="string">Sylius\RefundPlugin\Entity\CreditMemoSequence</argument>
         </service>
+        <service id="sylius_refund.repository.credit_memo_sequence" alias="sylius_refund_plugin.repository.credit_memo_sequence" />
 
         <service id="Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface" class="Sylius\RefundPlugin\Sender\CreditMemoEmailSender">
             <argument>null</argument>
@@ -60,6 +77,7 @@
             <argument type="service" id="Sylius\RefundPlugin\Resolver\CreditMemoFileResolverInterface" />
             <argument type="service" id="Sylius\RefundPlugin\Resolver\CreditMemoFilePathResolverInterface" />
         </service>
+        <service id="sylius_refund.email_sender.credit_memo" alias="Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface" />
         <service id="Sylius\RefundPlugin\Sender\CreditMemoEmailSender" alias="Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface instead.</deprecated>
         </service>
@@ -69,6 +87,7 @@
         </service>
 
         <service id="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface" class="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilder" />
+        <service id="sylius_refund.response_builder.credit_memo_file" alias="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface" />
         <service id="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilder" alias="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface instead.</deprecated>
         </service>
@@ -76,5 +95,6 @@
         <service id="Sylius\RefundPlugin\Manager\CreditMemoFileManagerInterface" class="Sylius\RefundPlugin\Manager\CreditMemoFileManager">
             <argument type="service" id="gaufrette.sylius_refund_credit_memo_filesystem" />
         </service>
+        <service id="sylius_refund.manager.credit_memo_file" alias="Sylius\RefundPlugin\Manager\CreditMemoFileManagerInterface" />
     </services>
 </container>

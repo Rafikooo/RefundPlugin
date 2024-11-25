@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <services>
         <defaults autowire="false" autoconfigure="false" public="true" />
 
@@ -8,11 +23,13 @@
             <argument type="service" id="sylius.command_bus" />
             <tag name="messenger.message_handler" bus="sylius.event_bus" />
         </service>
+        <service id="sylius_refund.listener.credit_memo_generated" alias="Sylius\RefundPlugin\Listener\CreditMemoGeneratedEventListener" />
 
         <service id="Sylius\RefundPlugin\Listener\UnitRefundedEventListener">
             <argument type="service" id="Sylius\RefundPlugin\StateResolver\OrderPartiallyRefundedStateResolverInterface" />
             <tag name="messenger.message_handler" bus="sylius.event_bus" />
         </service>
+        <service id="sylius_refund.listener.unit_refunded" alias="Sylius\RefundPlugin\Listener\UnitRefundedEventListener" />
 
         <service
             id="Sylius\RefundPlugin\ProcessManager\UnitsRefundedProcessManagerInterface"
@@ -21,6 +38,7 @@
             <argument type="tagged_iterator" tag="sylius_refund.units_refunded.process_step"/>
             <tag name="messenger.message_handler" bus="sylius.event_bus" />
         </service>
+        <service id="sylius_refund.process_manager.units_refunded" alias="Sylius\RefundPlugin\ProcessManager\UnitsRefundedProcessManagerInterface" />
 
         <service id="Sylius\RefundPlugin\ProcessManager\RefundPaymentProcessManager">
             <argument type="service" id="Sylius\RefundPlugin\StateResolver\OrderFullyRefundedStateResolverInterface" />
@@ -32,10 +50,12 @@
             <argument type="service" id="sylius.event_bus" />
             <tag name="sylius_refund.units_refunded.process_step" priority="50" />
         </service>
+        <service id="sylius_refund.process_manager.refund_payment" alias="Sylius\RefundPlugin\ProcessManager\RefundPaymentProcessManager" />
 
         <service id="Sylius\RefundPlugin\ProcessManager\CreditMemoProcessManager">
             <argument type="service" id="sylius.command_bus" />
             <tag name="sylius_refund.units_refunded.process_step" priority="100" />
         </service>
+        <service id="sylius_refund.process_manager.credit_memo" alias="Sylius\RefundPlugin\ProcessManager\CreditMemoProcessManager" />
     </services>
 </container>

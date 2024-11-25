@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <services>
         <defaults autowire="false" autoconfigure="false" public="true" />
 
@@ -11,6 +26,7 @@
             <argument type="service" id="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface" />
             <tag name="messenger.message_handler" bus="sylius.command_bus" />
         </service>
+        <service id="sylius_refund.command_handler.refund_units" alias="Sylius\RefundPlugin\CommandHandler\RefundUnitsHandler" />
 
         <service id="Sylius\RefundPlugin\CommandHandler\GenerateCreditMemoHandler">
             <argument type="service" id="Sylius\RefundPlugin\Generator\CreditMemoGeneratorInterface" />
@@ -21,11 +37,13 @@
             <argument type="service" id="Sylius\RefundPlugin\Resolver\CreditMemoFileResolverInterface" />
             <tag name="messenger.message_handler" bus="sylius.command_bus" />
         </service>
+        <service id="sylius_refund.command_handler.generate_credit_memo" alias="Sylius\RefundPlugin\CommandHandler\GenerateCreditMemoHandler" />
 
         <service id="Sylius\RefundPlugin\CommandHandler\SendCreditMemoHandler" >
             <argument type="service" id="sylius_refund.repository.credit_memo"/>
             <argument type="service" id="Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface" />
             <tag name="messenger.message_handler" bus="sylius.command_bus" />
         </service>
+        <service id="sylius_refund.command_handler.send_credit_memo" alias="Sylius\RefundPlugin\CommandHandler\SendCreditMemoHandler" />
     </services>
 </container>
