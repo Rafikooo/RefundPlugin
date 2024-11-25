@@ -110,3 +110,10 @@
    | `Sylius\RefundPlugin\StateResolver\RefundPaymentCompletedStateApplierInterface`  | `sylius_refund.state_resolver.refund_payment_completed_applier` |
    | `Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface`                   | `sylius_refund.validator.refund_amount`                         |
    | `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface`             | `sylius_refund.validator.refund_units_command`                  |
+
+1. The following parameters have been renamed:
+
+   | Old parameter                      | New parameter                      |  
+   |------------------------------------|------------------------------------|
+   | `default_logo_file`                | `sylius_refund.default_logo_file`  |
+   | `sylius.refund.template.logo_file` | `sylius_refund.template.logo_file` |
