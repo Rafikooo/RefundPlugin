@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <parameters>
         <parameter key="sylius_refund.supported_gateways" type="collection">
@@ -14,13 +26,15 @@
         <defaults autowire="false" autoconfigure="false" public="true" />
 
         <service id="Sylius\RefundPlugin\Provider\CreditMemoFileProviderInterface" class="Sylius\RefundPlugin\Provider\CreditMemoFileProvider">
-            <argument type="service" id="Sylius\RefundPlugin\Generator\CreditMemoFileNameGeneratorInterface" />
-            <argument type="service" id="Sylius\RefundPlugin\Manager\CreditMemoFileManagerInterface" />
+            <argument type="service" id="sylius_refund.generator.credit_memo_file_name" />
+            <argument type="service" id="sylius_refund.manager.credit_memo_file" />
         </service>
+        <service id="sylius_refund.provider.credit_memo_file" alias="Sylius\RefundPlugin\Provider\CreditMemoFileProviderInterface" />
 
         <service id="Sylius\RefundPlugin\Provider\RefundedShipmentFeeProviderInterface" class="Sylius\RefundPlugin\Provider\RefundedShipmentFeeProvider">
             <argument type="service" id="sylius.repository.adjustment" />
         </service>
+        <service id="sylius_refund.provider.refunded_shipment_fee" alias="Sylius\RefundPlugin\Provider\RefundedShipmentFeeProviderInterface" />
         <service id="Sylius\RefundPlugin\Provider\RefundedShipmentFeeProvider" alias="Sylius\RefundPlugin\Provider\RefundedShipmentFeeProviderInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Provider\RefundedShipmentFeeProviderInterface instead.</deprecated>
         </service>
@@ -29,6 +43,7 @@
             <argument type="service" id="sylius_refund.repository.refund" />
             <argument type="service" id="sylius.repository.order_item_unit" />
         </service>
+        <service id="sylius_refund.provider.order_refunded_total" alias="Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface" />
         <service id="Sylius\RefundPlugin\Provider\OrderRefundedTotalProvider" alias="Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface instead.</deprecated>
         </service>
@@ -37,21 +52,25 @@
             id="Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProviderInterface"
             class="Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProvider"
         />
+        <service id="sylius_refund.provider.current_date_time_immutable" alias="Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProviderInterface" />
 
         <service id="Sylius\RefundPlugin\Provider\OrderItemUnitTotalProvider">
             <argument type="service" id="sylius.repository.order_item_unit" />
             <tag name="sylius_refund.refund_unit_total_provider" />
         </service>
+        <service id="sylius_refund.provider.order_item_unit_total" alias="Sylius\RefundPlugin\Provider\OrderItemUnitTotalProvider" />
 
         <service id="Sylius\RefundPlugin\Provider\ShipmentTotalProvider">
             <argument type="service" id="sylius.repository.adjustment" />
             <tag name="sylius_refund.refund_unit_total_provider" />
         </service>
+        <service id="sylius_refund.provider.shipment_total" alias="Sylius\RefundPlugin\Provider\ShipmentTotalProvider" />
 
         <service id="Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface" class="Sylius\RefundPlugin\Provider\RemainingTotalProvider">
             <argument type="tagged_locator" tag="sylius_refund.refund_unit_total_provider" index-by="refund_type" default-index-method="refundType" />
             <argument type="service" id="sylius_refund.repository.refund" />
         </service>
+        <service id="sylius_refund.provider.remaining_total" alias="Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface" />
         <service id="Sylius\RefundPlugin\Provider\RemainingTotalProvider" alias="Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface instead.</deprecated>
         </service>
@@ -59,6 +78,7 @@
         <service id="Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface" class="Sylius\RefundPlugin\Provider\UnitRefundedTotalProvider">
             <argument type="service" id="sylius_refund.repository.refund" />
         </service>
+        <service id="sylius_refund.provider.unit_refunded_total" alias="Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface" />
         <service id="Sylius\RefundPlugin\Provider\UnitRefundedTotalProvider" alias="Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface instead.</deprecated>
         </service>
@@ -67,6 +87,7 @@
             id="Sylius\RefundPlugin\Provider\RelatedPaymentIdProviderInterface"
             class="Sylius\RefundPlugin\Provider\DefaultRelatedPaymentIdProvider"
         />
+        <service id="sylius_refund.provider.related_payment_id" alias="Sylius\RefundPlugin\Provider\RelatedPaymentIdProviderInterface" />
 
         <service
             id="Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface"
@@ -75,7 +96,9 @@
             <argument type="service" id="sylius.repository.payment_method" />
             <argument>%sylius_refund.supported_gateways%</argument>
         </service>
+        <service id="sylius_refund.provider.refund_payment_methods" alias="Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface" />
 
         <service id="Sylius\RefundPlugin\Provider\TaxRateProviderInterface" class="Sylius\RefundPlugin\Provider\TaxRateProvider"/>
+        <service id="sylius_refund.provider.tax_rate" alias="Sylius\RefundPlugin\Provider\TaxRateProviderInterface" />
     </services>
 </container>
