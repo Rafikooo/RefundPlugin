@@ -17,7 +17,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults autowire="false" autoconfigure="false" public="true" />
+        <defaults public="true" />
 
         <service id="sylius_refund.controller.admin.download_credit_memo" class="Sylius\RefundPlugin\Action\Admin\DownloadCreditMemoAction">
             <argument type="service" id="sylius_refund.resolver.credit_memo_file" />

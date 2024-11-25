@@ -23,7 +23,7 @@
     </parameters>
 
     <services>
-        <defaults autowire="false" autoconfigure="false" public="true" />
+        <defaults public="true" />
 
         <service id="sylius_refund.provider.credit_memo_file" class="Sylius\RefundPlugin\Provider\CreditMemoFileProvider">
             <argument type="service" id="sylius_refund.generator.credit_memo_file_name" />

@@ -17,7 +17,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults autowire="false" autoconfigure="false" public="true" />
+        <defaults public="true" />
 
         <service
             id="sylius_refund.doctrine.orm.query.count_order_item_unit_refunds_belonging_to_order"
