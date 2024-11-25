@@ -53,7 +53,7 @@
             <argument>null</argument>
             <argument type="service" id="file_locator" />
             <argument>@SyliusRefundPlugin/Download/creditMemo.html.twig</argument>
-            <argument>%sylius.refund.template.logo_file%</argument>
+            <argument>%sylius_refund.template.logo_file%</argument>
             <argument>null</argument>
             <argument type="service" id="sylius_refund.generator.twig_to_pdf" />
             <argument type="service" id="sylius_refund.generator.credit_memo_file_name" />
