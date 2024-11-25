@@ -17,26 +17,25 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults autowire="false" autoconfigure="false" public="true" />
-
-        <service id="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface" class="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactory" />
-        <service id="sylius_refund.factory.credit_memo_sequence" alias="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface" />
+        <service id="sylius_refund.factory.credit_memo_sequence" class="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactory" />
+        <service id="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface" alias="sylius_refund.factory.credit_memo_sequence" />
         <service id="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactory" alias="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface instead.</deprecated>
         </service>
 
-        <service id="Sylius\RefundPlugin\Factory\RefundTypeFactoryInterface" class="Sylius\RefundPlugin\Factory\RefundTypeFactory">
+        <service id="sylius_refund.factory.refund_type" class="Sylius\RefundPlugin\Factory\RefundTypeFactory">
             <argument type="string">%sylius_refund.refund_type%</argument>
         </service>
-        <service id="sylius_refund.factory.refund_type" alias="Sylius\RefundPlugin\Factory\RefundTypeFactoryInterface" />
+        <service id="Sylius\RefundPlugin\Factory\RefundTypeFactoryInterface" alias="sylius_refund.factory.refund_type" />
 
-        <service id="Sylius\RefundPlugin\Factory\LineItemFactoryInterface" class="Sylius\RefundPlugin\Factory\LineItemFactory">
+        <service id="sylius_refund.factory.line_item" class="Sylius\RefundPlugin\Factory\LineItemFactory">
             <argument type="string">%sylius_refund.model.line_item.class%</argument>
         </service>
-        <service id="sylius_refund.factory.line_item" alias="Sylius\RefundPlugin\Factory\LineItemFactoryInterface" />
+        <service id="Sylius\RefundPlugin\Factory\LineItemFactoryInterface" alias="sylius_refund.factory.line_item" />
 
         <service
-            id="Sylius\RefundPlugin\Factory\CreditMemoFactory"
+            id="sylius_refund.custom_factory.credit_memo"
+            class="Sylius\RefundPlugin\Factory\CreditMemoFactory"
             decorates="sylius_refund.factory.credit_memo"
             decoration-priority="256"
             public="false"
@@ -46,26 +45,25 @@
             <argument type="service" id="sylius_refund.generator.credit_memo_number" />
             <argument type="service" id="Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProviderInterface" />
         </service>
-        <service id="sylius_refund.custom_factory.credit_memo" alias="Sylius\RefundPlugin\Factory\CreditMemoFactory" />
 
         <service
-            id="Sylius\RefundPlugin\Factory\ShopBillingDataFactory"
+            id="sylius_refund.custom_factory.shop_billing_data"
+            class="Sylius\RefundPlugin\Factory\ShopBillingDataFactory"
             decorates="sylius_refund.factory.shop_billing_data"
             decoration-priority="256"
             public="false"
         >
             <argument type="service" id=".inner" />
         </service>
-        <service id="sylius_refund.custom_factory.shop_billing_data" alias="Sylius\RefundPlugin\Factory\ShopBillingDataFactory" />
 
         <service
-            id="Sylius\RefundPlugin\Factory\CustomerBillingDataFactory"
+            id="sylius_refund.custom_factory.customer_billing_data"
+            class="Sylius\RefundPlugin\Factory\CustomerBillingDataFactory"
             decorates="sylius_refund.factory.customer_billing_data"
             decoration-priority="256"
             public="false"
         >
             <argument type="service" id=".inner" />
         </service>
-        <service id="sylius_refund.custom_factory.customer_billing_data" alias="Sylius\RefundPlugin\Factory\CustomerBillingDataFactory" />
     </services>
 </container>

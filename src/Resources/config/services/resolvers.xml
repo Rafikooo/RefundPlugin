@@ -17,19 +17,17 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults public="true" />
-
-        <service id="Sylius\RefundPlugin\Resolver\CreditMemoFileResolverInterface" class="Sylius\RefundPlugin\Resolver\CreditMemoFileResolver">
+        <service id="sylius_refund.resolver.credit_memo_file" class="Sylius\RefundPlugin\Resolver\CreditMemoFileResolver">
             <argument type="service" id="sylius_refund.repository.credit_memo" />
             <argument type="service" id="sylius_refund.provider.credit_memo_file" />
             <argument type="service" id="sylius_refund.generator.credit_memo_pdf_file" />
             <argument type="service" id="sylius_refund.manager.credit_memo_file" />
         </service>
-        <service id="sylius_refund.resolver.credit_memo_file" alias="Sylius\RefundPlugin\Resolver\CreditMemoFileResolverInterface" />
+        <service id="Sylius\RefundPlugin\Resolver\CreditMemoFileResolverInterface" alias="sylius_refund.resolver.credit_memo_file" />
 
-        <service id="Sylius\RefundPlugin\Resolver\CreditMemoFilePathResolverInterface" class="Sylius\RefundPlugin\Resolver\CreditMemoFilePathResolver">
+        <service id="sylius_refund.resolver.credit_memo_file_path" class="Sylius\RefundPlugin\Resolver\CreditMemoFilePathResolver">
             <argument>%sylius_refund.credit_memo_save_path%</argument>
         </service>
-        <service id="sylius_refund.resolver.credit_memo_file_path" alias="Sylius\RefundPlugin\Resolver\CreditMemoFilePathResolverInterface" />
+        <service id="Sylius\RefundPlugin\Resolver\CreditMemoFilePathResolverInterface" alias="sylius_refund.resolver.credit_memo_file_path" />
     </services>
 </container>

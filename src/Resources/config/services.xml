@@ -21,41 +21,36 @@
     </imports>
 
     <parameters>
-        <parameter key="default_logo_file">@SyliusRefundPlugin/Resources/assets/sylius-logo.png</parameter>
-        <parameter key="sylius.refund.template.logo_file">%env(default:sylius_refund.default_logo_file:resolve:SYLIUS_REFUND_LOGO_FILE)%</parameter>
-
-        <parameter key="sylius_refund.default_logo_file">%default_logo_file%</parameter>
-        <parameter key="sylius_refund.template.logo_file">%sylius.refund.template.logo_file%</parameter>
+        <parameter key="sylius_refund.default_logo_file">@SyliusRefundPlugin/Resources/assets/sylius-logo.png</parameter>
+        <parameter key="sylius_refund.template.logo_file">%env(default:sylius_refund.default_logo_file:resolve:SYLIUS_REFUND_LOGO_FILE)%</parameter>
     </parameters>
 
     <services>
-        <defaults autowire="false" autoconfigure="false" public="true" />
+        <defaults public="true" />
 
-        <service id="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface" class="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculator">
+        <service id="sylius_refund.calculator.unit_refund_total" class="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculator">
             <argument type="service" id="sylius_refund.provider.remaining_total" />
         </service>
-        <service id="sylius_refund.calculator.unit_refund_total" alias="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface" />
+        <service id="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface" alias="sylius_refund.calculator.unit_refund_total" />
         <service id="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculator" alias="Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface instead.</deprecated>
         </service>
 
-        <service id="Sylius\RefundPlugin\Refunder\OrderItemUnitsRefunder">
+        <service id="sylius_refund.refunder.order_item_units" class="Sylius\RefundPlugin\Refunder\OrderItemUnitsRefunder">
             <argument type="service" id="sylius_refund.creator.refund" />
             <argument type="service" id="sylius.event_bus" />
             <argument type="service" id="sylius_refund.filter.unit_refund" />
             <tag name="sylius_refund.refunder" />
         </service>
-        <service id="sylius_refund.refunder.order_item_units" alias="Sylius\RefundPlugin\Refunder\OrderItemUnitsRefunder" />
 
-        <service id="Sylius\RefundPlugin\Refunder\OrderShipmentsRefunder">
+        <service id="sylius_refund.refunder.order_shipments" class="Sylius\RefundPlugin\Refunder\OrderShipmentsRefunder">
             <argument type="service" id="sylius_refund.creator.refund" />
             <argument type="service" id="sylius.event_bus" />
             <argument type="service" id="sylius_refund.filter.unit_refund" />
             <tag name="sylius_refund.refunder" />
         </service>
-        <service id="sylius_refund.refunder.order_shipments" alias="Sylius\RefundPlugin\Refunder\OrderShipmentsRefunder" />
 
-        <service id="Sylius\RefundPlugin\Twig\OrderRefundsExtension">
+        <service id="sylius_refund.twig.extension.order_refunds" class="Sylius\RefundPlugin\Twig\OrderRefundsExtension">
             <argument type="service" id="sylius_refund.provider.order_refunded_total" />
             <argument type="service" id="Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface" />
             <argument type="service" id="sylius_refund.checker.unit_refunding_availability" />
@@ -64,15 +59,13 @@
             <argument type="service" id="sylius_refund.factory.refund_type" />
             <tag name="twig.extension"/>
         </service>
-        <service id="sylius_refund.twig.extension.order_refunds" alias="Sylius\RefundPlugin\Twig\OrderRefundsExtension" />
 
-        <service id="sylius_refund_plugin.repository.credit_memo_sequence" class="Doctrine\ORM\EntityRepository">
+        <service id="sylius_refund.repository.credit_memo_sequence" class="Doctrine\ORM\EntityRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
             <argument type="string">Sylius\RefundPlugin\Entity\CreditMemoSequence</argument>
         </service>
-        <service id="sylius_refund.repository.credit_memo_sequence" alias="sylius_refund_plugin.repository.credit_memo_sequence" />
 
-        <service id="Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface" class="Sylius\RefundPlugin\Sender\CreditMemoEmailSender">
+        <service id="sylius_refund.email_sender.credit_memo" class="Sylius\RefundPlugin\Sender\CreditMemoEmailSender">
             <argument>null</argument>
             <argument type="service" id="sylius.email_sender" />
             <argument>null</argument>
@@ -80,7 +73,7 @@
             <argument type="service" id="sylius_refund.resolver.credit_memo_file" />
             <argument type="service" id="sylius_refund.resolver.credit_memo_file_path" />
         </service>
-        <service id="sylius_refund.email_sender.credit_memo" alias="Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface" />
+        <service id="Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface" alias="sylius_refund.email_sender.credit_memo" />
         <service id="Sylius\RefundPlugin\Sender\CreditMemoEmailSender" alias="Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface instead.</deprecated>
         </service>
@@ -89,15 +82,15 @@
             <deprecated package="sylius/refund-plugin" version="1.5">The "%service_id%" service is deprecated and will be removed in RefundPlugin 2.0, there is no replacement.</deprecated>
         </service>
 
-        <service id="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface" class="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilder" />
-        <service id="sylius_refund.response_builder.credit_memo_file" alias="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface" />
+        <service id="sylius_refund.response_builder.credit_memo_file" class="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilder" />
+        <service id="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface" alias="sylius_refund.response_builder.credit_memo_file" />
         <service id="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilder" alias="Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface instead.</deprecated>
         </service>
 
-        <service id="Sylius\RefundPlugin\Manager\CreditMemoFileManagerInterface" class="Sylius\RefundPlugin\Manager\CreditMemoFileManager">
+        <service id="sylius_refund.manager.credit_memo_file" class="Sylius\RefundPlugin\Manager\CreditMemoFileManager">
             <argument type="service" id="gaufrette.sylius_refund_credit_memo_filesystem" />
         </service>
-        <service id="sylius_refund.manager.credit_memo_file" alias="Sylius\RefundPlugin\Manager\CreditMemoFileManagerInterface" />
+        <service id="Sylius\RefundPlugin\Manager\CreditMemoFileManagerInterface" alias="sylius_refund.manager.credit_memo_file" />
     </services>
 </container>

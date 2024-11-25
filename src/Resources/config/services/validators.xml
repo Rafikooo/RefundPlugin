@@ -17,36 +17,32 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <defaults autowire="false" autoconfigure="false" public="true" />
-
-        <service id="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface" class="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator">
+        <service id="sylius_refund.validator.refund_units_command" class="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator">
             <argument type="service" id="sylius_refund.checker.order_refunding_availability"/>
             <argument type="service" id="sylius_refund.validator.refund_amount" />
             <argument type="tagged_iterator" tag="sylius_refund.validator.unit_refunds_belonging_to_order" />
         </service>
-        <service id="sylius_refund.validator.refund_units_command" alias="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface" />
+        <service id="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface" alias="sylius_refund.validator.refund_units_command" />
         <service id="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator" alias="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface instead.</deprecated>
         </service>
 
-        <service id="Sylius\RefundPlugin\Validator\OrderItemUnitRefundsBelongingToOrderValidator">
+        <service id="sylius_refund.validator.order_item_unit_refunds_belonging_to_order" class="Sylius\RefundPlugin\Validator\OrderItemUnitRefundsBelongingToOrderValidator">
             <argument type="service" id="sylius_refund.filter.unit_refund" />
             <argument type="service" id="sylius_refund.doctrine.orm.query.count_order_item_unit_refunds_belonging_to_order" />
             <tag name="sylius_refund.validator.unit_refunds_belonging_to_order" />
         </service>
-        <service id="sylius_refund.validator.order_item_unit_refunds_belonging_to_order" alias="Sylius\RefundPlugin\Validator\OrderItemUnitRefundsBelongingToOrderValidator" />
 
-        <service id="Sylius\RefundPlugin\Validator\ShipmentRefundsBelongingToOrderValidator">
+        <service id="sylius_refund.validator.shipment_refunds_belonging_to_order" class="Sylius\RefundPlugin\Validator\ShipmentRefundsBelongingToOrderValidator">
             <argument type="service" id="sylius_refund.filter.unit_refund" />
             <argument type="service" id="sylius_refund.doctrine.orm.query.count_shipment_refunds_belonging_to_order" />
             <tag name="sylius_refund.validator.unit_refunds_belonging_to_order" />
         </service>
-        <service id="sylius_refund.validator.shipment_refunds_belonging_to_order" alias="Sylius\RefundPlugin\Validator\ShipmentRefundsBelongingToOrderValidator" />
 
-        <service id="Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface" class="Sylius\RefundPlugin\Validator\RefundAmountValidator">
+        <service id="sylius_refund.validator.refund_amount" class="Sylius\RefundPlugin\Validator\RefundAmountValidator">
             <argument type="service" id="sylius_refund.provider.remaining_total" />
         </service>
-        <service id="sylius_refund.validator.refund_amount" alias="Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface" />
+        <service id="Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface" alias="sylius_refund.validator.refund_amount" />
         <service id="Sylius\RefundPlugin\Validator\RefundAmountValidator" alias="Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface">
             <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface instead.</deprecated>
         </service>
