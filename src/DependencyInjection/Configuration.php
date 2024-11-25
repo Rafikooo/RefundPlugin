@@ -40,7 +40,7 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('sylius_refund_plugin');
+        $treeBuilder = new TreeBuilder('sylius_refund');
         $rootNode = $treeBuilder->getRootNode();
 
         $this->addResourcesSection($rootNode);
