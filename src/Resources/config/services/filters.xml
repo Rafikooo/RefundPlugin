@@ -19,7 +19,7 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="true" />
 
-        <service id="Sylius\RefundPlugin\Filter\UnitRefundFilterInterface" class="Sylius\RefundPlugin\Filter\UnitRefundFilter" />
-        <service id="sylius_refund.filter.unit_refund" alias="Sylius\RefundPlugin\Filter\UnitRefundFilterInterface" />
+        <service id="sylius_refund.filter.unit_refund" class="Sylius\RefundPlugin\Filter\UnitRefundFilter" />
+        <service id="Sylius\RefundPlugin\Filter\UnitRefundFilterInterface" alias="sylius_refund.filter.unit_refund" />
     </services>
 </container>

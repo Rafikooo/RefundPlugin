@@ -19,15 +19,13 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="true" />
 
-        <service id="Sylius\RefundPlugin\Menu\AdminMainMenuListener">
+        <service id="sylius_refund.listener.admin_main_menu" class="Sylius\RefundPlugin\Menu\AdminMainMenuListener">
             <tag name="kernel.event_listener" event="sylius.menu.admin.main" method="addCreditMemosSection" />
         </service>
-        <service id="sylius_refund.listener.admin_main_menu" alias="Sylius\RefundPlugin\Menu\AdminMainMenuListener" />
 
-        <service id="Sylius\RefundPlugin\Menu\OrderShowMenuListener">
+        <service id="sylius_refund.listener.order_show_menu" class="Sylius\RefundPlugin\Menu\OrderShowMenuListener">
             <argument type="service" id="sylius_refund.checker.order_refunds_list_availability" />
             <tag name="kernel.event_listener" event="sylius.menu.admin.order.show" method="addRefundsButton" />
         </service>
-        <service id="sylius_refund.listener.order_show_menu" alias="Sylius\RefundPlugin\Menu\OrderShowMenuListener" />
     </services>
 </container>
