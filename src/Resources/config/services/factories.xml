@@ -42,8 +42,8 @@
             public="false"
         >
             <argument type="service" id=".inner" />
-            <argument type="service" id="Sylius\RefundPlugin\Generator\CreditMemoIdentifierGeneratorInterface" />
-            <argument type="service" id="Sylius\RefundPlugin\Generator\CreditMemoNumberGeneratorInterface" />
+            <argument type="service" id="sylius_refund.generator.credit_memo_identifier" />
+            <argument type="service" id="sylius_refund.generator.credit_memo_number" />
             <argument type="service" id="Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProviderInterface" />
         </service>
         <service id="sylius_refund.custom_factory.credit_memo" alias="Sylius\RefundPlugin\Factory\CreditMemoFactory" />
@@ -54,7 +54,7 @@
             decoration-priority="256"
             public="false"
         >
-            <argument type="service" id="Sylius\RefundPlugin\Factory\ShopBillingDataFactory.inner" />
+            <argument type="service" id=".inner" />
         </service>
         <service id="sylius_refund.custom_factory.shop_billing_data" alias="Sylius\RefundPlugin\Factory\ShopBillingDataFactory" />
 
@@ -64,7 +64,7 @@
             decoration-priority="256"
             public="false"
         >
-            <argument type="service" id="Sylius\RefundPlugin\Factory\CustomerBillingDataFactory.inner" />
+            <argument type="service" id=".inner" />
         </service>
         <service id="sylius_refund.custom_factory.customer_billing_data" alias="Sylius\RefundPlugin\Factory\CustomerBillingDataFactory" />
     </services>

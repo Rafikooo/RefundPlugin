@@ -39,7 +39,7 @@
         <service id="sylius_refund.checker.order_refunds_list_availability" alias="Sylius\RefundPlugin\Checker\OrderRefundsListAvailabilityChecker" />
 
         <service id="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface" class="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalChecker">
-            <argument type="service" id="Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface" />
+            <argument type="service" id="sylius_refund.provider.order_refunded_total" />
         </service>
         <service id="sylius_refund.checker.order_fully_refunded_total" alias="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface" />
         <service id="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalChecker" alias="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface">
@@ -47,7 +47,7 @@
         </service>
 
         <service id="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityCheckerInterface" class="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityChecker">
-            <argument type="service" id="Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface" />
+            <argument type="service" id="sylius_refund.provider.remaining_total" />
         </service>
         <service id="sylius_refund.checker.unit_refunding_availability" alias="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityCheckerInterface" />
         <service id="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityChecker" alias="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityCheckerInterface">

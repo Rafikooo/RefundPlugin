@@ -21,9 +21,9 @@
 
         <service id="Sylius\RefundPlugin\Resolver\CreditMemoFileResolverInterface" class="Sylius\RefundPlugin\Resolver\CreditMemoFileResolver">
             <argument type="service" id="sylius_refund.repository.credit_memo" />
-            <argument type="service" id="Sylius\RefundPlugin\Provider\CreditMemoFileProviderInterface" />
-            <argument type="service" id="Sylius\RefundPlugin\Generator\CreditMemoPdfFileGeneratorInterface" />
-            <argument type="service" id="Sylius\RefundPlugin\Manager\CreditMemoFileManagerInterface" />
+            <argument type="service" id="sylius_refund.provider.credit_memo_file" />
+            <argument type="service" id="sylius_refund.generator.credit_memo_pdf_file" />
+            <argument type="service" id="sylius_refund.manager.credit_memo_file" />
         </service>
         <service id="sylius_refund.resolver.credit_memo_file" alias="Sylius\RefundPlugin\Resolver\CreditMemoFileResolverInterface" />
 

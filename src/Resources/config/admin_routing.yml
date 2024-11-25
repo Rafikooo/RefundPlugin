@@ -2,12 +2,12 @@ sylius_refund_order_refunds_list:
     path: /orders/{orderNumber}/refunds
     methods: [GET]
     defaults:
-        _controller: Sylius\RefundPlugin\Action\Admin\OrderRefundsListAction
+        _controller: sylius_refund.controller.admin.order_refunds_list
 
 sylius_refund_refund_units:
     path: /orders/{orderNumber}/refund-units
     defaults:
-        _controller: Sylius\RefundPlugin\Action\Admin\RefundUnitsAction
+        _controller: sylius_refund.controller.admin.refund_units
 
 sylius_refund_credit_memo:
     resource: |
@@ -49,17 +49,17 @@ sylius_refund_admin_credit_memo_download:
     path: /credit-memos/{id}/download
     methods: [GET]
     defaults:
-        _controller: Sylius\RefundPlugin\Action\Admin\DownloadCreditMemoAction
+        _controller: sylius_refund.controller.admin.download_credit_memo
 
 
 sylius_refund_complete_refund_payment:
     path: /orders/{orderNumber}/refund-payments/{id}/complete
     methods: [POST]
     defaults:
-        _controller: Sylius\RefundPlugin\Action\CompleteRefundPaymentAction
+        _controller: sylius_refund.controller.complete_refund_payment
 
 sylius_refund_admin_credit_memo_send:
     path: /credit-memos/{id}/send
     methods: [GET]
     defaults:
-        _controller: Sylius\RefundPlugin\Action\Admin\SendCreditMemoAction
+        _controller: sylius_refund.controller.admin.send_credit_memo

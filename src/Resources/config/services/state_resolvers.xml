@@ -22,7 +22,7 @@
         <service id="Sylius\RefundPlugin\StateResolver\OrderFullyRefundedStateResolverInterface" class="Sylius\RefundPlugin\StateResolver\OrderFullyRefundedStateResolver">
             <argument type="service" id="sylius_abstraction.state_machine" />
             <argument type="service" id="sylius.manager.order" />
-            <argument type="service" id="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface" />
+            <argument type="service" id="sylius_refund.checker.order_fully_refunded_total" />
             <argument type="service" id="sylius.repository.order" />
         </service>
         <service id="sylius_refund.state_resolver.order_fully_refunded" alias="Sylius\RefundPlugin\StateResolver\OrderFullyRefundedStateResolverInterface" />

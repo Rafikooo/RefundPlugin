@@ -20,8 +20,8 @@
         <defaults autowire="false" autoconfigure="false" public="true" />
 
         <service id="Sylius\RefundPlugin\Generator\CreditMemoNumberGeneratorInterface" class="Sylius\RefundPlugin\Generator\SequentialCreditMemoNumberGenerator">
-            <argument type="service" id="sylius_refund_plugin.repository.credit_memo_sequence" />
-            <argument type="service" id="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface" />
+            <argument type="service" id="sylius_refund.repository.credit_memo_sequence" />
+            <argument type="service" id="sylius_refund.factory.credit_memo_sequence" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
         <service id="sylius_refund.generator.credit_memo_number" alias="Sylius\RefundPlugin\Generator\CreditMemoNumberGeneratorInterface" />
@@ -30,8 +30,8 @@
         </service>
 
         <service id="Sylius\RefundPlugin\Generator\CreditMemoGeneratorInterface" class="Sylius\RefundPlugin\Generator\CreditMemoGenerator">
-            <argument type="service" id="Sylius\RefundPlugin\Converter\LineItem\LineItemsConverterInterface" />
-            <argument type="service" id="Sylius\RefundPlugin\Generator\TaxItemsGeneratorInterface" />
+            <argument type="service" id="sylius_refund.converter.line_items" />
+            <argument type="service" id="sylius_refund.generator.tax_items" />
             <argument type="service" id="sylius_refund.factory.credit_memo" />
             <argument type="service" id="sylius_refund.factory.customer_billing_data" />
             <argument type="service" id="sylius_refund.factory.shop_billing_data" />
@@ -55,8 +55,8 @@
             <argument>@SyliusRefundPlugin/Download/creditMemo.html.twig</argument>
             <argument>%sylius.refund.template.logo_file%</argument>
             <argument>null</argument>
-            <argument type="service" id="Sylius\RefundPlugin\Generator\TwigToPdfGeneratorInterface" />
-            <argument type="service" id="Sylius\RefundPlugin\Generator\CreditMemoFileNameGeneratorInterface" />
+            <argument type="service" id="sylius_refund.generator.twig_to_pdf" />
+            <argument type="service" id="sylius_refund.generator.credit_memo_file_name" />
         </service>
         <service id="sylius_refund.generator.credit_memo_pdf_file" alias="Sylius\RefundPlugin\Generator\CreditMemoPdfFileGeneratorInterface" />
         <service id="Sylius\RefundPlugin\Generator\CreditMemoPdfFileGenerator" alias="Sylius\RefundPlugin\Generator\CreditMemoPdfFileGeneratorInterface">
@@ -82,7 +82,7 @@
         <service id="Sylius\RefundPlugin\Generator\TwigToPdfGeneratorInterface" class="Sylius\RefundPlugin\Generator\TwigToPdfGenerator">
             <argument type="service" id="twig" />
             <argument type="service" id="knp_snappy.pdf" />
-            <argument type="service" id="Sylius\RefundPlugin\Generator\PdfOptionsGeneratorInterface" />
+            <argument type="service" id="sylius_refund.generator.pdf_options" />
         </service>
         <service id="sylius_refund.generator.twig_to_pdf" alias="Sylius\RefundPlugin\Generator\TwigToPdfGeneratorInterface" />
     </services>
