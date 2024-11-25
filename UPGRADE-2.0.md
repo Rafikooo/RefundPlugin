@@ -104,6 +104,13 @@
    | `Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface`                   | `sylius_refund.validator.refund_amount`                         |
    | `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface`             | `sylius_refund.validator.refund_units_command`                  |
 
+1. The following deprecated aliases have been removed, use the service IDs instead:
+
+   | Old alias ID                                                    | Service Id                                           | 
+   |-----------------------------------------------------------------|------------------------------------------------------|
+   | `Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter` | `sylius_refund.converter.line_items.order_item_unit` |
+   | `Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter`      | `sylius_refund.converter.line_items.shipment`        |
+ 
 1. The following parameters have been renamed:
 
    | Old parameter                      | New parameter                      |  
