@@ -11,7 +11,7 @@ parameters:
 sylius_refund:
     pdf_generator:
         allowed_files:
-            - '%env(default:default_logo_file:resolve:SYLIUS_REFUND_LOGO_FILE)%'
+            - '%env(default:sylius_refund.default_logo_file:resolve:SYLIUS_REFUND_LOGO_FILE)%'
 
 sylius_mailer:
     emails:
