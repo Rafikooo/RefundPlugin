@@ -119,3 +119,6 @@
             pdf_generator:
                 ...
     ```
+
+1. The buses `sylius_refund_plugin.command_bus` and `sylius_refund_plugin.event_bus` have been replaced
+   accordingly by `sylius.command_bus` and `sylius.event_bus`.
