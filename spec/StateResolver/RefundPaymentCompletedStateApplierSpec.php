@@ -15,8 +15,6 @@ namespace spec\Sylius\RefundPlugin\StateResolver;
 
 use Doctrine\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
-use SM\Factory\FactoryInterface;
-use SM\StateMachine\StateMachineInterface as WinzouStateMachineInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\RefundPlugin\Entity\RefundPaymentInterface;
 use Sylius\RefundPlugin\StateResolver\RefundPaymentCompletedStateApplier;
@@ -25,7 +23,7 @@ use Sylius\RefundPlugin\StateResolver\RefundPaymentTransitions;
 
 final class RefundPaymentCompletedStateApplierSpec extends ObjectBehavior
 {
-    function let(FactoryInterface $stateMachineFactory, ObjectManager $refundPaymentManager): void
+    function let(StateMachineInterface $stateMachineFactory, ObjectManager $refundPaymentManager): void
     {
         $this->beConstructedWith($stateMachineFactory, $refundPaymentManager);
     }
@@ -58,13 +56,11 @@ final class RefundPaymentCompletedStateApplierSpec extends ObjectBehavior
     }
 
     function it_uses_winzou_state_machine_if_abstraction_not_passed_to_apply_complete_transition_on_refund_payment(
-        FactoryInterface $stateMachineFactory,
+        StateMachineInterface $stateMachineFactory,
         ObjectManager $refundPaymentManager,
-        WinzouStateMachineInterface $stateMachine,
         RefundPaymentInterface $refundPayment,
     ): void {
-        $stateMachineFactory->get($refundPayment, RefundPaymentTransitions::GRAPH)->willReturn($stateMachine);
-        $stateMachine->apply(RefundPaymentTransitions::TRANSITION_COMPLETE)->shouldBeCalled();
+        $stateMachineFactory->apply($refundPayment, RefundPaymentTransitions::GRAPH, RefundPaymentTransitions::TRANSITION_COMPLETE)->shouldBeCalled();
 
         $refundPaymentManager->flush()->shouldBeCalled();
 

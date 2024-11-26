@@ -15,8 +15,6 @@ namespace spec\Sylius\RefundPlugin\StateResolver;
 
 use Doctrine\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
-use SM\Factory\FactoryInterface;
-use SM\StateMachine\StateMachineInterface as WinzouStateMachineInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -28,7 +26,7 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $orderRepository,
-        FactoryInterface $stateMachineFactory,
+        StateMachineInterface $stateMachineFactory,
         ObjectManager $orderManager,
     ): void {
         $this->beConstructedWith($orderRepository, $stateMachineFactory, $orderManager);
@@ -93,17 +91,15 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
 
     function it_uses_winzou_state_machine_if_abstraction_not_passed_to_mark_order_as_partially_refunded(
         OrderRepositoryInterface $orderRepository,
-        FactoryInterface $stateMachineFactory,
+        StateMachineInterface $stateMachineFactory,
         ObjectManager $orderManager,
         OrderInterface $order,
-        WinzouStateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneByNumber('000777')->willReturn($order);
 
         $order->getPaymentState()->willReturn(OrderPaymentStates::STATE_PAID);
 
-        $stateMachineFactory->get($order, OrderPaymentTransitions::GRAPH)->willReturn($stateMachine);
-        $stateMachine->apply(OrderPaymentTransitions::TRANSITION_PARTIALLY_REFUND)->shouldBeCalled();
+        $stateMachineFactory->apply($order, OrderPaymentTransitions::GRAPH, OrderPaymentTransitions::TRANSITION_PARTIALLY_REFUND)->shouldBeCalled();
 
         $orderManager->flush()->shouldBeCalled();
 

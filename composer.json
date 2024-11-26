@@ -25,9 +25,7 @@
         "sylius/resource-bundle": "^1.12",
         "sylius/sylius": "^2.0",
         "symfony/messenger": "^6.4 || ^7.1",
-        "php-http/discovery": "^1.20",
-        "winzou/state-machine": "^0.4",
-        "winzou/state-machine-bundle": "^0.6"
+        "php-http/discovery": "^1.20"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
@@ -91,7 +89,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-1.6": "1.6-dev"
+            "dev-2.0": "2.0-dev"
         },
         "symfony": {
             "require": "^7.1"

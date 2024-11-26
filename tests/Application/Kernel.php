@@ -9,6 +9,7 @@ use Sylius\Bundle\CoreBundle\SyliusCoreBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use winzou\Bundle\StateMachineBundle\winzouStateMachineBundle;
 
 final class Kernel extends BaseKernel
 {
@@ -28,6 +29,10 @@ final class Kernel extends BaseKernel
     {
         foreach ($this->getBundleListFiles() as $file) {
             yield from $this->registerBundlesFromFile($file);
+        }
+
+        if (class_exists(winzouStateMachineBundle::class)) {
+            yield new winzouStateMachineBundle();
         }
     }
 
