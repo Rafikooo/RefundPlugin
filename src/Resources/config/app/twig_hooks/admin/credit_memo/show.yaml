@@ -41,6 +41,7 @@ sylius_twig_hooks:
         'sylius_refund.admin.credit_memos.content.header.title_block.actions':
             download:
                 template: '@SyliusRefundPlugin/credit_memos/content/header/title_block/actions/download.html.twig'
+                enabled: '%sylius_refund.pdf_generator.enabled%'
                 priority: 100
 
         'sylius_refund.admin.credit_memos.content.sections':

@@ -16,17 +16,17 @@ Feature: Being unable to download a credit memo as PDF file
         And 1st "Mr. Meeseeks T-Shirt" product from order "#00000022" has already been refunded with "Space money" payment
         And I am logged in as an administrator
 
-    @ui
+    @ui @pdf_disabled
     Scenario: Being unable to download a credit memo from credit memos index page
         When I browse credit memos
         Then I should not be able to download the 1st credit memo
 
-    @ui
+    @ui @pdf_disabled
     Scenario: Being unable to download a credit memo from credit memo details page
         When I browse the details of the only credit memo generated for order "#00000022"
         Then I should not be able to download the credit memo
 
-    @ui
+    @ui @pdf_disabled
     Scenario: Being unable to download a credit memo from order show page
         When I view the summary of the order "#00000022"
         Then I should not be able to download the 1st order's credit memo
