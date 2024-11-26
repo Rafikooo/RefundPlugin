@@ -3,8 +3,8 @@
 {% block title %}{{ 'sylius.ui.order'|trans ~' #'~ order.number }} {{ 'sylius_refund.ui.refunds'|trans }} {{ parent() }}{% endblock %}
 
 {% set customer = order.customer %}
-{% set disableButton = order.paymentState == constant('Sylius\\Component\\Core\\OrderPaymentStates::STATE_REFUNDED') ? 'disabled' : '' %}
+{% set disable_button = order.paymentState == constant('Sylius\\Component\\Core\\OrderPaymentStates::STATE_REFUNDED') ? 'disabled' : '' %}
 
 {% block body %}
-    {% hook 'sylius_refund.admin.order.refund' with { order } %}
+    {% hook 'sylius_refund.admin.order.refund' with { order, disable_button } %}
 {% endblock %}

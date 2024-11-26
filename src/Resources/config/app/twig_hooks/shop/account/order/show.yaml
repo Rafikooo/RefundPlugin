@@ -1,7 +1,7 @@
 sylius_twig_hooks:
     hooks:
         'sylius_shop.account.order.show.content.main':
-            credit_memos:
+            credit_memos: #TODO: Change this to twig component
                 template: '@SyliusRefundPlugin/order/shop/credit_memos.html.twig'
                 priority: -100
 

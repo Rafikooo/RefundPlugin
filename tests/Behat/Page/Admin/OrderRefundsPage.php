@@ -56,7 +56,7 @@ final class OrderRefundsPage extends SymfonyPage implements OrderRefundsPageInte
 
     public function pickAllUnitsToRefund(): void
     {
-        $this->getDocument()->find('css', 'button[data-refund-all]')->click();
+        $this->getDocument()->find('css', '[data-test-refund-all]')->click();
     }
 
     public function pickOrderShipment(?string $shippingMethodName = null): void
@@ -106,9 +106,9 @@ final class OrderRefundsPage extends SymfonyPage implements OrderRefundsPageInte
     public function eachRefundButtonIsDisabled(): bool
     {
         return
-            $this->getDocument()->find('css', 'button[data-refund-clear]')->getAttribute('disabled') !== null &&
-            $this->getDocument()->find('css', '#page-button')->getAttribute('disabled') !== null &&
-            $this->getDocument()->find('css', 'button[data-refund-all]')->getAttribute('disabled') !== null
+            $this->getDocument()->find('css', '[data-test-clear-all]')->getAttribute('disabled') !== null &&
+            $this->getDocument()->find('css', '[data-test-refund-submit-button]')->getAttribute('disabled') !== null &&
+            $this->getDocument()->find('css', '[data-test-refund-all]')->getAttribute('disabled') !== null
         ;
     }
 
@@ -131,7 +131,7 @@ final class OrderRefundsPage extends SymfonyPage implements OrderRefundsPageInte
     {
         $paymentMethods = $this->getElement('payment_methods');
 
-        return strpos($paymentMethods->getText(), $paymentMethodName) !== false;
+        return str_contains($paymentMethods->getText(), $paymentMethodName);
     }
 
     public function isPaymentMethodSelected(string $paymentMethodName): bool

@@ -1,5 +1,6 @@
-{% import '@SyliusAdmin/Common/Macro/money.html.twig' as money %}
+{% import "@SyliusCore/Common/Macro/money.html.twig" as money %}
 
+{% set order = hookable_metadata.context.order %}
 {% set shipmentRefundType = constant('Sylius\\RefundPlugin\\Model\\RefundType::SHIPMENT') %}
 
 {% for shippingAdjustment in order.getAdjustments('shipping') %}
@@ -25,7 +26,14 @@
             </div>
         </td>
         <td class="aligned collapsing">
-            <button data-refund="{{ unit_refund_left(shippingAdjustment.id, shipmentRefundType, shipment.adjustmentsTotal) }}" type="button" class="ui button primary" {% if not can_unit_be_refunded(shippingAdjustment.id, shipmentRefundType) %} disabled{% endif %}>
+            <button
+                    data-refund="{{ unit_refund_left(shippingAdjustment.id, shipmentRefundType, shipment.adjustmentsTotal) }}"
+                    type="button"
+                    class="btn"
+                    {% if not can_unit_be_refunded(shippingAdjustment.id, shipmentRefundType) %} disabled{% endif %}
+                    {{ sylius_test_html_attribute('refund-item-button') }}
+            >
+                {{ ux_icon('tabler:truck') }}
                 {{ 'sylius_refund.ui.refund'|trans }}
             </button>
         </td>

@@ -84,6 +84,9 @@ sylius_twig_hooks:
             items:
                 template: '@SyliusRefundPlugin/order/admin/refund/content/sections/form/table/items.html.twig'
                 priority: 0
+            shipping:
+                template: '@SyliusRefundPlugin/order/admin/refund/content/sections/form/table/shipment.html.twig'
+                priority: 0
 
         'sylius_refund.admin.order.refund.content.sections.form.table.body.item':
             item_info:

@@ -1,8 +1,9 @@
 {% set order = hookable_metadata.context.order %}
+{% set disable_button = hookable_metadata.context.disable_button %}
 
 <div class="col-12 col-md-auto ms-auto">
     <div class="btn-list">
-        <button type="submit" form="refund-form" class="btn btn-primary" {{ sylius_test_html_attribute('refund-submit-button') }}>{{ 'sylius_refund.ui.refund'|trans }}</button>
+        <button type="submit" form="refund-form" class="btn btn-primary" {{ sylius_test_html_attribute('refund-submit-button') }} {{ disable_button }}>{{ 'sylius_refund.ui.refund'|trans }}</button>
 
         <div class="dropdown drop">
             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -14,5 +15,3 @@
         </div>
     </div>
 </div>
-
-
