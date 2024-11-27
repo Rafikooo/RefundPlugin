@@ -16,9 +16,9 @@ namespace Sylius\RefundPlugin\Calculator;
 use Sylius\RefundPlugin\Model\RefundTypeInterface;
 use Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface;
 
-final class UnitRefundTotalCalculator implements UnitRefundTotalCalculatorInterface
+final readonly class UnitRefundTotalCalculator implements UnitRefundTotalCalculatorInterface
 {
-    public function __construct(private readonly RemainingTotalProviderInterface $remainingTotalProvider)
+    public function __construct(private RemainingTotalProviderInterface $remainingTotalProvider)
     {
     }
 

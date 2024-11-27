@@ -22,11 +22,11 @@ use Sylius\RefundPlugin\Exception\CreditMemoNotFound;
 use Sylius\RefundPlugin\Sender\CreditMemoEmailSenderInterface;
 use Webmozart\Assert\Assert;
 
-final class SendCreditMemoHandler
+final readonly class SendCreditMemoHandler
 {
     public function __construct(
-        private readonly RepositoryInterface $creditMemoRepository,
-        private readonly CreditMemoEmailSenderInterface $creditMemoEmailSender,
+        private RepositoryInterface $creditMemoRepository,
+        private CreditMemoEmailSenderInterface $creditMemoEmailSender,
     ) {
     }
 

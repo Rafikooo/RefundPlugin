@@ -26,10 +26,10 @@ class UnitsRefunded
         private readonly string $orderNumber,
         /** @var array|UnitRefundInterface[]|OrderItemUnitRefund[] */
         private readonly array $units,
-        private mixed $paymentMethodId,
-        private int $amount,
-        private string|int $currencyCode,
-        private string $comment,
+        private readonly mixed $paymentMethodId,
+        private readonly int $amount,
+        private readonly string|int $currencyCode,
+        private readonly string $comment,
     ) {
         Assert::allIsInstanceOf($units, UnitRefundInterface::class);
     }

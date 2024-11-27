@@ -18,10 +18,10 @@ use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-final class OrderRefundingAvailabilityChecker implements OrderRefundingAvailabilityCheckerInterface
+final readonly class OrderRefundingAvailabilityChecker implements OrderRefundingAvailabilityCheckerInterface
 {
     /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
-    public function __construct(private readonly OrderRepositoryInterface $orderRepository)
+    public function __construct(private OrderRepositoryInterface $orderRepository)
     {
     }
 

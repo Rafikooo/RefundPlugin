@@ -17,9 +17,9 @@ use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 
-final class RefundedShipmentFeeProvider implements RefundedShipmentFeeProviderInterface
+final readonly class RefundedShipmentFeeProvider implements RefundedShipmentFeeProviderInterface
 {
-    public function __construct(private readonly RepositoryInterface $adjustmentRepository)
+    public function __construct(private RepositoryInterface $adjustmentRepository)
     {
     }
 

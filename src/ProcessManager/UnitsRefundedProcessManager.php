@@ -15,10 +15,10 @@ namespace Sylius\RefundPlugin\ProcessManager;
 
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 
-final class UnitsRefundedProcessManager implements UnitsRefundedProcessManagerInterface
+final readonly class UnitsRefundedProcessManager implements UnitsRefundedProcessManagerInterface
 {
     /** @param UnitsRefundedProcessStepInterface[] $steps */
-    public function __construct(private readonly iterable $steps)
+    public function __construct(private iterable $steps)
     {
     }
 

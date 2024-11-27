@@ -19,7 +19,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Model\RefundTypeInterface;
 use Webmozart\Assert\Assert;
 
-final class ShipmentTotalProvider implements RefundUnitTotalProviderInterface
+final readonly class ShipmentTotalProvider implements RefundUnitTotalProviderInterface
 {
     public function __construct(
         private RepositoryInterface $adjustmentRepository,

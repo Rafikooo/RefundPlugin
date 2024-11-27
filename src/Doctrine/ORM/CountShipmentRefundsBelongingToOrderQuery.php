@@ -15,9 +15,9 @@ namespace Sylius\RefundPlugin\Doctrine\ORM;
 
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 
-final class CountShipmentRefundsBelongingToOrderQuery implements CountRefundsBelongingToOrderQueryInterface
+final readonly class CountShipmentRefundsBelongingToOrderQuery implements CountRefundsBelongingToOrderQueryInterface
 {
-    public function __construct(private readonly RepositoryInterface $adjustmentRepository)
+    public function __construct(private RepositoryInterface $adjustmentRepository)
     {
     }
 

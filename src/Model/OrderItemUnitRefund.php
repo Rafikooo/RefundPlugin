@@ -13,16 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Model;
 
-final class OrderItemUnitRefund implements UnitRefundInterface
+final readonly class OrderItemUnitRefund implements UnitRefundInterface
 {
-    private int $unitId;
-
-    private int $total;
-
-    public function __construct(int $unitId, int $total)
+    public function __construct(private int $unitId, private int $total)
     {
-        $this->unitId = $unitId;
-        $this->total = $total;
     }
 
     public function id(): int

@@ -20,28 +20,8 @@ class RefundPayment implements RefundPaymentInterface
 {
     protected ?int $id = null;
 
-    protected OrderInterface $order;
-
-    protected int $amount;
-
-    protected string $currencyCode;
-
-    protected string $state;
-
-    protected PaymentMethodInterface $paymentMethod;
-
-    public function __construct(
-        OrderInterface $order,
-        int $amount,
-        string $currencyCode,
-        string $state,
-        PaymentMethodInterface $paymentMethod,
-    ) {
-        $this->order = $order;
-        $this->amount = $amount;
-        $this->currencyCode = $currencyCode;
-        $this->state = $state;
-        $this->paymentMethod = $paymentMethod;
+    public function __construct(protected OrderInterface $order, protected int $amount, protected string $currencyCode, protected string $state, protected PaymentMethodInterface $paymentMethod)
+    {
     }
 
     public function getId(): ?int

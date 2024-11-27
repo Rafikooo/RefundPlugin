@@ -16,10 +16,10 @@ namespace Sylius\RefundPlugin\Doctrine\ORM;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;
 use Sylius\Component\Core\Repository\OrderItemUnitRepositoryInterface;
 
-final class CountOrderItemUnitRefundsBelongingToOrderQuery implements CountRefundsBelongingToOrderQueryInterface
+final readonly class CountOrderItemUnitRefundsBelongingToOrderQuery implements CountRefundsBelongingToOrderQueryInterface
 {
     /** @param OrderItemUnitRepositoryInterface<OrderItemUnitInterface> $orderItemUnitRepository */
-    public function __construct(private readonly OrderItemUnitRepositoryInterface $orderItemUnitRepository)
+    public function __construct(private OrderItemUnitRepositoryInterface $orderItemUnitRepository)
     {
     }
 

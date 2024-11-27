@@ -17,10 +17,10 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
-final class OrderRefundsListAvailabilityChecker implements OrderRefundingAvailabilityCheckerInterface
+final readonly class OrderRefundsListAvailabilityChecker implements OrderRefundingAvailabilityCheckerInterface
 {
     /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
-    public function __construct(private readonly OrderRepositoryInterface $orderRepository)
+    public function __construct(private OrderRepositoryInterface $orderRepository)
     {
     }
 

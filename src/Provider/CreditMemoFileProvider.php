@@ -18,11 +18,11 @@ use Sylius\RefundPlugin\Generator\CreditMemoFileNameGeneratorInterface;
 use Sylius\RefundPlugin\Manager\CreditMemoFileManagerInterface;
 use Sylius\RefundPlugin\Model\CreditMemoPdf;
 
-final class CreditMemoFileProvider implements CreditMemoFileProviderInterface
+final readonly class CreditMemoFileProvider implements CreditMemoFileProviderInterface
 {
     public function __construct(
-        private readonly CreditMemoFileNameGeneratorInterface $creditMemoFileNameGenerator,
-        private readonly CreditMemoFileManagerInterface $creditMemoFileManager,
+        private CreditMemoFileNameGeneratorInterface $creditMemoFileNameGenerator,
+        private CreditMemoFileManagerInterface $creditMemoFileManager,
     ) {
     }
 

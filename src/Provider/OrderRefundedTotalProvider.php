@@ -17,9 +17,9 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Entity\RefundInterface;
 
-final class OrderRefundedTotalProvider implements OrderRefundedTotalProviderInterface
+final readonly class OrderRefundedTotalProvider implements OrderRefundedTotalProviderInterface
 {
-    public function __construct(private readonly RepositoryInterface $refundRepository)
+    public function __construct(private RepositoryInterface $refundRepository)
     {
     }
 
