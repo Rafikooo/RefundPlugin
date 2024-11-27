@@ -38,7 +38,7 @@ final class SyliusRefundExtension extends AbstractResourceExtension implements P
 
         $configs = $this->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.xml');
 
         $this->tagsAutoconfiguration($container, [
@@ -70,7 +70,7 @@ final class SyliusRefundExtension extends AbstractResourceExtension implements P
 
     protected function getMigrationsDirectory(): string
     {
-        return '@SyliusRefundPlugin/Migrations';
+        return '@SyliusRefundPlugin/src/Migrations';
     }
 
     /** @return string[] */

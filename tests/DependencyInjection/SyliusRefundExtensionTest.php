@@ -39,7 +39,7 @@ final class SyliusRefundExtensionTest extends AbstractExtensionTestCase
             $doctrineMigrationsExtensionConfig[0]['migrations_paths']['Sylius\RefundPlugin\Migrations']
         ));
         self::assertSame(
-            '@SyliusRefundPlugin/Migrations',
+            '@SyliusRefundPlugin/src/Migrations',
             $doctrineMigrationsExtensionConfig[0]['migrations_paths']['Sylius\RefundPlugin\Migrations']
         );
 

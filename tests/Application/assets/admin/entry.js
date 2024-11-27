@@ -1,1 +1,1 @@
-import '../../../../src/Resources/assets/entrypoint';
+import '../../../../assets/entrypoint';

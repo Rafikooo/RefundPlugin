@@ -35,7 +35,7 @@ final class CreditMemoPdfFileGeneratorSpec extends ObjectBehavior
             $creditMemoRepository,
             $fileLocator,
             'creditMemoTemplate.html.twig',
-            '@SyliusRefundPlugin/Resources/assets/sylius-logo.png',
+            '@SyliusRefundPlugin/assets/sylius-logo.png',
             $twigToPdfGenerator,
             $creditMemoFileNameGenerator,
         );
@@ -59,7 +59,7 @@ final class CreditMemoPdfFileGeneratorSpec extends ObjectBehavior
         $creditMemoFileNameGenerator->generateForPdf($creditMemo)->willReturn('2015_05_00004444.pdf');
 
         $fileLocator
-            ->locate('@SyliusRefundPlugin/Resources/assets/sylius-logo.png')
+            ->locate('@SyliusRefundPlugin/assets/sylius-logo.png')
             ->willReturn('located-path/sylius-logo.png');
 
         $twigToPdfGenerator

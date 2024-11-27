@@ -21,7 +21,7 @@
     </imports>
 
     <parameters>
-        <parameter key="sylius_refund.default_logo_file">@SyliusRefundPlugin/Resources/assets/sylius-logo.png</parameter>
+        <parameter key="sylius_refund.default_logo_file">@SyliusRefundPlugin/assets/sylius-logo.png</parameter>
         <parameter key="sylius_refund.template.logo_file">%env(default:sylius_refund.default_logo_file:resolve:SYLIUS_REFUND_LOGO_FILE)%</parameter>
     </parameters>
 
