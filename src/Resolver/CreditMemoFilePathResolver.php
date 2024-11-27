@@ -15,9 +15,9 @@ namespace Sylius\RefundPlugin\Resolver;
 
 use Sylius\RefundPlugin\Model\CreditMemoPdf;
 
-final class CreditMemoFilePathResolver implements CreditMemoFilePathResolverInterface
+final readonly class CreditMemoFilePathResolver implements CreditMemoFilePathResolverInterface
 {
-    public function __construct(private readonly string $creditMemosPath)
+    public function __construct(private string $creditMemosPath)
     {
     }
 

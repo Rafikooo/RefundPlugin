@@ -16,13 +16,10 @@ namespace Sylius\RefundPlugin\Listener;
 use Sylius\RefundPlugin\Event\UnitRefundedInterface;
 use Sylius\RefundPlugin\StateResolver\OrderPartiallyRefundedStateResolverInterface;
 
-final class UnitRefundedEventListener
+final readonly class UnitRefundedEventListener
 {
-    private OrderPartiallyRefundedStateResolverInterface $orderPartiallyRefundedStateResolver;
-
-    public function __construct(OrderPartiallyRefundedStateResolverInterface $orderPartiallyRefundedStateResolver)
+    public function __construct(private OrderPartiallyRefundedStateResolverInterface $orderPartiallyRefundedStateResolver)
     {
-        $this->orderPartiallyRefundedStateResolver = $orderPartiallyRefundedStateResolver;
     }
 
     public function __invoke(UnitRefundedInterface $unitRefunded): void

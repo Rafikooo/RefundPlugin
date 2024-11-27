@@ -17,13 +17,10 @@ use Sylius\RefundPlugin\Command\GenerateCreditMemo;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class CreditMemoProcessManager implements UnitsRefundedProcessStepInterface
+final readonly class CreditMemoProcessManager implements UnitsRefundedProcessStepInterface
 {
-    private MessageBusInterface $commandBus;
-
-    public function __construct(MessageBusInterface $commandBus)
+    public function __construct(private MessageBusInterface $commandBus)
     {
-        $this->commandBus = $commandBus;
     }
 
     public function next(UnitsRefunded $unitsRefunded): void

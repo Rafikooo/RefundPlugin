@@ -19,7 +19,7 @@ use Sylius\RefundPlugin\Filter\UnitRefundFilterInterface;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
-final class ShipmentRefundsBelongingToOrderValidator implements UnitRefundsBelongingToOrderValidatorInterface
+final readonly class ShipmentRefundsBelongingToOrderValidator implements UnitRefundsBelongingToOrderValidatorInterface
 {
     public function __construct(
         private UnitRefundFilterInterface $unitRefundFilter,

@@ -17,14 +17,8 @@ class TaxItem implements TaxItemInterface
 {
     protected ?int $id = null;
 
-    protected string $label;
-
-    protected int $amount;
-
-    public function __construct(string $label, int $amount)
+    public function __construct(protected string $label, protected int $amount)
     {
-        $this->label = $label;
-        $this->amount = $amount;
     }
 
     public function getId(): ?int

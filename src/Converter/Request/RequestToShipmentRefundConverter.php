@@ -17,9 +17,9 @@ use Sylius\RefundPlugin\Converter\RefundUnitsConverterInterface;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 use Symfony\Component\HttpFoundation\Request;
 
-final class RequestToShipmentRefundConverter implements RequestToRefundUnitsConverterInterface
+final readonly class RequestToShipmentRefundConverter implements RequestToRefundUnitsConverterInterface
 {
-    public function __construct(private readonly RefundUnitsConverterInterface $refundUnitsConverter)
+    public function __construct(private RefundUnitsConverterInterface $refundUnitsConverter)
     {
     }
 

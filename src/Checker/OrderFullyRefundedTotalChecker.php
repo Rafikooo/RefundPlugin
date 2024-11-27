@@ -16,9 +16,9 @@ namespace Sylius\RefundPlugin\Checker;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface;
 
-final class OrderFullyRefundedTotalChecker implements OrderFullyRefundedTotalCheckerInterface
+final readonly class OrderFullyRefundedTotalChecker implements OrderFullyRefundedTotalCheckerInterface
 {
-    public function __construct(private readonly OrderRefundedTotalProviderInterface $orderRefundedTotalProvider)
+    public function __construct(private OrderRefundedTotalProviderInterface $orderRefundedTotalProvider)
     {
     }
 

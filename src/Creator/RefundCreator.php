@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Creator;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\RefundPlugin\Exception\UnitAlreadyRefunded;
@@ -29,7 +29,7 @@ final readonly class RefundCreator implements RefundCreatorInterface
         private RefundFactoryInterface $refundFactory,
         private RemainingTotalProviderInterface $remainingTotalProvider,
         private OrderRepositoryInterface $orderRepository,
-        private ObjectManager $refundManager,
+        private EntityManagerInterface $refundManager,
     ) {
     }
 

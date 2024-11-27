@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Tests\Sylius\RefundPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Core\Test\Services\DefaultChannelFactoryInterface;
 
-final class ChannelContext implements Context
+final readonly class ChannelContext implements Context
 {
     public function __construct(
-        private readonly SharedStorageInterface $sharedStorage,
-        private readonly DefaultChannelFactoryInterface $unitedStatesChannelFactory,
-        private readonly DefaultChannelFactoryInterface $defaultChannelFactory,
-        private readonly ObjectManager $channelManager
+        private SharedStorageInterface $sharedStorage,
+        private DefaultChannelFactoryInterface $unitedStatesChannelFactory,
+        private DefaultChannelFactoryInterface $defaultChannelFactory,
+        private EntityManagerInterface $channelManager
     ) {
     }
 

@@ -16,12 +16,12 @@ namespace Sylius\RefundPlugin\Generator;
 use Knp\Snappy\GeneratorInterface;
 use Twig\Environment;
 
-final class TwigToPdfGenerator implements TwigToPdfGeneratorInterface
+final readonly class TwigToPdfGenerator implements TwigToPdfGeneratorInterface
 {
     public function __construct(
-        private readonly Environment $twig,
-        private readonly GeneratorInterface $pdfGenerator,
-        private readonly PdfOptionsGeneratorInterface $pdfOptionsGenerator,
+        private Environment $twig,
+        private GeneratorInterface $pdfGenerator,
+        private PdfOptionsGeneratorInterface $pdfOptionsGenerator,
     ) {
     }
 

@@ -20,20 +20,8 @@ class Refund implements RefundInterface
 {
     protected ?int $id = null;
 
-    protected OrderInterface $order;
-
-    protected int $amount;
-
-    protected int $refundedUnitId;
-
-    protected RefundTypeInterface $type;
-
-    public function __construct(OrderInterface $order, int $amount, int $refundedUnitId, RefundTypeInterface $type)
+    public function __construct(protected OrderInterface $order, protected int $amount, protected int $refundedUnitId, protected RefundTypeInterface $type)
     {
-        $this->order = $order;
-        $this->amount = $amount;
-        $this->refundedUnitId = $refundedUnitId;
-        $this->type = $type;
     }
 
     public function getId(): ?int

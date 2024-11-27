@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\RefundPlugin\StateResolver;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -27,7 +27,7 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
     function let(
         OrderRepositoryInterface $orderRepository,
         StateMachineInterface $stateMachineFactory,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
     ): void {
         $this->beConstructedWith($orderRepository, $stateMachineFactory, $orderManager);
     }
@@ -35,7 +35,7 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
     function it_marks_order_as_partially_refunded(
         OrderRepositoryInterface $orderRepository,
         StateMachineInterface $stateMachine,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderInterface $order,
     ): void {
         $this->beConstructedWith($orderRepository, $stateMachine, $orderManager);
@@ -57,7 +57,7 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
     function it_does_nothing_if_order_is_already_marked_as_partially_refunded(
         OrderRepositoryInterface $orderRepository,
         StateMachineInterface $stateMachine,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderInterface $order,
     ): void {
         $this->beConstructedWith($orderRepository, $stateMachine, $orderManager);
@@ -77,7 +77,7 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
     function it_throws_exception_if_there_is_no_order_with_given_number(
         OrderRepositoryInterface $orderRepository,
         StateMachineInterface $stateMachine,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
     ): void {
         $this->beConstructedWith($orderRepository, $stateMachine, $orderManager);
 
@@ -92,7 +92,7 @@ final class OrderPartiallyRefundedStateResolverSpec extends ObjectBehavior
     function it_uses_winzou_state_machine_if_abstraction_not_passed_to_mark_order_as_partially_refunded(
         OrderRepositoryInterface $orderRepository,
         StateMachineInterface $stateMachineFactory,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderInterface $order,
     ): void {
         $orderRepository->findOneByNumber('000777')->willReturn($order);

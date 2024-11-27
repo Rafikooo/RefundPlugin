@@ -27,13 +27,13 @@ use Sylius\RefundPlugin\Generator\CreditMemoNumberGeneratorInterface;
 use Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class CreditMemoFactory implements CreditMemoFactoryInterface
+final readonly class CreditMemoFactory implements CreditMemoFactoryInterface
 {
     public function __construct(
-        private readonly FactoryInterface $creditMemoFactory,
-        private readonly CreditMemoIdentifierGeneratorInterface $creditMemoIdentifierGenerator,
-        private readonly CreditMemoNumberGeneratorInterface $creditMemoNumberGenerator,
-        private readonly CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider,
+        private FactoryInterface $creditMemoFactory,
+        private CreditMemoIdentifierGeneratorInterface $creditMemoIdentifierGenerator,
+        private CreditMemoNumberGeneratorInterface $creditMemoNumberGenerator,
+        private CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider,
     ) {
     }
 

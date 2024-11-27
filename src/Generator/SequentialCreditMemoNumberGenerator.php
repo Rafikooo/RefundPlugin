@@ -20,15 +20,15 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\RefundPlugin\Entity\CreditMemoSequenceInterface;
 use Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface;
 
-final class SequentialCreditMemoNumberGenerator implements CreditMemoNumberGeneratorInterface
+final readonly class SequentialCreditMemoNumberGenerator implements CreditMemoNumberGeneratorInterface
 {
     /** @param ObjectRepository<CreditMemoSequenceInterface> $sequenceRepository */
     public function __construct(
-        private readonly ObjectRepository $sequenceRepository,
-        private readonly CreditMemoSequenceFactoryInterface $sequenceFactory,
-        private readonly EntityManagerInterface $sequenceManager,
-        private readonly int $startNumber = 1,
-        private readonly int $numberLength = 9,
+        private ObjectRepository $sequenceRepository,
+        private CreditMemoSequenceFactoryInterface $sequenceFactory,
+        private EntityManagerInterface $sequenceManager,
+        private int $startNumber = 1,
+        private int $numberLength = 9,
     ) {
     }
 

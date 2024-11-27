@@ -19,40 +19,8 @@ class LineItem implements LineItemInterface
 {
     protected ?int $id = null;
 
-    protected string $name;
-
-    protected int $quantity;
-
-    protected int $unitNetPrice;
-
-    protected int $unitGrossPrice;
-
-    protected int $netValue;
-
-    protected int $grossValue;
-
-    protected int $taxAmount;
-
-    protected ?string $taxRate;
-
-    public function __construct(
-        string $name,
-        int $quantity,
-        int $unitNetPrice,
-        int $unitGrossPrice,
-        int $netValue,
-        int $grossValue,
-        int $taxAmount,
-        ?string $taxRate = null,
-    ) {
-        $this->name = $name;
-        $this->quantity = $quantity;
-        $this->unitNetPrice = $unitNetPrice;
-        $this->unitGrossPrice = $unitGrossPrice;
-        $this->netValue = $netValue;
-        $this->grossValue = $grossValue;
-        $this->taxAmount = $taxAmount;
-        $this->taxRate = $taxRate;
+    public function __construct(protected string $name, protected int $quantity, protected int $unitNetPrice, protected int $unitGrossPrice, protected int $netValue, protected int $grossValue, protected int $taxAmount, protected ?string $taxRate = null)
+    {
     }
 
     public function getId(): ?int

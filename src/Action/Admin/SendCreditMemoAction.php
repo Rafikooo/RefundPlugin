@@ -25,13 +25,13 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Webmozart\Assert\Assert;
 
-final class SendCreditMemoAction
+final readonly class SendCreditMemoAction
 {
     public function __construct(
-        private readonly MessageBusInterface $commandBus,
-        private readonly RepositoryInterface $creditMemoRepository,
-        private readonly RequestStack $requestStack,
-        private readonly UrlGeneratorInterface $router,
+        private MessageBusInterface $commandBus,
+        private RepositoryInterface $creditMemoRepository,
+        private RequestStack $requestStack,
+        private UrlGeneratorInterface $router,
     ) {
     }
 

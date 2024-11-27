@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\StateResolver;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\RefundPlugin\Entity\RefundPaymentInterface;
 
@@ -21,7 +21,7 @@ final readonly class RefundPaymentCompletedStateApplier implements RefundPayment
 {
     public function __construct(
         private StateMachineInterface $stateMachineFactory,
-        private ObjectManager $refundPaymentManager,
+        private EntityManagerInterface $refundPaymentManager,
     ) {
     }
 

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\RefundPlugin\StateResolver;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -26,7 +26,7 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
 {
     function let(
         StateMachineInterface $stateMachineFactory,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         OrderRepositoryInterface $orderRepository,
     ): void {
@@ -40,7 +40,7 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
 
     function it_applies_refund_transition_on_order(
         StateMachineInterface $stateMachine,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
@@ -63,7 +63,7 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
 
     function it_does_nothing_if_order_state_is_fully_refunded(
         StateMachineInterface $stateMachine,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
@@ -84,7 +84,7 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
 
     function it_does_nothing_if_order_is_not_fully_refunded(
         StateMachineInterface $stateMachine,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
@@ -104,7 +104,7 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_there_is_no_order_with_given_number(
         StateMachineInterface $stateMachine,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         OrderRepositoryInterface $orderRepository,
     ): void {
@@ -120,7 +120,7 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
 
     function it_uses_winzou_state_machine_if_abstraction_not_passed_to_apply_refund_transition_on_order(
         StateMachineInterface $stateMachineFactory,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,

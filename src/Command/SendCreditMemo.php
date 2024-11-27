@@ -15,11 +15,8 @@ namespace Sylius\RefundPlugin\Command;
 
 class SendCreditMemo
 {
-    private string $number;
-
-    public function __construct(string $number)
+    public function __construct(private readonly string $number)
     {
-        $this->number = $number;
     }
 
     public function number(): string

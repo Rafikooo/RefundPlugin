@@ -16,7 +16,7 @@ namespace Sylius\RefundPlugin\Manager;
 use Gaufrette\FilesystemInterface;
 use Sylius\RefundPlugin\Model\CreditMemoPdf;
 
-final class CreditMemoFileManager implements CreditMemoFileManagerInterface
+final readonly class CreditMemoFileManager implements CreditMemoFileManagerInterface
 {
     public function __construct(private FilesystemInterface $filesystem)
     {

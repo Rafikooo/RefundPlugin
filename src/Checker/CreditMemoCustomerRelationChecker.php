@@ -20,11 +20,11 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Entity\CreditMemoInterface;
 use Sylius\RefundPlugin\Exception\CreditMemoNotAccessible;
 
-final class CreditMemoCustomerRelationChecker implements CreditMemoCustomerRelationCheckerInterface
+final readonly class CreditMemoCustomerRelationChecker implements CreditMemoCustomerRelationCheckerInterface
 {
     public function __construct(
-        private readonly CustomerContextInterface $customerContext,
-        private readonly RepositoryInterface $creditMemoRepository,
+        private CustomerContextInterface $customerContext,
+        private RepositoryInterface $creditMemoRepository,
     ) {
     }
 

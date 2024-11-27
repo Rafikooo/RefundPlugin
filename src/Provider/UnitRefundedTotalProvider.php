@@ -17,13 +17,10 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Entity\RefundInterface;
 use Sylius\RefundPlugin\Model\RefundTypeInterface;
 
-final class UnitRefundedTotalProvider implements UnitRefundedTotalProviderInterface
+final readonly class UnitRefundedTotalProvider implements UnitRefundedTotalProviderInterface
 {
-    private RepositoryInterface $refundRepository;
-
-    public function __construct(RepositoryInterface $refundRepository)
+    public function __construct(private RepositoryInterface $refundRepository)
     {
-        $this->refundRepository = $refundRepository;
     }
 
     public function __invoke(int $unitId, RefundTypeInterface $type): int

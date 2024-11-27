@@ -16,12 +16,12 @@ namespace Sylius\RefundPlugin\Converter\LineItem;
 use Sylius\RefundPlugin\Filter\UnitRefundFilterInterface;
 use Webmozart\Assert\Assert;
 
-final class CompositeLineItemConverter implements LineItemsConverterInterface
+final readonly class CompositeLineItemConverter implements LineItemsConverterInterface
 {
     /** @param LineItemsConverterUnitRefundAwareInterface[] $lineItemsConverters */
     public function __construct(
-        private readonly iterable $lineItemsConverters,
-        private readonly UnitRefundFilterInterface $unitRefundFilter,
+        private iterable $lineItemsConverters,
+        private UnitRefundFilterInterface $unitRefundFilter,
     ) {
     }
 

@@ -16,11 +16,11 @@ namespace Sylius\RefundPlugin\Converter\Request;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
-final class RequestToRefundUnitsConverter implements RequestToRefundUnitsConverterInterface
+final readonly class RequestToRefundUnitsConverter implements RequestToRefundUnitsConverterInterface
 {
     public function __construct(
         /** @var RequestToRefundUnitsConverterInterface[] $refundUnitsConverters */
-        private readonly iterable $refundUnitsConverters,
+        private iterable $refundUnitsConverters,
     ) {
     }
 

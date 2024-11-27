@@ -18,12 +18,12 @@ use Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class DownloadCreditMemoAction
+final readonly class DownloadCreditMemoAction
 {
     public function __construct(
-        private readonly CreditMemoFileResolverInterface $creditMemoFileResolver,
-        private readonly CreditMemoFileResponseBuilderInterface $creditMemoFileResponseBuilder,
-        private readonly bool $hasEnabledPdfFileGenerator,
+        private CreditMemoFileResolverInterface $creditMemoFileResolver,
+        private CreditMemoFileResponseBuilderInterface $creditMemoFileResponseBuilder,
+        private bool $hasEnabledPdfFileGenerator,
     ) {
     }
 

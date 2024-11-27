@@ -27,20 +27,20 @@ use Sylius\RefundPlugin\StateResolver\OrderFullyRefundedStateResolverInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 
-final class RefundPaymentProcessManager implements UnitsRefundedProcessStepInterface
+final readonly class RefundPaymentProcessManager implements UnitsRefundedProcessStepInterface
 {
     /**
      * @param OrderRepositoryInterface<OrderInterface> $orderRepository
      * @param PaymentMethodRepositoryInterface<PaymentMethodInterface> $paymentMethodRepository
      */
     public function __construct(
-        private readonly OrderFullyRefundedStateResolverInterface $orderFullyRefundedStateResolver,
-        private readonly RelatedPaymentIdProviderInterface $relatedPaymentIdProvider,
-        private readonly RefundPaymentFactoryInterface $refundPaymentFactory,
-        private readonly OrderRepositoryInterface $orderRepository,
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly MessageBusInterface $eventBus,
+        private OrderFullyRefundedStateResolverInterface $orderFullyRefundedStateResolver,
+        private RelatedPaymentIdProviderInterface $relatedPaymentIdProvider,
+        private RefundPaymentFactoryInterface $refundPaymentFactory,
+        private OrderRepositoryInterface $orderRepository,
+        private PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private EntityManagerInterface $entityManager,
+        private MessageBusInterface $eventBus,
     ) {
     }
 

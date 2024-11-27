@@ -16,9 +16,9 @@ namespace Sylius\RefundPlugin\Checker;
 use Sylius\RefundPlugin\Model\RefundTypeInterface;
 use Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface;
 
-final class UnitRefundingAvailabilityChecker implements UnitRefundingAvailabilityCheckerInterface
+final readonly class UnitRefundingAvailabilityChecker implements UnitRefundingAvailabilityCheckerInterface
 {
-    public function __construct(private readonly RemainingTotalProviderInterface $remainingTotalProvider)
+    public function __construct(private RemainingTotalProviderInterface $remainingTotalProvider)
     {
     }
 

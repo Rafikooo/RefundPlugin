@@ -11,3 +11,4 @@ winzou_state_machine:
             complete:
                 from: [new]
                 to: completed
+

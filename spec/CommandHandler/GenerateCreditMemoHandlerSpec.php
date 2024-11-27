@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\RefundPlugin\CommandHandler;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -32,7 +32,7 @@ final class GenerateCreditMemoHandlerSpec extends ObjectBehavior
 {
     function let(
         CreditMemoGeneratorInterface $creditMemoGenerator,
-        ObjectManager $creditMemoManager,
+        EntityManagerInterface $creditMemoManager,
         MessageBusInterface $eventBus,
         OrderRepositoryInterface $orderRepository,
         CreditMemoFileResolverInterface $creditMemoFileResolver,
@@ -49,7 +49,7 @@ final class GenerateCreditMemoHandlerSpec extends ObjectBehavior
 
     function it_generates_credit_memo_with_a_pdf_file(
         CreditMemoGeneratorInterface $creditMemoGenerator,
-        ObjectManager $creditMemoManager,
+        EntityManagerInterface $creditMemoManager,
         MessageBusInterface $eventBus,
         OrderRepositoryInterface $orderRepository,
         CreditMemoFileResolverInterface $creditMemoFileResolver,
@@ -83,7 +83,7 @@ final class GenerateCreditMemoHandlerSpec extends ObjectBehavior
 
     function it_generates_only_credit_memo_without_a_pdf_file(
         CreditMemoGeneratorInterface $creditMemoGenerator,
-        ObjectManager $creditMemoManager,
+        EntityManagerInterface $creditMemoManager,
         MessageBusInterface $eventBus,
         OrderRepositoryInterface $orderRepository,
         CreditMemoFileResolverInterface $creditMemoFileResolver,
@@ -125,7 +125,7 @@ final class GenerateCreditMemoHandlerSpec extends ObjectBehavior
 
     function it_generates_only_credit_memo_without_a_pdf_file_if_pdf_generation_is_disabled(
         CreditMemoGeneratorInterface $creditMemoGenerator,
-        ObjectManager $creditMemoManager,
+        EntityManagerInterface $creditMemoManager,
         MessageBusInterface $eventBus,
         OrderRepositoryInterface $orderRepository,
         CreditMemoFileResolverInterface $creditMemoFileResolver,

@@ -17,9 +17,9 @@ use Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface;
 use Sylius\RefundPlugin\Model\UnitRefundInterface;
 use Webmozart\Assert\Assert;
 
-final class RefundUnitsConverter implements RefundUnitsConverterInterface
+final readonly class RefundUnitsConverter implements RefundUnitsConverterInterface
 {
-    public function __construct(private readonly UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator)
+    public function __construct(private UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator)
     {
     }
 
@@ -66,9 +66,7 @@ final class RefundUnitsConverter implements RefundUnitsConverterInterface
     private function filterEmptyRefundUnits(array $units): array
     {
         /** @phpstan-ignore-next-line  */
-        return array_filter($units, function (array $refundUnit): bool {
-            return (isset($refundUnit['amount']) && $refundUnit['amount'] !== '') || isset($refundUnit['full']);
-        });
+        return array_filter($units, fn (array $refundUnit): bool => (isset($refundUnit['amount']) && $refundUnit['amount'] !== '') || isset($refundUnit['full']));
     }
 
     /** @param UnitRefundInterface[] $unit */
