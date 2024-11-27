@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\RefundPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
+use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -23,14 +23,10 @@ use Sylius\Component\Payment\PaymentTransitions;
 
 final class PaymentContext implements Context
 {
-    private StateMachineFactoryInterface $stateMachineFactory;
-
-    private SharedStorageInterface $sharedStorage;
-
-    public function __construct(StateMachineFactoryInterface $stateMachineFactory, SharedStorageInterface $sharedStorage)
-    {
-        $this->stateMachineFactory = $stateMachineFactory;
-        $this->sharedStorage = $sharedStorage;
+    public function __construct(
+        private readonly StateMachineInterface $stateMachineFactory,
+        private readonly SharedStorageInterface $sharedStorage
+    ) {
     }
 
     /**
@@ -39,7 +35,7 @@ final class PaymentContext implements Context
     public function paymentOfOrderFailed(OrderInterface $order): void
     {
         $payment = $order->getLastPayment();
-        $this->stateMachineFactory->get($payment, PaymentTransitions::GRAPH)->apply(PaymentTransitions::TRANSITION_FAIL);
+        $this->stateMachineFactory->apply($payment, PaymentTransitions::GRAPH, PaymentTransitions::TRANSITION_FAIL);
     }
 
     /**
@@ -61,6 +57,6 @@ final class PaymentContext implements Context
      */
     public function andThisPaymentHasBeenPaid(PaymentInterface $payment): void
     {
-        $this->stateMachineFactory->get($payment, PaymentTransitions::GRAPH)->apply(PaymentTransitions::TRANSITION_COMPLETE);
+        $this->stateMachineFactory->apply($payment, PaymentTransitions::GRAPH, PaymentTransitions::TRANSITION_COMPLETE);
     }
 }

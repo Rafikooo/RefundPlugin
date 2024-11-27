@@ -27,14 +27,14 @@ class RefundEnumType extends Type
         return 'sylius_refund_refund_type';
     }
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return 'VARCHAR(256)';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform): RefundTypeInterface
     {
-        if ($value instanceof RefundTypeInterface && $value instanceof Enum && !$value::isValid($value)) {
+        if ($value instanceof Enum && !$value::isValid($value)) {
             throw new \InvalidArgumentException(sprintf(
                 'The value "%s" is not valid for the enum "%s". Expected one of ["%s"]',
                 (string) $value->getValue(),

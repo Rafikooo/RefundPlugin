@@ -19,8 +19,6 @@ interface RefunderInterface
 {
     /**
      * @param UnitRefundInterface[] $units
-     *
-     * @return int refunded units total
      */
     public function refundFromOrder(array $units, string $orderNumber): int;
 }

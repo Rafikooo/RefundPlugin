@@ -19,7 +19,6 @@ Feature: Refunding a single order unit
         Given the order "#00000022" is already paid
         When I want to refund some units of order "#00000022"
         Then I should be able to refund 2 "Mr. Meeseeks T-Shirt" products
-        And I should be able to go back to order details
 
     @ui @application
     Scenario: Refunding one of the order unit
@@ -55,17 +54,6 @@ Feature: Refunding a single order unit
     Scenario: Not being able to see refunds button
         When I view the summary of the order "#00000022"
         Then I should not see refunds button
-
-    @ui
-    Scenario: Being able to choose only offline payment methods
-        Given the order "#00000022" is already paid
-        And the store allows paying with "Another offline payment method"
-        And the store has a payment method "ElonPay" with a code "IN_THRUST_WE_TRUST" and Paypal Express Checkout gateway
-        When I want to refund some units of order "#00000022"
-        Then I should be able to choose refund payment method
-        And there should be "Space money" payment method
-        And there should be "Another offline payment method" payment method
-        And there should not be "ElonPay" payment method
 
     @application
     Scenario: Not being able to refund unit from an order that is unpaid

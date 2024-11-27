@@ -33,18 +33,12 @@
             <argument type="service" id="sylius.repository.adjustment" />
         </service>
         <service id="Sylius\RefundPlugin\Provider\RefundedShipmentFeeProviderInterface" alias="sylius_refund.provider.refunded_shipment_fee" />
-        <service id="Sylius\RefundPlugin\Provider\RefundedShipmentFeeProvider" alias="Sylius\RefundPlugin\Provider\RefundedShipmentFeeProviderInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Provider\RefundedShipmentFeeProviderInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.provider.order_refunded_total" class="Sylius\RefundPlugin\Provider\OrderRefundedTotalProvider">
             <argument type="service" id="sylius_refund.repository.refund" />
             <argument type="service" id="sylius.repository.order_item_unit" />
         </service>
         <service id="Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface" alias="sylius_refund.provider.order_refunded_total" />
-        <service id="Sylius\RefundPlugin\Provider\OrderRefundedTotalProvider" alias="Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Provider\OrderRefundedTotalProviderInterface instead.</deprecated>
-        </service>
 
         <service
             id="sylius_refund.provider.current_date_time_immutable"
@@ -67,17 +61,11 @@
             <argument type="service" id="sylius_refund.repository.refund" />
         </service>
         <service id="Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface" alias="sylius_refund.provider.remaining_total" />
-        <service id="Sylius\RefundPlugin\Provider\RemainingTotalProvider" alias="Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.provider.unit_refunded_total" class="Sylius\RefundPlugin\Provider\UnitRefundedTotalProvider">
             <argument type="service" id="sylius_refund.repository.refund" />
         </service>
         <service id="Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface" alias="sylius_refund.provider.unit_refunded_total" />
-        <service id="Sylius\RefundPlugin\Provider\UnitRefundedTotalProvider" alias="Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Provider\UnitRefundedTotalProviderInterface instead.</deprecated>
-        </service>
 
         <service
             id="sylius_refund.provider.related_payment_id"

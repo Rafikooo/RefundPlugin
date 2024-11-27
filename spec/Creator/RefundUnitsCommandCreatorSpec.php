@@ -18,6 +18,7 @@ use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Converter\Request\RequestToRefundUnitsConverterInterface;
 use Sylius\RefundPlugin\Creator\RequestCommandCreatorInterface;
 use Sylius\RefundPlugin\Model\UnitRefundInterface;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -41,7 +42,7 @@ final class RefundUnitsCommandCreatorSpec extends ObjectBehavior
         Request $request,
     ): void {
         $request->attributes = new ParameterBag(['orderNumber' => '00001111']);
-        $request->request = new ParameterBag([
+        $request->request = new InputBag([
             'sylius_refund_payment_method' => 1,
             'sylius_refund_comment' => 'Comment',
         ]);
@@ -61,7 +62,7 @@ final class RefundUnitsCommandCreatorSpec extends ObjectBehavior
         Request $request,
     ): void {
         $request->attributes = new ParameterBag(['orderNumber' => '00001111']);
-        $request->request = new ParameterBag(['sylius_refund_payment_method' => 1]);
+        $request->request = new InputBag(['sylius_refund_payment_method' => 1]);
 
         $refundUnitsConverter->convert($request)->willReturn([]);
 

@@ -23,9 +23,6 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
         <service id="Sylius\RefundPlugin\Generator\CreditMemoNumberGeneratorInterface" alias="sylius_refund.generator.credit_memo_number" />
-        <service id="Sylius\RefundPlugin\Generator\SequentialCreditMemoNumberGenerator" alias="Sylius\RefundPlugin\Generator\CreditMemoNumberGeneratorInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Generator\CreditMemoNumberGeneratorInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.generator.credit_memo" class="Sylius\RefundPlugin\Generator\CreditMemoGenerator">
             <argument type="service" id="sylius_refund.converter.line_items" />
@@ -35,9 +32,6 @@
             <argument type="service" id="sylius_refund.factory.shop_billing_data" />
         </service>
         <service id="Sylius\RefundPlugin\Generator\CreditMemoGeneratorInterface" alias="sylius_refund.generator.credit_memo" />
-        <service id="Sylius\RefundPlugin\Generator\CreditMemoGenerator" alias="Sylius\RefundPlugin\Generator\CreditMemoGeneratorInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Generator\CreditMemoGeneratorInterface instead.</deprecated>
-        </service>
 
         <service
             id="sylius_refund.generator.credit_memo_file_name"
@@ -47,28 +41,19 @@
 
         <service id="sylius_refund.generator.credit_memo_pdf_file" class="Sylius\RefundPlugin\Generator\CreditMemoPdfFileGenerator">
             <argument type="service" id="sylius_refund.repository.credit_memo" />
-            <argument>null</argument>
-            <argument>null</argument>
             <argument type="service" id="file_locator" />
             <argument>@SyliusRefundPlugin/Download/creditMemo.html.twig</argument>
             <argument>%sylius_refund.template.logo_file%</argument>
-            <argument>null</argument>
             <argument type="service" id="sylius_refund.generator.twig_to_pdf" />
             <argument type="service" id="sylius_refund.generator.credit_memo_file_name" />
         </service>
         <service id="Sylius\RefundPlugin\Generator\CreditMemoPdfFileGeneratorInterface" alias="sylius_refund.generator.credit_memo_pdf_file" />
-        <service id="Sylius\RefundPlugin\Generator\CreditMemoPdfFileGenerator" alias="Sylius\RefundPlugin\Generator\CreditMemoPdfFileGeneratorInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Generator\CreditMemoPdfFileGeneratorInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.generator.tax_items" class="Sylius\RefundPlugin\Generator\TaxItemsGenerator" />
         <service id="Sylius\RefundPlugin\Generator\TaxItemsGeneratorInterface" alias="sylius_refund.generator.tax_items" />
 
         <service id="sylius_refund.generator.credit_memo_identifier" class="Sylius\RefundPlugin\Generator\UuidCreditMemoIdentifierGenerator" />
         <service id="Sylius\RefundPlugin\Generator\CreditMemoIdentifierGeneratorInterface" alias="sylius_refund.generator.credit_memo_identifier" />
-        <service id="Sylius\RefundPlugin\Generator\UuidCreditMemoIdentifierGenerator" alias="Sylius\RefundPlugin\Generator\CreditMemoIdentifierGeneratorInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Generator\CreditMemoIdentifierGeneratorInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.generator.pdf_options" class="Sylius\RefundPlugin\Generator\PdfOptionsGenerator">
             <argument type="service" id="file_locator" />

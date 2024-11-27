@@ -19,9 +19,6 @@
     <services>
         <service id="sylius_refund.factory.credit_memo_sequence" class="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactory" />
         <service id="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface" alias="sylius_refund.factory.credit_memo_sequence" />
-        <service id="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactory" alias="Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Factory\CreditMemoSequenceFactoryInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.factory.refund_type" class="Sylius\RefundPlugin\Factory\RefundTypeFactory">
             <argument type="string">%sylius_refund.refund_type%</argument>
@@ -38,7 +35,6 @@
             class="Sylius\RefundPlugin\Factory\CreditMemoFactory"
             decorates="sylius_refund.factory.credit_memo"
             decoration-priority="256"
-            public="false"
         >
             <argument type="service" id=".inner" />
             <argument type="service" id="sylius_refund.generator.credit_memo_identifier" />
@@ -51,7 +47,6 @@
             class="Sylius\RefundPlugin\Factory\ShopBillingDataFactory"
             decorates="sylius_refund.factory.shop_billing_data"
             decoration-priority="256"
-            public="false"
         >
             <argument type="service" id=".inner" />
         </service>
@@ -61,7 +56,6 @@
             class="Sylius\RefundPlugin\Factory\CustomerBillingDataFactory"
             decorates="sylius_refund.factory.customer_billing_data"
             decoration-priority="256"
-            public="false"
         >
             <argument type="service" id=".inner" />
         </service>

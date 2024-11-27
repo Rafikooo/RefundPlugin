@@ -1,22 +1,34 @@
-$(document).ready(function() {
-    const $refundButtons = $('[data-refund]');
-    const $refundAllButton = $('[data-refund-all]');
-    const $refundClearAllButton = $('[data-refund-clear]');
-    const $refundInputs = $('[data-refund-input]');
+document.addEventListener('DOMContentLoaded', function () {
+     const refundButtons = document.querySelectorAll('[data-refund]');
+    const refundAllButton = document.querySelector('[data-test-refund-all]');
+    const refundClearAllButton = document.querySelector('[data-test-clear-all]');
+    const refundInputs = document.querySelectorAll('[data-refund-input]');
 
-    $refundButtons.on('click', function(e) {
-        const $button = $(this);
-        const refundValue = $button.attr('data-refund');
-        const $refundInput = $button.closest('tr').find('[data-refund-input]');
-
-        $refundInput.val(refundValue);
+    refundButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            const refundValue = button.getAttribute('data-refund');
+            const refundInput = button.closest('tr').querySelector('[data-refund-input]');
+            if (refundInput) {
+                refundInput.value = refundValue;
+            }
+        });
     });
 
-    $refundAllButton.on('click', function () {
-        $refundButtons.not(':disabled').trigger('click');
-    });
+    if (refundAllButton) {
+        refundAllButton.addEventListener('click', function () {
+            refundButtons.forEach(function (button) {
+                if (!button.disabled) {
+                    button.click();
+                }
+            });
+        });
+    }
 
-    $refundClearAllButton.on('click', function () {
-        $refundInputs.val('');
-    });
+    if (refundClearAllButton) {
+        refundClearAllButton.addEventListener('click', function () {
+            refundInputs.forEach(function (input) {
+                input.value = '';
+            });
+        });
+    }
 });

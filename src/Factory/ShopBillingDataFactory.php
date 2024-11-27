@@ -16,9 +16,9 @@ namespace Sylius\RefundPlugin\Factory;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\RefundPlugin\Entity\ShopBillingDataInterface;
 
-final class ShopBillingDataFactory implements ShopBillingDataFactoryInterface
+final readonly class ShopBillingDataFactory implements ShopBillingDataFactoryInterface
 {
-    public function __construct(private readonly FactoryInterface $shopBillingDataFactory)
+    public function __construct(private FactoryInterface $shopBillingDataFactory)
     {
     }
 

@@ -22,9 +22,6 @@
             <argument type="service" id="sylius_refund.repository.credit_memo"/>
         </service>
         <service id="Sylius\RefundPlugin\Checker\CreditMemoCustomerRelationCheckerInterface" alias="sylius_refund.checker.credit_memo_customer_relation" />
-        <service id="Sylius\RefundPlugin\Checker\CreditMemoCustomerRelationChecker" alias="Sylius\RefundPlugin\Checker\CreditMemoCustomerRelationCheckerInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Checker\CreditMemoCustomerRelationCheckerInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.checker.order_refunding_availability" class="Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityChecker">
             <argument type="service" id="sylius.repository.order" />
@@ -38,16 +35,10 @@
             <argument type="service" id="sylius_refund.provider.order_refunded_total" />
         </service>
         <service id="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface" alias="sylius_refund.checker.order_fully_refunded_total" />
-        <service id="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalChecker" alias="Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.checker.unit_refunding_availability" class="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityChecker">
             <argument type="service" id="sylius_refund.provider.remaining_total" />
         </service>
         <service id="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityCheckerInterface" alias="sylius_refund.checker.unit_refunding_availability" />
-        <service id="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityChecker" alias="Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityCheckerInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityCheckerInterface instead.</deprecated>
-        </service>
     </services>
 </container>

@@ -15,8 +15,6 @@ namespace spec\Sylius\RefundPlugin\StateResolver;
 
 use Doctrine\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
-use SM\Factory\FactoryInterface;
-use SM\StateMachine\StateMachineInterface as WinzouStateMachineInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -27,7 +25,7 @@ use Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface;
 final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
 {
     function let(
-        FactoryInterface $stateMachineFactory,
+        StateMachineInterface $stateMachineFactory,
         ObjectManager $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         OrderRepositoryInterface $orderRepository,
@@ -121,19 +119,17 @@ final class OrderFullyRefundedStateResolverSpec extends ObjectBehavior
     }
 
     function it_uses_winzou_state_machine_if_abstraction_not_passed_to_apply_refund_transition_on_order(
-        FactoryInterface $stateMachineFactory,
+        StateMachineInterface $stateMachineFactory,
         ObjectManager $orderManager,
         OrderFullyRefundedTotalCheckerInterface $orderFullyRefundedTotalChecker,
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
-        WinzouStateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneByNumber('000222')->willReturn($order);
         $orderFullyRefundedTotalChecker->isOrderFullyRefunded($order)->willReturn(true);
         $order->getPaymentState()->willReturn(OrderPaymentStates::STATE_PAID);
 
-        $stateMachineFactory->get($order, OrderPaymentTransitions::GRAPH)->willReturn($stateMachine);
-        $stateMachine->apply(OrderPaymentTransitions::TRANSITION_REFUND)->shouldBeCalled();
+        $stateMachineFactory->apply($order, OrderPaymentTransitions::GRAPH, OrderPaymentTransitions::TRANSITION_REFUND)->shouldBeCalled();
 
         $orderManager->flush()->shouldBeCalled();
 

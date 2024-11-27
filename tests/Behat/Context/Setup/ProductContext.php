@@ -18,11 +18,8 @@ use Sylius\Behat\Context\Setup\ProductContext as BaseProductContext;
 
 final class ProductContext implements Context
 {
-    private BaseProductContext $baseProductContext;
-
-    public function __construct(BaseProductContext $baseProductContext)
+    public function __construct(private readonly BaseProductContext $baseProductContext)
     {
-        $this->baseProductContext = $baseProductContext;
     }
 
     /**

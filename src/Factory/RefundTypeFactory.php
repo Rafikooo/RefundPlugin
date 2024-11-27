@@ -16,9 +16,9 @@ namespace Sylius\RefundPlugin\Factory;
 use Sylius\RefundPlugin\Model\RefundTypeInterface;
 use Webmozart\Assert\Assert;
 
-final class RefundTypeFactory implements RefundTypeFactoryInterface
+final readonly class RefundTypeFactory implements RefundTypeFactoryInterface
 {
-    public function __construct(private readonly string $className)
+    public function __construct(private string $className)
     {
     }
 

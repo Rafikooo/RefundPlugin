@@ -17,7 +17,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\RefundPlugin\Converter\RefundUnitsConverterInterface;
 use Sylius\RefundPlugin\Converter\Request\RequestToRefundUnitsConverterInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 
 final class RequestToOrderItemUnitRefundConverterSpec extends ObjectBehavior
@@ -39,7 +39,7 @@ final class RequestToOrderItemUnitRefundConverterSpec extends ObjectBehavior
         $firstUnitRefund = new OrderItemUnitRefund(1, 1000);
         $secondUnitRefund = new OrderItemUnitRefund(2, 3000);
 
-        $request->request = new ParameterBag([
+        $request->request = new InputBag([
             'sylius_refund_units' => [
                 1 => ['full' => 'on'],
                 2 => ['full' => 'on'],

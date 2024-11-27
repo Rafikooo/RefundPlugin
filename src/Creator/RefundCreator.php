@@ -22,14 +22,14 @@ use Sylius\RefundPlugin\Model\RefundTypeInterface;
 use Sylius\RefundPlugin\Provider\RemainingTotalProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class RefundCreator implements RefundCreatorInterface
+final readonly class RefundCreator implements RefundCreatorInterface
 {
     /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
-        private readonly RefundFactoryInterface $refundFactory,
-        private readonly RemainingTotalProviderInterface $remainingTotalProvider,
-        private readonly OrderRepositoryInterface $orderRepository,
-        private readonly ObjectManager $refundManager,
+        private RefundFactoryInterface $refundFactory,
+        private RemainingTotalProviderInterface $remainingTotalProvider,
+        private OrderRepositoryInterface $orderRepository,
+        private ObjectManager $refundManager,
     ) {
     }
 

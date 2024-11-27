@@ -11,16 +11,10 @@ use Webmozart\Assert\Assert;
 
 final class CreditMemoContext implements Context
 {
-    private ShowPageInterface $customerOrderShowPage;
-
-    private PdfDownloadElementInterface $pdfDownloadElement;
-
     public function __construct(
-        ShowPageInterface $customerOrderShowPage,
-        PdfDownloadElementInterface $pdfDownloadElement
+        private readonly ShowPageInterface $customerOrderShowPage,
+        private readonly PdfDownloadElementInterface $pdfDownloadElement
     ) {
-        $this->customerOrderShowPage = $customerOrderShowPage;
-        $this->pdfDownloadElement = $pdfDownloadElement;
     }
 
     /**

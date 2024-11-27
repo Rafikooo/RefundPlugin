@@ -6,12 +6,11 @@ namespace Tests\Sylius\RefundPlugin\Behat\Context\Application;
 
 use Behat\Behat\Context\Context;
 use Sylius\Behat\Service\Checker\EmailCheckerInterface as BehatEmailCheckerInterface;
-use Sylius\Component\Core\Test\Services\EmailCheckerInterface as CoreEmailCheckerInterface;
 use Webmozart\Assert\Assert;
 
 final class EmailsContext implements Context
 {
-    public function __construct(private BehatEmailCheckerInterface|CoreEmailCheckerInterface $emailChecker)
+    public function __construct(private readonly BehatEmailCheckerInterface $emailChecker)
     {
     }
 

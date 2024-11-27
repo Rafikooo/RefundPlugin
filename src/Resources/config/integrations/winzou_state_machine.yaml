@@ -1,0 +1,13 @@
+winzou_state_machine:
+    sylius_refund_refund_payment:
+        class: Sylius\RefundPlugin\Entity\RefundPayment
+        property_path: state
+        graph: sylius_refund_refund_payment
+        state_machine_class: "%sylius.state_machine.class%"
+        states:
+            new: ~
+            completed: ~
+        transitions:
+            complete:
+                from: [new]
+                to: completed

@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace spec\Sylius\RefundPlugin\Provider;
 
-use Payum\Core\Model\GatewayConfigInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
+use Sylius\Component\Payment\Model\GatewayConfigInterface;
 use Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface;
 
 final class SupportedRefundPaymentMethodsProviderSpec extends ObjectBehavior
@@ -62,34 +62,5 @@ final class SupportedRefundPaymentMethodsProviderSpec extends ObjectBehavior
         $stripeGatewayConfig->getFactoryName()->willReturn('stripe');
 
         $this->findForOrder($order)->shouldReturn([$offlinePaymentMethod, $stripePaymentMethod]);
-    }
-
-    /** @legacy will be removed in RefundPlugin 2.0 */
-    function it_provides_only_supported_payment_methods_legacy(
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        ChannelInterface $channel,
-        PaymentMethodInterface $offlinePaymentMethod,
-        PaymentMethodInterface $payPalPaymentMethod,
-        PaymentMethodInterface $stripePaymentMethod,
-        GatewayConfigInterface $offlineGatewayConfig,
-        GatewayConfigInterface $payPalGatewayConfig,
-        GatewayConfigInterface $stripeGatewayConfig,
-    ): void {
-        $paymentMethodRepository->findEnabledForChannel($channel)->willReturn([
-            $offlinePaymentMethod,
-            $payPalPaymentMethod,
-            $stripePaymentMethod,
-        ]);
-
-        $offlinePaymentMethod->getGatewayConfig()->willReturn($offlineGatewayConfig);
-        $offlineGatewayConfig->getFactoryName()->willReturn('offline');
-
-        $payPalPaymentMethod->getGatewayConfig()->willReturn($payPalGatewayConfig);
-        $payPalGatewayConfig->getFactoryName()->willReturn('paypal');
-
-        $stripePaymentMethod->getGatewayConfig()->willReturn($stripeGatewayConfig);
-        $stripeGatewayConfig->getFactoryName()->willReturn('stripe');
-
-        $this->findForChannel($channel)->shouldReturn([$offlinePaymentMethod, $stripePaymentMethod]);
     }
 }

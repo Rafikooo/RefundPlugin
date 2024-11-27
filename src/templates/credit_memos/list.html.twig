@@ -1,0 +1,32 @@
+{% import '@SyliusAdmin/shared/helper/money.html.twig' as money %}
+
+{% if credit_memos|length > 0 %}
+<div class="py-3">
+    <table class="ui celled compact small table fixed" id="credit-memos">
+        <thead>
+            <tr>
+                <th>{{ 'sylius.ui.number'|trans }}</th>
+                <th>{{ 'sylius.ui.channel'|trans }}</th>
+                <th>{{ 'sylius.ui.total'|trans }}</th>
+                <th>{{ 'sylius_refund.ui.issued_at'|trans }}</th>
+                <th class="six wide">{{ 'sylius.ui.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for credit_memo in credit_memos %}
+            <tr>
+                <td>{{ credit_memo.number }}</td>
+                <td>{% include '@SyliusAdmin/shared/grid/field/channel.html.twig' with {'data': credit_memo.channel} %}</td>
+                <td>{{ money.format(credit_memo.total, credit_memo.currencyCode) }}</td>
+                <td>{{ credit_memo.issuedAt|date('d-m-Y') }}</td>
+                <td>
+                    <div class="ui buttons">
+                        {% hook 'sylius_admin.order.show.content.sections.credit_memos.credit_memos.item.actions' %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}

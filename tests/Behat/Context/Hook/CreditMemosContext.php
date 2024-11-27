@@ -17,7 +17,7 @@ use Behat\Behat\Context\Context;
 
 final class CreditMemosContext implements Context
 {
-    public function __construct(private string $creditMemosPath)
+    public function __construct(private readonly string $creditMemosPath)
     {
     }
 

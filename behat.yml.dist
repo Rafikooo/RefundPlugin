@@ -38,9 +38,3 @@ default:
         FriendsOfBehat\SuiteSettingsExtension:
             paths:
                 - features
-
-        FriendsOfBehat\ExcludeSpecificationsExtension:
-            features:
-                - features/pdf_generation_disabled
-
-        SyliusLabs\SuiteTagsExtension: ~

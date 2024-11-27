@@ -19,23 +19,16 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-final class SupportedRefundPaymentMethodsProvider implements RefundPaymentMethodsProviderInterface
+final readonly class SupportedRefundPaymentMethodsProvider implements RefundPaymentMethodsProviderInterface
 {
     /**
      * @param PaymentMethodRepositoryInterface<PaymentMethodInterface> $paymentMethodRepository
      * @param string[] $supportedGateways
      */
     public function __construct(
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
-        private readonly array $supportedGateways,
+        private PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private array $supportedGateways,
     ) {
-    }
-
-    public function findForChannel(ChannelInterface $channel): array
-    {
-        trigger_deprecation('sylius/refund-plugin', '1.4', 'The "%s::findForChannel" method is deprecated and will be removed in 2.0. Use "%s::findForOrder" instead.', self::class, self::class);
-
-        return $this->find($channel);
     }
 
     /** @return PaymentMethodInterface[] */

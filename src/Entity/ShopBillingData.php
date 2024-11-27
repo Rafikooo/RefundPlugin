@@ -16,8 +16,7 @@ namespace Sylius\RefundPlugin\Entity;
 /** final */
 class ShopBillingData implements ShopBillingDataInterface
 {
-    /** @var mixed */
-    protected $id;
+    protected mixed $id = null;
 
     protected ?string $company = null;
 
@@ -31,7 +30,7 @@ class ShopBillingData implements ShopBillingDataInterface
 
     protected ?string $postcode = null;
 
-    public function getId()
+    public function getId(): mixed
     {
         return $this->id;
     }
@@ -94,47 +93,5 @@ class ShopBillingData implements ShopBillingDataInterface
     public function setPostcode(?string $postcode): void
     {
         $this->postcode = $postcode;
-    }
-
-    /** @deprecated this function is deprecated and will be removed in v2.0.0. Use ShopBillingData::getId() instead */
-    public function id()
-    {
-        return $this->id;
-    }
-
-    /** @deprecated this function is deprecated and will be removed in v2.0.0. Use ShopBillingData::getCompany() instead */
-    public function company(): ?string
-    {
-        return $this->company;
-    }
-
-    /** @deprecated this function is deprecated and will be removed in v2.0.0. Use ShopBillingData::getTaxId() instead */
-    public function taxId(): ?string
-    {
-        return $this->taxId;
-    }
-
-    /** @deprecated this function is deprecated and will be removed in v2.0.0. Use ShopBillingData::getCountryCode() instead */
-    public function countryCode(): ?string
-    {
-        return $this->countryCode;
-    }
-
-    /** @deprecated this function is deprecated and will be removed in v2.0.0. Use ShopBillingData::getStreet() instead */
-    public function street(): ?string
-    {
-        return $this->street;
-    }
-
-    /** @deprecated this function is deprecated and will be removed in v2.0.0. Use ShopBillingData::getCity() instead */
-    public function city(): ?string
-    {
-        return $this->city;
-    }
-
-    /** @deprecated this function is deprecated and will be removed in v2.0.0. Use ShopBillingData::getPostcode() instead */
-    public function postcode(): ?string
-    {
-        return $this->postcode;
     }
 }

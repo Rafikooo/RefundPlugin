@@ -1,0 +1,6 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+<a href="{{ path('sylius_refund_admin_credit_memo_download', { id: credit_memo.id }) }}" class="btn" {{ sylius_test_html_attribute('credit-memos-download') }}>
+    {{ ux_icon('tabler:download') }}
+    {{ 'sylius_refund.ui.download'|trans }}
+</a>

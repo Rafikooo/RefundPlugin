@@ -12,17 +12,13 @@ use Webmozart\Assert\Assert;
 
 final class CreditMemoDetailsPage extends SymfonyPage implements CreditMemoDetailsPageInterface
 {
-    private TableAccessorInterface $tableAccessor;
-
     public function __construct(
         Session $session,
         $minkParameters,
         RouterInterface $router,
-        TableAccessorInterface $tableAccessor
+        private readonly TableAccessorInterface $tableAccessor
     ) {
         parent::__construct($session, $minkParameters, $router);
-
-        $this->tableAccessor = $tableAccessor;
     }
 
     public function getRouteName(): string
@@ -77,14 +73,12 @@ final class CreditMemoDetailsPage extends SymfonyPage implements CreditMemoDetai
 
     public function getNumber(): string
     {
-        return $this->getDocument()->find('css', '#credit-memo-number')->getText();
+        return $this->getDocument()->find('css', '[data-test-credit-memo-number]')->getText();
     }
 
     public function getChannelName(): string
     {
-        $items = $this->getDocument()->findAll('css', '.channel > .channel__item');
-
-        return $items[1]->getText();
+        return $this->getDocument()->find('css', '[data-test-credit-memo-channel-name]')->getText();
     }
 
     public function getTotal(): string

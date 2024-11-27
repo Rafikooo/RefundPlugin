@@ -23,9 +23,6 @@
             <argument type="tagged_iterator" tag="sylius_refund.validator.unit_refunds_belonging_to_order" />
         </service>
         <service id="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface" alias="sylius_refund.validator.refund_units_command" />
-        <service id="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator" alias="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface instead.</deprecated>
-        </service>
 
         <service id="sylius_refund.validator.order_item_unit_refunds_belonging_to_order" class="Sylius\RefundPlugin\Validator\OrderItemUnitRefundsBelongingToOrderValidator">
             <argument type="service" id="sylius_refund.filter.unit_refund" />
@@ -43,8 +40,5 @@
             <argument type="service" id="sylius_refund.provider.remaining_total" />
         </service>
         <service id="Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface" alias="sylius_refund.validator.refund_amount" />
-        <service id="Sylius\RefundPlugin\Validator\RefundAmountValidator" alias="Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface">
-            <deprecated package="sylius/refund-plugin" version="1.0">The "%alias_id%" service alias is deprecated and will be removed in RefundPlugin 2.0, use Sylius\RefundPlugin\Validator\RefundAmountValidatorInterface instead.</deprecated>
-        </service>
     </services>
 </container>

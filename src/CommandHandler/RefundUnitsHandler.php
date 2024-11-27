@@ -32,34 +32,16 @@ final class RefundUnitsHandler
     private ?RefunderInterface $orderShipmentsRefunder = null;
 
     /**
-     * @param iterable<RefunderInterface>|RefunderInterface $refunders
+     * @param iterable<RefunderInterface> $refunders
      * @param OrderRepositoryInterface<OrderInterface>|MessageBusInterface $orderRepository
      * @param RefundUnitsCommandValidatorInterface|OrderRepositoryInterface<OrderInterface> $refundUnitsCommandValidator
      */
     public function __construct(
-        private readonly iterable|RefunderInterface $refunders,
-        private MessageBusInterface|RefunderInterface $eventBus,
-        private OrderRepositoryInterface|MessageBusInterface $orderRepository,
-        private RefundUnitsCommandValidatorInterface|OrderRepositoryInterface $refundUnitsCommandValidator,
+        private readonly iterable $refunders,
+        private readonly MessageBusInterface|RefunderInterface $eventBus,
+        private readonly OrderRepositoryInterface|MessageBusInterface $orderRepository,
+        private readonly RefundUnitsCommandValidatorInterface|OrderRepositoryInterface $refundUnitsCommandValidator,
     ) {
-        $args = func_get_args();
-
-        if ($refunders instanceof RefunderInterface) {
-            if (!isset($args[4])) {
-                throw new \InvalidArgumentException('The 5th argument must be present.');
-            }
-
-            $this->orderUnitsRefunder = $refunders;
-            /** @phpstan-ignore-next-line */
-            $this->orderShipmentsRefunder = $this->eventBus;
-            /** @phpstan-ignore-next-line */
-            $this->eventBus = $orderRepository;
-            /** @phpstan-ignore-next-line */
-            $this->orderRepository = $refundUnitsCommandValidator;
-            $this->refundUnitsCommandValidator = $args[4];
-
-            trigger_deprecation('sylius/refund-plugin', '1.4', sprintf('Passing a "%s" as a 1st argument of "%s" constructor is deprecated and will be removed in 2.0.', RefunderInterface::class, self::class));
-        }
     }
 
     public function __invoke(RefundUnits $command): void
@@ -74,7 +56,7 @@ final class RefundUnitsHandler
 
         $refundedTotal = 0;
 
-        $units = array_merge($command->units(), $command->shipments());
+        $units = $command->units();
 
         if (null !== $this->orderUnitsRefunder && null !== $this->orderShipmentsRefunder) {
             $refundedTotal += $this->orderUnitsRefunder->refundFromOrder(array_values(array_filter($units, fn (UnitRefundInterface $unitRefund) => $unitRefund instanceof OrderItemUnitRefund)), $orderNumber);

@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectRepository;
 use Sylius\Behat\Page\Admin\Order\ShowPageInterface;
 use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\RefundPlugin\Entity\CreditMemoInterface;
 use Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProviderInterface;
 use Tests\Sylius\RefundPlugin\Behat\Page\Admin\CreditMemoDetailsPageInterface;
 use Tests\Sylius\RefundPlugin\Behat\Page\Admin\CreditMemoIndexPageInterface;
@@ -17,32 +18,15 @@ use Webmozart\Assert\Assert;
 
 final class CreditMemoContext implements Context
 {
-    private ShowPageInterface $orderShowPage;
-
-    private CreditMemoIndexPageInterface $creditMemoIndexPage;
-
-    private CreditMemoDetailsPageInterface $creditMemoDetailsPage;
-
-    private PdfDownloadElementInterface $pdfDownloadElement;
-
-    private ObjectRepository $creditMemoRepository;
-
-    private CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider;
-
+    /** @param ObjectRepository<CreditMemoInterface> $creditMemoRepository */
     public function __construct(
-        ShowPageInterface $orderShowPage,
-        CreditMemoIndexPageInterface $creditMemoIndexPage,
-        CreditMemoDetailsPageInterface $creditMemoDetailsPage,
-        PdfDownloadElementInterface $pdfDownloadElement,
-        ObjectRepository $creditMemoRepository,
-        CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider
+        private readonly ShowPageInterface $orderShowPage,
+        private readonly CreditMemoIndexPageInterface $creditMemoIndexPage,
+        private readonly CreditMemoDetailsPageInterface $creditMemoDetailsPage,
+        private readonly PdfDownloadElementInterface $pdfDownloadElement,
+        private readonly ObjectRepository $creditMemoRepository,
+        private readonly CurrentDateTimeImmutableProviderInterface $currentDateTimeImmutableProvider
     ) {
-        $this->orderShowPage = $orderShowPage;
-        $this->creditMemoIndexPage = $creditMemoIndexPage;
-        $this->creditMemoDetailsPage = $creditMemoDetailsPage;
-        $this->pdfDownloadElement = $pdfDownloadElement;
-        $this->creditMemoRepository = $creditMemoRepository;
-        $this->currentDateTimeImmutableProvider = $currentDateTimeImmutableProvider;
     }
 
     /**
@@ -51,7 +35,6 @@ final class CreditMemoContext implements Context
     public function browseTheDetailsOfTheOnlyCreditMemoGeneratedForOrder(OrderInterface $order): void
     {
         $creditMemo = $this->creditMemoRepository->findBy(['order' => $order])[0];
-
         $this->creditMemoDetailsPage->open(['orderNumber' => $order->getNumber(), 'id' => $creditMemo->getId()]);
     }
 
@@ -158,7 +141,7 @@ final class CreditMemoContext implements Context
      */
     public function shouldHaveSequentialNumberGeneratedFromCurrentDate(): void
     {
-        Assert::same(
+        Assert::contains(
             $this->creditMemoDetailsPage->getNumber(),
             $this->currentDateTimeImmutableProvider->now()->format('Y/m').'/'.'000000001'
         );

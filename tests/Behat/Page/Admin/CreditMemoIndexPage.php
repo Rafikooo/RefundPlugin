@@ -24,7 +24,6 @@ final class CreditMemoIndexPage extends IndexPage implements CreditMemoIndexPage
 
     public function hasCreditMemoWithOrderNumber(int $index, string $orderNumber): bool
     {
-        /** @var NodeElement $creditMemo */
         $creditMemo = $this->getCreditMemoElement($index);
 
         return $creditMemo->find('css', sprintf('td:contains("%s")', $orderNumber)) !== null;
@@ -32,7 +31,6 @@ final class CreditMemoIndexPage extends IndexPage implements CreditMemoIndexPage
 
     public function hasCreditMemoWithDateOfBeingIssued(int $index, \DateTimeInterface $issuedAt): bool
     {
-        /** @var NodeElement $creditMemo */
         $creditMemo = $this->getCreditMemoElement($index);
 
         return $creditMemo->find('css', sprintf('td:contains("%s")', $issuedAt->format('Y-m-d H:i:s'))) !== null;
@@ -40,7 +38,6 @@ final class CreditMemoIndexPage extends IndexPage implements CreditMemoIndexPage
 
     public function hasCreditMemoWithTotal(int $index, string $total): bool
     {
-        /** @var NodeElement $creditMemo */
         $creditMemo = $this->getCreditMemoElement($index);
 
         return $creditMemo->find('css', sprintf('td:contains("%s")', $total)) !== null;
@@ -48,7 +45,6 @@ final class CreditMemoIndexPage extends IndexPage implements CreditMemoIndexPage
 
     public function hasCreditMemoWithChannel(int $index, string $channelName): bool
     {
-        /** @var NodeElement $creditMemo */
         $creditMemo = $this->getCreditMemoElement($index);
 
         return $creditMemo->find('css', sprintf('td:contains("%s")', $channelName)) !== null;

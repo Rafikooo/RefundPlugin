@@ -1,5 +1,5 @@
 imports:
-    - { resource: "@SyliusRefundPlugin/Resources/config/app/events.yaml" }
+    - { resource: "@SyliusRefundPlugin/Resources/config/app/twig_hooks/**/*.yaml" }
     - { resource: "@SyliusRefundPlugin/Resources/config/app/integrations.php" }
 
 parameters:
@@ -19,19 +19,33 @@ sylius_mailer:
             subject: Units refunded
             template: "@SyliusRefundPlugin/Email/unitsRefunded.html.twig"
 
-winzou_state_machine:
-    sylius_refund_refund_payment:
-        class: Sylius\RefundPlugin\Entity\RefundPayment
-        property_path: state
-        graph: sylius_refund_refund_payment
-        state_machine_class: "%sylius.state_machine.class%"
-        states:
-            new: ~
-            completed: ~
-        transitions:
-            complete:
-                from: [new]
-                to: completed
+framework:
+    messenger:
+        buses:
+            sylius.command_bus: &command_bus
+                middleware:
+                    - 'validation'
+                    - 'doctrine_transaction'
+            sylius.event_bus: &event_bus
+                default_middleware: allow_no_handlers
+            sylius_refund_plugin.command_bus: *command_bus
+            sylius_refund_plugin.event_bus: *event_bus
+    workflows:
+        sylius_refund_refund_payment:
+            type: state_machine
+            marking_store:
+                type: method
+                property: state
+            supports:
+                - Sylius\RefundPlugin\Entity\RefundPayment
+            initial_marking: new
+            places:
+                - !php/const Sylius\RefundPlugin\Entity\RefundPaymentInterface::STATE_NEW
+                - !php/const Sylius\RefundPlugin\Entity\RefundPaymentInterface::STATE_COMPLETED
+            transitions:
+                complete:
+                    from: !php/const Sylius\RefundPlugin\Entity\RefundPaymentInterface::STATE_NEW
+                    to: !php/const Sylius\RefundPlugin\Entity\RefundPaymentInterface::STATE_COMPLETED
 
 sylius_grid:
     grids:
@@ -52,19 +66,19 @@ sylius_grid:
                     label: sylius.ui.order
                     sortable: order.number
                     options:
-                        template: "@SyliusRefundPlugin/Order/Grid/Field/number.html.twig"
+                        template: "@SyliusRefundPlugin/order/grid/field/number.html.twig"
                 channel:
                     type: twig
                     label: sylius.ui.channel
                     options:
-                        template: "@SyliusRefundPlugin/Order/Grid/Field/channel.html.twig"
+                        template: "@SyliusRefundPlugin/order/grid/field/channel.html.twig"
                 total:
                     type: twig
                     label: sylius.ui.total
                     path: .
                     sortable: total
                     options:
-                        template: "@SyliusAdmin/Order/Grid/Field/total.html.twig"
+                        template: "@SyliusAdmin/order/grid/field/order_total.html.twig"
                 issuedAt:
                     type: datetime
                     label: sylius_refund.ui.issued_at
@@ -75,7 +89,7 @@ sylius_grid:
                     show:
                         type: show
                         label: sylius.ui.show
-                        icon: eye
+                        icon: "tabler:eye"
                         options:
                             link:
                                 route: sylius_refund_credit_memo_details
@@ -86,7 +100,7 @@ sylius_grid:
                         type: default
                         label: sylius_refund.ui.download
                         enabled: '%sylius_refund.pdf_generator.enabled%'
-                        icon: download
+                        icon: "tabler:download"
                         options:
                             link:
                                 route: sylius_refund_admin_credit_memo_download
@@ -95,7 +109,7 @@ sylius_grid:
                     resend:
                         type: default
                         label: sylius_refund.ui.resend
-                        icon: send
+                        icon: "tabler:send"
                         options:
                             link:
                                 route: sylius_refund_admin_credit_memo_send

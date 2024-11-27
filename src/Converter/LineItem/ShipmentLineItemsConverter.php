@@ -17,7 +17,6 @@ use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Order\Model\AdjustableInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\RefundPlugin\Entity\LineItem;
 use Sylius\RefundPlugin\Entity\LineItemInterface;
 use Sylius\RefundPlugin\Exception\MoreThanOneTaxAdjustment;
 use Sylius\RefundPlugin\Factory\LineItemFactoryInterface;
@@ -25,21 +24,13 @@ use Sylius\RefundPlugin\Model\ShipmentRefund;
 use Sylius\RefundPlugin\Provider\TaxRateProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class ShipmentLineItemsConverter implements LineItemsConverterUnitRefundAwareInterface
+final readonly class ShipmentLineItemsConverter implements LineItemsConverterUnitRefundAwareInterface
 {
     public function __construct(
-        private readonly RepositoryInterface $adjustmentRepository,
-        private readonly TaxRateProviderInterface $taxRateProvider,
-        private readonly ?LineItemFactoryInterface $lineItemFactory = null,
+        private RepositoryInterface $adjustmentRepository,
+        private TaxRateProviderInterface $taxRateProvider,
+        private LineItemFactoryInterface $lineItemFactory,
     ) {
-        if (null === $this->lineItemFactory) {
-            trigger_deprecation(
-                'sylius/refund-plugin',
-                '1.5',
-                'Not passing a line item factory to "%s" is deprecated and will be removed in 2.0.',
-                self::class,
-            );
-        }
     }
 
     public function convert(array $units): array
@@ -87,19 +78,6 @@ final class ShipmentLineItemsConverter implements LineItemsConverterUnitRefundAw
         $label = $shippingAdjustment->getLabel();
         Assert::notNull($label);
 
-        if (null === $this->lineItemFactory) {
-            return new LineItem(
-                $label,
-                1,
-                $netValue,
-                $grossValue,
-                $netValue,
-                $grossValue,
-                $taxAmount,
-                $this->taxRateProvider->provide($shipment),
-            );
-        }
-
         return $this->lineItemFactory->createWithData(
             name: $label,
             quantity: 1,
@@ -129,5 +107,3 @@ final class ShipmentLineItemsConverter implements LineItemsConverterUnitRefundAw
         return $taxAdjustment;
     }
 }
-
-class_alias(ShipmentLineItemsConverter::class, \Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter::class);

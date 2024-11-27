@@ -15,16 +15,16 @@ namespace Sylius\RefundPlugin\Generator;
 
 use Symfony\Component\Config\FileLocatorInterface;
 
-final class PdfOptionsGenerator implements PdfOptionsGeneratorInterface
+final readonly class PdfOptionsGenerator implements PdfOptionsGeneratorInterface
 {
     /**
      * @param array<string, mixed> $knpSnappyOptions
      * @param string[] $allowedFiles
      */
     public function __construct(
-        private readonly FileLocatorInterface $fileLocator,
-        private readonly array $knpSnappyOptions,
-        private readonly array $allowedFiles,
+        private FileLocatorInterface $fileLocator,
+        private array $knpSnappyOptions,
+        private array $allowedFiles,
     ) {
     }
 

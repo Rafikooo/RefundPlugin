@@ -13,19 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\Provider;
 
-use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 
-/**
- * @method PaymentMethodInterface[] findForOrder(OrderInterface $order)
- */
 interface RefundPaymentMethodsProviderInterface
 {
-    /**
-     * @deprecated since 1.4, to be removed in 2.0, use findForOrder() instead
-     *
-     * @return PaymentMethodInterface[]
-     */
-    public function findForChannel(ChannelInterface $channel): array;
+    /** @return PaymentMethodInterface[] */
+    public function findForOrder(OrderInterface $order): array;
 }
