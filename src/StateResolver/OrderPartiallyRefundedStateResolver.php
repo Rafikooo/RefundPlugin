@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\StateResolver;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -27,7 +27,7 @@ final readonly class OrderPartiallyRefundedStateResolver implements OrderPartial
     public function __construct(
         private OrderRepositoryInterface $orderRepository,
         private StateMachineInterface $stateMachineFactory,
-        private ObjectManager $orderManager,
+        private EntityManagerInterface $orderManager,
     ) {
     }
 

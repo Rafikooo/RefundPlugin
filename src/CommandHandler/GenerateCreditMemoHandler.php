@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\RefundPlugin\CommandHandler;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\RefundPlugin\Command\GenerateCreditMemo;
@@ -29,7 +29,7 @@ final readonly class GenerateCreditMemoHandler
     /** @param OrderRepositoryInterface<OrderInterface> $orderRepository */
     public function __construct(
         private CreditMemoGeneratorInterface $creditMemoGenerator,
-        private ObjectManager $creditMemoManager,
+        private EntityManagerInterface $creditMemoManager,
         private MessageBusInterface $eventBus,
         private OrderRepositoryInterface $orderRepository,
         private CreditMemoFileResolverInterface $creditMemoFileResolver,

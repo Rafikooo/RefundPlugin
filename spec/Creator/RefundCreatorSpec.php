@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\RefundPlugin\Creator;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -30,7 +30,7 @@ final class RefundCreatorSpec extends ObjectBehavior
         RefundFactoryInterface $refundFactory,
         RemainingTotalProviderInterface $remainingTotalProvider,
         OrderRepositoryInterface $orderRepository,
-        ObjectManager $refundEntityManager,
+        EntityManagerInterface $refundEntityManager,
     ): void {
         $this->beConstructedWith(
             $refundFactory,
@@ -49,7 +49,7 @@ final class RefundCreatorSpec extends ObjectBehavior
         RefundFactoryInterface $refundFactory,
         RemainingTotalProviderInterface $remainingTotalProvider,
         OrderRepositoryInterface $orderRepository,
-        ObjectManager $refundEntityManager,
+        EntityManagerInterface $refundEntityManager,
         OrderInterface $order,
         RefundInterface $refund,
     ): void {
