@@ -172,187 +172,42 @@
 
 1. The following constructor signatures have been changed:
 
-   - `Sylius\RefundPlugin\Action\Admin\OrderRefundsListAction`:
-       ```diff
-       public function __construct(
-       -       private readonly OrderRepositoryInterface $orderRepository,
-       -       private readonly OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
-       -       private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
-       -       private readonly Environment $twig,
-       -       private readonly SessionInterface | RequestStack $requestStackOrSession,
-       -       private readonly UrlGeneratorInterface $router,
-       +       private OrderRepositoryInterface $orderRepository,
-       +       private OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
-       +       private RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
-       +       private Environment $twig,
-       +       private RequestStack $requestStack,
-       +       private UrlGeneratorInterface $router,
-       ) {
-       }
-       ```
+    - `Sylius\RefundPlugin\Action\Admin\OrderRefundsListAction`:
+        ```diff
+        public function __construct(
+        -       private readonly SessionInterface | RequestStack $requestStackOrSession,
+        +       private RequestStack $requestStack,
+        ) {
+        }
+        ```
 
-   - `Sylius\RefundPlugin\Action\Admin\RefundUnitsAction`:
-       ```diff
-       public function __construct(
-       -       private readonly MessageBusInterface $commandBus,
-       -       private readonly SessionInterface|RequestStack $requestStackOrSession,
-       -       private readonly UrlGeneratorInterface $router,
-       -       private readonly RequestCommandCreatorInterface|RefundUnitsCommandCreatorInterface $commandCreator,
-       -       private readonly LoggerInterface $logger,
-       -       private readonly CsrfTokenManagerInterface $csrfTokenManager,
-       +       private MessageBusInterface $commandBus,
-       +       private RequestStack $requestStack,
-       +       private UrlGeneratorInterface $router,
-       +       private RequestCommandCreatorInterface $commandCreator,
-       +       private LoggerInterface $logger,
-       +       private CsrfTokenManagerInterface $csrfTokenManager,
-       ) {
-       }
-       ```
+    - `Sylius\RefundPlugin\Action\Admin\RefundUnitsAction`:
+        ```diff
+        public function __construct(
+        -       private readonly SessionInterface|RequestStack $requestStackOrSession,
+        -       private readonly RequestCommandCreatorInterface|RefundUnitsCommandCreatorInterface $commandCreator,
+        +       private RequestStack $requestStack,
+        +       private RequestCommandCreatorInterface $commandCreator
+        ) {
+        }
+        ```
 
-   - `Sylius\RefundPlugin\Action\Admin\SendCreditMemoAction`:
-       ```diff
-       public function __construct(
-       -       private readonly MessageBusInterface $commandBus,
-       -       private readonly RepositoryInterface $creditMemoRepository,
-       -       private readonly SessionInterface | RequestStack $requestStackOrSession,
-       +       private MessageBusInterface $commandBus,
-       +       private RepositoryInterface $creditMemoRepository,
-       +       private RequestStack $requestStack,
-               private UrlGeneratorInterface $router,
-       ) {
-       }
-       ```
+    - `Sylius\RefundPlugin\Action\Admin\SendCreditMemoAction`:
+        ```diff
+        public function __construct(
+        -       private readonly SessionInterface | RequestStack $requestStackOrSession,
+        +       private RequestStack $requestStack,
+        ) {
+        }
+        ```
 
-   - `Sylius\RefundPlugin\Action\Shop\DownloadCreditMemoAction`:
+   - `Sylius\RefundPlugin\CommandHandler\GenerateCreditMemoHandler`:
        ```diff
        public function __construct(
-       -       private readonly CreditMemoFileResolverInterface $creditMemoFileResolver,
-       -       private readonly CreditMemoCustomerRelationCheckerInterface $creditMemoCustomerRelationChecker,
-       -       private readonly CreditMemoFileResponseBuilderInterface $creditMemoFileResponseBuilder,
-       -       private readonly bool $hasEnabledPdfFileGenerator,
+       -       private readonly ObjectManager $creditMemoManager,
+       -       private readonly ?CreditMemoFileResolverInterface $creditMemoFileResolver = null,
+       +       private EntityManagerInterface $creditMemoManager,
        +       private CreditMemoFileResolverInterface $creditMemoFileResolver,
-       +       private CreditMemoCustomerRelationCheckerInterface $creditMemoCustomerRelationChecker,
-       +       private CreditMemoFileResponseBuilderInterface $creditMemoFileResponseBuilder,
-       +       private bool $hasEnabledPdfFileGenerator,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Action\CompleteRefundPaymentAction`:
-       ```diff
-       public function __construct(
-       -       private readonly RequestStack $requestStack,
-       -       private readonly ObjectRepository $refundPaymentRepository,
-       -       private readonly OrderRepositoryInterface $orderRepository,
-       -       private readonly RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier,
-       -       private readonly RouterInterface $router,
-       +       private RequestStack $requestStack,
-       +       private ObjectRepository $refundPaymentRepository,
-       +       private OrderRepositoryInterface $orderRepository,
-       +       private RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier,
-       +       private RouterInterface $router,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculator`:
-       ```diff
-       public function __construct(
-       -       private readonly RemainingTotalProviderInterface $remainingTotalProvider,
-       +       private RemainingTotalProviderInterface $remainingTotalProvider,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Checker\CreditMemoCustomerRelationChecker`:
-       ```diff
-       public function __construct(
-       -       private readonly CreditMemoRepositoryInterface $creditMemoRepository,
-       +       private CreditMemoRepositoryInterface $creditMemoRepository,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalChecker`:
-       ```diff
-       public function __construct(
-       -       private readonly OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       -       private readonly ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       +       private OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       +       private ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityChecker`:
-       ```diff
-       public function __construct(
-       -       private readonly OrderRepositoryInterface $orderRepository,
-       -       private readonly OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       -       private readonly ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       +       private OrderRepositoryInterface $orderRepository,
-       +       private OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       +       private ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Checker\OrderRefundsListAvailabilityChecker`:
-       ```diff
-       public function __construct(
-       -       private readonly OrderRepositoryInterface $orderRepository,
-       -       private readonly OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       -       private readonly ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       +       private OrderRepositoryInterface $orderRepository,
-       +       private OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       +       private ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityChecker`:
-       ```diff
-       public function __construct(
-       -       private readonly OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       -       private readonly ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       +       private OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       +       private ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Command\GenerateCreditMemo`:
-       ```diff
-       public function __construct(
-       -       private readonly string $orderNumber,
-       -       private readonly string $creditMemoIdentifier,
-       +       private string $orderNumber,
-       +       private string $creditMemoIdentifier,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Command\RefundUnits`:
-       ```diff
-       public function __construct(
-       -       private readonly string $orderNumber,
-       -       private readonly array $units,
-       -       private readonly string $currencyCode,
-       -       private readonly string $paymentMethodCode,
-       +       private string $orderNumber,
-       +       private array $units,
-       +       private string $currencyCode,
-       +       private string $paymentMethodCode,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Command\SendCreditMemo`:
-       ```diff
-       public function __construct(
-       -       private readonly string $creditMemoIdentifier,
-       +       private string $creditMemoIdentifier,
        ) {
        }
        ```
@@ -360,48 +215,35 @@
    - `Sylius\RefundPlugin\CommandHandler\RefundUnitsHandler`:
        ```diff
        public function __construct(
-       -       private readonly RefundUnitsCommandHandlerInterface $refundUnitsCommandHandler,
-       +       private RefundUnitsCommandHandlerInterface $refundUnitsCommandHandler,
+       -    private EntityManagerInterface $entityManager,
+       +    private ObjectManager $entityManager,
        ) {
        }
        ```
 
-   - `Sylius\RefundPlugin\CommandHandler\SendCreditMemoHandler`:
+   - `Sylius\RefundPlugin\Converter\LineItem\OrderItemUnitLineItemsConverter`:
        ```diff
        public function __construct(
-       -       private readonly CreditMemoSenderInterface $creditMemoSender,
-       +       private CreditMemoSenderInterface $creditMemoSender,
+       -       private readonly ?LineItemFactoryInterface $lineItemFactory = null,
+       +       private LineItemFactoryInterface $lineItemFactory,
        ) {
        }
        ```
 
-   - `Sylius\RefundPlugin\Converter\RefundUnitsConverter`:
+   - `Sylius\RefundPlugin\Converter\LineItem\ShipmentLineItemsConverter`:
        ```diff
        public function __construct(
-       -       private readonly UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator,
-       +       private UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator,
+       -       private readonly ?LineItemFactoryInterface $lineItemFactory = null,
+       +       private LineItemFactoryInterface $lineItemFactory,
        ) {
        }
        ```
 
-   - `Sylius\RefundPlugin\Converter\ShipmentRefundConverter`:
+   - `Sylius\RefundPlugin\Creator\RefundCreator`:
        ```diff
        public function __construct(
-       -       private readonly ShipmentRefundTotalCalculatorInterface $shipmentRefundTotalCalculator,
-       +       private ShipmentRefundTotalCalculatorInterface $shipmentRefundTotalCalculator,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Creator\CreditMemoCreator`:
-       ```diff
-       public function __construct(
-       -       private readonly CreditMemoFactoryInterface $creditMemoFactory,
-       -       private readonly CreditMemoRepositoryInterface $creditMemoRepository,
-       -       private readonly CreditMemoIdentifierGeneratorInterface $creditMemoIdentifierGenerator,
-       +       private CreditMemoFactoryInterface $creditMemoFactory,
-       +       private CreditMemoRepositoryInterface $creditMemoRepository,
-       +       private CreditMemoIdentifierGeneratorInterface $creditMemoIdentifierGenerator,
+       -    private EntityManagerInterface $entityManager,
+       +    private ObjectManager $entityManager,
        ) {
        }
        ```
@@ -409,113 +251,20 @@
    - `Sylius\RefundPlugin\Creator\RefundUnitsCommandCreator`:
        ```diff
        public function __construct(
-       -       private readonly RefundUnitsConverterInterface $refundUnitsConverter,
-       +       private RefundUnitsConverterInterface $refundUnitsConverter,
+       -       private RequestToRefundUnitsConverterInterface|RefundUnitsConverterInterface $requestToRefundUnitsConverter,
+       +       private RequestToRefundUnitsConverterInterface $requestToRefundUnitsConverter,
        ) {
        }
        ```
 
-   - `Sylius\RefundPlugin\Creator\ShipmentRefundCommandCreator`:
+   - `Sylius\RefundPlugin\Generator\CreditMemoGenerator`:
        ```diff
-       public function __construct(
-       -       private readonly OrderItemUnitRepositoryInterface $orderItemUnitRepository,
-       +       private OrderItemUnitRepositoryInterface $orderItemUnitRepository,
-       ) {
-       }
-       ```
+       use Sylius\RefundPlugin\Converter\LineItem\LineItemsConverterInterface;
+       use Sylius\RefundPlugin\Converter\LineItemsConverterInterface as LegacyLineItemsConverterInterface;
 
-   - `Sylius\RefundPlugin\Doctrine\ORM\CountShipmentRefundsBelongingToOrderQuery`:
-       ```diff
        public function __construct(
-       -       private readonly string $creditMemoId,
-       -       private readonly string $orderNumber,
-       +       private string $creditMemoId,
-       +       private string $orderNumber,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Factory\CreditMemoFactory`:
-       ```diff
-       public function __construct(
-       -       private readonly CreditMemoIdentifierGeneratorInterface $identifierGenerator,
-       -       private readonly CreditMemoSequenceNumberGeneratorInterface $sequenceNumberGenerator,
-       +       private CreditMemoIdentifierGeneratorInterface $identifierGenerator,
-       +       private CreditMemoSequenceNumberGeneratorInterface $sequenceNumberGenerator,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Filter\RefundUnitsFilter`:
-       ```diff
-       public function __construct(
-       -       private readonly UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator,
-       +       private UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Generator\CreditMemoPdfFileGenerator`:
-       ```diff
-       public function __construct(
-       -       private readonly CreditMemoPdfGeneratorInterface $creditMemoPdfGenerator,
-       +       private CreditMemoPdfGeneratorInterface $creditMemoPdfGenerator,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Listener\CreditMemoGeneratedListener`:
-       ```diff
-       public function __construct(
-       -       private readonly CreditMemoEmailSenderInterface $emailSender,
-       +       private CreditMemoEmailSenderInterface $emailSender,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Manager\CreditMemoManager`:
-       ```diff
-       public function __construct(
-       -       private readonly CreditMemoRepositoryInterface $creditMemoRepository,
-       +       private CreditMemoRepositoryInterface $creditMemoRepository,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Provider\CurrentDateTimeImmutableProvider`:
-       ```diff
-       public function __construct(
-       -       private readonly \DateTimeImmutable $currentDateTime,
-       +       private \DateTimeImmutable $currentDateTime,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Provider\OrderRefundedTotalProvider`:
-       ```diff
-       public function __construct(
-       -       private readonly OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       -       private readonly ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       +       private OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       +       private ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Provider\RefundedShipmentFeeProvider`:
-       ```diff
-       public function __construct(
-       -       private readonly ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       +       private ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Provider\RefundPaymentMethodsProvider`:
-       ```diff
-       public function __construct(
-       -       private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
-       +       private PaymentMethodRepositoryInterface $paymentMethodRepository,
+       -       private readonly LineItemsConverterInterface|LegacyLineItemsConverterInterface $lineItemsConverter,
+       +       private LineItemsConverterInterface $lineItemsConverter,
        ) {
        }
        ```
@@ -523,21 +272,17 @@
    - `Sylius\RefundPlugin\Provider\RemainingTotalProvider`:
        ```diff
        public function __construct(
-       -       private readonly OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       -       private readonly ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       +       private OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       +       private ShipmentRefundRepositoryInterface $shipmentRefundRepository,
+       -       private readonly ServiceProviderInterface|RepositoryInterface $refundUnitTotalProvider,
+       +       private ServiceProviderInterface $refundUnitTotalProvider,
        ) {
        }
        ```
 
-   - `Sylius\RefundPlugin\Refunder\OrderItemUnitsRefunder`:
+   - `Sylius\RefundPlugin\Refunder\OrderUnitsRefunder`:
        ```diff
        public function __construct(
-       -       private readonly OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       -       private readonly UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator,
-       +       private OrderItemUnitRefundRepositoryInterface $orderItemUnitRefundRepository,
-       +       private UnitRefundTotalCalculatorInterface $unitRefundTotalCalculator,
+       -       private readonly ?UnitRefundFilterInterface $unitRefundFilter = null,
+       +       private UnitRefundFilterInterface $unitRefundFilter,
        ) {
        }
        ```
@@ -545,41 +290,34 @@
    - `Sylius\RefundPlugin\Refunder\OrderShipmentsRefunder`:
        ```diff
        public function __construct(
-       -       private readonly ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       -       private readonly ShipmentRefundTotalCalculatorInterface $shipmentRefundTotalCalculator,
-       +       private ShipmentRefundRepositoryInterface $shipmentRefundRepository,
-       +       private ShipmentRefundTotalCalculatorInterface $shipmentRefundTotalCalculator,
+       -       private readonly ?UnitRefundFilterInterface $unitRefundFilter = null,
+       +       private UnitRefundFilterInterface $unitRefundFilter,
        ) {
        }
        ```
 
-   - `Sylius\RefundPlugin\Repository\CreditMemoRepository`:
+    - `Sylius\RefundPlugin\Sender\CreditMemoEmailSender`:
        ```diff
        public function __construct(
-       -       private readonly EntityManagerInterface $entityManager,
-       +       private EntityManagerInterface $entityManager,
+       -       private readonly ?CreditMemoPdfFileGeneratorInterface $creditMemoPdfFileGenerator,
+       -       private readonly ?FileManagerInterface $fileManager,
+       -       private readonly ?CreditMemoFileResolverInterface $creditMemoFileResolver = null,
+       -       private readonly ?CreditMemoFilePathResolverInterface $creditMemoFilePathResolver = null,
+       +       private CreditMemoFileResolverInterface $creditMemoFileResolver,
+       +       private CreditMemoFilePathResolverInterface $creditMemoFilePathResolver,
        ) {
        }
        ```
 
-   - `Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilder`:
-       ```diff
-       public function __construct(
-       -       private readonly string $creditMemoFilesPath,
-       +       private string $creditMemoFilesPath,
-       ) {
-       }
-       ```
-
-   - `Sylius\RefundPlugin\Validator\ShipmentRefundsBelongingToOrderValidator`:
-       ```diff
-       public function __construct(
-       -       private readonly OrderRepositoryInterface $orderRepository,
-       +       private OrderRepositoryInterface $orderRepository,
-       ) {
-       }
-       ```
-
+   - `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator`:
+      ```diff
+      public function __construct(
+      -       private ?iterable $refundUnitsBelongingToOrderValidators = null,
+      +       private iterable $refundUnitsBelongingToOrderValidators,
+      ) {
+      }
+      ```   
+      
 1. The following classes where deprecated in 1.x and have been removed in 2.0:
 
    - Sylius\RefundPlugin\Converter\LineItemsConverterInterface
