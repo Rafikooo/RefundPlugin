@@ -46,7 +46,7 @@
    And the paths to assets and templates if you are using them.
 
 
-1. **No need to overwrite templates**:  
+1. No need to overwrite templates:  
    Thanks to the use of Twig Hooks and the refactoring of templates, you no longer need to overwrite templates to use plugin features.
 
 
@@ -579,3 +579,16 @@
        ) {
        }
        ```
+
+1. The following classes where deprecated in 1.x and have been removed in 2.0:
+
+   - Sylius\RefundPlugin\Converter\LineItemsConverterInterface
+   - Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter
+   - Sylius\RefundPlugin\Converter\RequestToOrderItemUnitRefundConverter
+   - Sylius\RefundPlugin\Converter\RequestToRefundUnitsConverterInterface
+   - Sylius\RefundPlugin\Converter\RequestToShipmentRefundConverter
+   - Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter
+   - Sylius\RefundPlugin\Creator\RefundUnitsCommandCreatorInterface
+   - Sylius\RefundPlugin\File\FileManagerInterface
+   - Sylius\RefundPlugin\File\TemporaryFileManager
+   - Sylius\RefundPlugin\Menu\OrderShowMenuListener
