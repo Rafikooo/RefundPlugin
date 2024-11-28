@@ -10,8 +10,8 @@
 
     ```php
     $bundles = [
-        new \Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-        new \Sylius\RefundPlugin\SyliusRefundPlugin(),
+        Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
+        Sylius\RefundPlugin\SyliusRefundPlugin::class => ['all' => true],
     ];
     ```
 
@@ -19,25 +19,21 @@
 
     ```yaml
     imports:
-        - { resource: "@SyliusRefundPlugin/Resources/config/app/config.yml" }
+        - { resource: "@SyliusRefundPlugin/config/app/config.yml" }
     ```
 1. Import routing:
 
     ````yaml
     sylius_refund:
-        resource: "@SyliusRefundPlugin/Resources/config/routing.yml"
+        resource: "@SyliusRefundPlugin/config/routing.yml"
     ````
 
 1. Check if you have `wkhtmltopdf` binary. If not, you can download it [here](https://wkhtmltopdf.org/downloads.html).
 
-   In case `wkhtmltopdf` is not located in `/usr/local/bin/wkhtmltopdf`, add a following snippet at the end of your application's `config.yml`:
+   In case `wkhtmltopdf` is not located in `/usr/local/bin/wkhtmltopdf`, add a following snippet at the end of your application's `.env`:
 
     ```yaml
-    knp_snappy:
-        pdf:
-            enabled: true
-            binary: /usr/local/bin/wkhtmltopdf # Change this! :)
-            options: []
+    WKHTMLTOPDF_PATH=/path/to/your/wkhtmltopdf
     ```   
     
 1. Apply migrations to your database:
@@ -46,11 +42,12 @@
     bin/console doctrine:migrations:migrate
     ```
 
-1. Copy Sylius templates overridden in plugin to your templates directory (e.g `templates/bundles/`):
+1. Install assets:
 
-    ```bash
-    mkdir -p templates/bundles/SyliusAdminBundle/
-    cp -R vendor/sylius/refund-plugin/src/Resources/views/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
+   Add the following line to your `assets/admin/entry.js` file:
+
+    ```js
+   import '../../vendor/sylius/refund-plugin/assets/entrypoint';
     ```
 
 1. Clear cache:
