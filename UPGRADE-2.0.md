@@ -1,5 +1,11 @@
 ### UPGRADE FROM 1.X TO 2.0
 
+1. Support for Sylius 2.0 has been added, it is now the recommended Sylius version to use with SyliusRefundPlugin.
+
+1. Support for Sylius 1.X has been dropped, upgrade your application to [Sylius 2.0](https://github.com/Sylius/Sylius/blob/2.0/UPGRADE-2.0.md).
+
+1. The minimum supported version of PHP has been increased to 8.2.
+
 1. The way of customizing resource definition has been changed.
 
     ```diff
@@ -14,9 +20,35 @@
 1. Doctrine migrations have been regenerated, meaning all previous migration files have been removed and their content is now in a single migration file.
    To apply the new migration and get rid of the old entries run migrations as usual:
 
-```bash
-    bin/console doctrine:migrations:migrate --no-interaction
-```
+   ```bash
+       bin/console doctrine:migrations:migrate --no-interaction
+   ```
+
+1. The directories structure has been updated to the current Symfony recommendations:
+   - `@SyliusRefundPlugin/Resources/config` -> `@SyliusRefundPlugin/config`
+   - `@SyliusRefundPlugin/Resources/translations` -> `@SyliusRefundPlugin/translations`
+   - `@SyliusRefundPlugin/Resources/views` -> `@SyliusRefundPlugin/templates`
+
+   You need to adjust the import of configuration file in your end application:
+   ```diff
+   imports:
+   -   - { resource: "@SyliusRefundPlugin/Resources/config/config.yml" }
+   +   - { resource: '@SyliusRefundPlugin/config/config.yaml' }
+   ```
+
+   And the routes configuration paths:
+   ```diff
+   sylius_refund:
+   -   resource: "@SyliusRefundPlugin/Resources/config/routing.yml"
+   +   resource: "@SyliusRefundPlugin/config/routing.yml"
+   ```
+
+   And the paths to assets and templates if you are using them.
+
+
+1. **No need to overwrite templates**:  
+   Thanks to the use of Twig Hooks and the refactoring of templates, you no longer need to overwrite templates to use plugin features.
+
 
 1. Aliases introduced in RefundPlugin 1.6 have now become the primary service IDs in RefundPlugin 2.0. 
    The old service IDs have been removed, and all references must be updated accordingly:
@@ -137,3 +169,23 @@
    - Services required by Symfony to be `public` (e.g., controllers, event listeners) remain public.
 
 1. `_javascript.html.twig` file has been removed, and its code has been moved to `src/Resources/assets/js/refund-button.js`. When upgrading to 2.0, import the `src/Resources/assets/entrypoint.js` file into your application’s main js file.
+
+1. The following constructor signatures have been changed
+
+    - `Sylius\RefundPlugin\Action\Admin\OrderRefundsListAction`:
+        ```diff
+            public function __construct(
+        -      private readonly OrderRepositoryInterface $orderRepository,
+        -      private readonly OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
+        -      private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
+        -      private readonly Environment $twig,
+        -      private readonly SessionInterface | RequestStack $requestStackOrSession,
+        -      private readonly UrlGeneratorInterface $router,
+        +      private OrderRepositoryInterface $orderRepository,
+        +      private OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
+        +      private RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
+        +      private Environment $twig,
+        +      private RequestStack $requestStack,
+        +      private UrlGeneratorInterface $router,
+         ) {
+        ```
