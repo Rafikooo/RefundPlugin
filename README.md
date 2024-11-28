@@ -51,6 +51,16 @@ From Administrator's point of view, every Refund request results in creating two
     bin/console doctrine:migrations:migrate
     ```
 
+1. Install assets:
+
+   Add the following line to your `assets/admin/entry.js` file:
+
+    ```js
+   import '../../vendor/sylius/refund-plugin/assets/entrypoint';
+    ```
+
+1. Run `yarn encore dev` or `yarn encore production`
+
 1. Default configuration assumes enabled PDF file generator. If you don't want to use that feature change your app configuration:
 
    ```yaml

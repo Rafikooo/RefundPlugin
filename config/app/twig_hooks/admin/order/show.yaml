@@ -13,6 +13,10 @@ sylius_twig_hooks:
                 template: '@SyliusRefundPlugin/order/admin/content/sections/payments/refund_items.html.twig'
                 priority: -200
 
+        'sylius_admin.order.show.content.sections.payments.item.actions':
+            refund:
+                enabled: false
+
         'sylius_admin.order.show.content.sections.payments.refund_header':
             title:
                 template: '@SyliusRefundPlugin/order/admin/content/sections/payments/header/title.html.twig'
