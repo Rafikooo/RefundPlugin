@@ -53,7 +53,7 @@ From Administrator's point of view, every Refund request results in creating two
 
 1. Install assets:
 
-   Add the following line to your `assets/admin/entry.js` file:
+   Add the following line to your `assets/admin/entrypoint.js` file:
 
     ```js
    import '../../vendor/sylius/refund-plugin/assets/entrypoint';
