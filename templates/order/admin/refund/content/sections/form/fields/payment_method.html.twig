@@ -3,10 +3,10 @@
 {% set payment_methods = hookable_metadata.context.payment_methods %}
 {% set original_payment_method = order.lastPayment(completed).method %}
 
-<div class="ui form column">
+<div class="col-12 col-md-6 mb-3">
     <div class="field">
-        <label for="payment-methods">{{ 'sylius.ui.payment_method'|trans }}</label>
-        <select id="payment-methods" name="sylius_refund_payment_method" class="ui fluid selection dropdown">
+        <label for="payment-methods" class="form-label">{{ 'sylius.ui.payment_method'|trans }}</label>
+        <select id="payment-methods" name="sylius_refund_payment_method" class="form-select mb-1">
             {% for payment_method in payment_methods %}
                 <option value="{{ payment_method.id }}" {{ (payment_method.code == original_payment_method.code) ? 'selected="selected"' : '' }}>
                     {{ payment_method.name }}

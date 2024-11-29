@@ -19,10 +19,10 @@
         </td>
         <td class="aligned collapsing partial-refund">
 
-            <div class="ui labeled input">
-                <div class="ui label">{{ order.currencyCode|sylius_currency_symbol }}</div>
+            <div class="input-group">
+                <div class="input-group-text">{{ order.currencyCode|sylius_currency_symbol }}</div>
                 {% set inputName = "sylius_refund_shipments["~shipping_adjustment.id~"][amount]" %}
-                <input data-refund-input type="number" step="0.01" name="{{ inputName }}" {% if not can_unit_be_refunded(shipping_adjustment.id, shipment_refund_type) %} disabled{% endif %}/>
+                <input data-refund-input type="number" step="0.01" class="form-control" name="{{ inputName }}" {% if not can_unit_be_refunded(shipping_adjustment.id, shipment_refund_type) %} disabled{% endif %}/>
             </div>
         </td>
         <td class="aligned collapsing">

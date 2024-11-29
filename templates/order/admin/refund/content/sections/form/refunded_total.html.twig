@@ -2,11 +2,11 @@
 
 {% set order = hookable_metadata.context.order %}
 
-<div class="column">
-    <div class="ui right aligned basic segment">
-        <h3 id="refunded-total">
-            {{ 'sylius_refund.ui.refunded_total'|trans }}:
-            {{ money.format(order_refunded_total(order.number), order.currencyCode) }}
-        </h3>
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h3 class="mb-0">{{ 'sylius_refund.ui.refunded_total'|trans }}:</h3>
+            <h3 class="mb-0">{{ money.format(order_refunded_total(order.number), order.currencyCode) }}</h3>
+        </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 {% set unit = hookable_metadata.context.unit %}
 
-<td class="aligned collapsing">
+<td class="w-1">
     <button
         data-refund="{{ unit_refund_left(unit.id, constant('Sylius\\RefundPlugin\\Model\\RefundType::ORDER_ITEM_UNIT'), unit.total) }}"
         type="button"
