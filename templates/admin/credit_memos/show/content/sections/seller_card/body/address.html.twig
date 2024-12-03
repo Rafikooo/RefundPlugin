@@ -1,0 +1,5 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+<address class="d-flex flex-column">
+    {% hook 'address' with { 'to': credit_memo.to } %}
+</address>

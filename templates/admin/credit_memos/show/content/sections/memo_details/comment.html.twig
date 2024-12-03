@@ -1,0 +1,7 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+{% if credit_memo.comment != '' %}
+    <div class="card-body">
+        {% hook 'comment' %}
+    </div>
+{% endif %}

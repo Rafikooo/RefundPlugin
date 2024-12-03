@@ -1,0 +1,7 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+<div class="card-body">
+    <address class="d-flex flex-column">
+        {% hook 'address' with { 'from': credit_memo.from } %}
+    </address>
+</div>

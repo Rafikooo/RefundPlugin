@@ -30,7 +30,7 @@ sylius_refund_order_credit_memos_list:
     defaults:
         _controller: sylius_refund.controller.credit_memo::indexAction
         _sylius:
-            template: "@SyliusRefundPlugin/order/admin/credit_memo/list.html.twig"
+            template: "@SyliusRefundPlugin/admin/order/credit_memo/list.html.twig"
             repository:
                 method: findByOrderId
                 arguments: $orderId
@@ -41,7 +41,7 @@ sylius_refund_credit_memo_details:
     defaults:
         _controller: sylius_refund.controller.credit_memo::showAction
         _sylius:
-            template: "@SyliusRefundPlugin/order/admin/credit_memo/show.html.twig"
+            template: "@SyliusRefundPlugin/admin/order/credit_memo/show.html.twig"
             criteria:
                 id: $id
 

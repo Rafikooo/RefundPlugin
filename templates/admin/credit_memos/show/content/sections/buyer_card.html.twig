@@ -1,0 +1,9 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+{% if credit_memo.from != null %}
+    <div class="col-12 col-md-6 mb-3">
+        <div class="card h-full" id="from-address">
+            {% hook 'buyer_card' with { credit_memo } %}
+        </div>
+    </div>
+{% endif %}

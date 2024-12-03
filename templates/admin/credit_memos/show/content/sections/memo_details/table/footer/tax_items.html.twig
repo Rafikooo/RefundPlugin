@@ -1,0 +1,7 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+{% for item in credit_memo.taxItems %}
+    <tr class="tax-item">
+        {% hook 'tax_items' with { item } %}
+    </tr>
+{% endfor %}

@@ -1,0 +1,5 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+<div class="card-body">
+    {% hook 'body' with { credit_memo } %}
+</div>

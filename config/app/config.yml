@@ -66,12 +66,12 @@ sylius_grid:
                     label: sylius.ui.order
                     sortable: order.number
                     options:
-                        template: "@SyliusRefundPlugin/order/grid/field/number.html.twig"
+                        template: "@SyliusRefundPlugin/admin/order/grid/field/number.html.twig"
                 channel:
                     type: twig
                     label: sylius.ui.channel
                     options:
-                        template: "@SyliusRefundPlugin/order/grid/field/channel.html.twig"
+                        template: "@SyliusRefundPlugin/admin/order/grid/field/channel.html.twig"
                 total:
                     type: twig
                     label: sylius.ui.total
