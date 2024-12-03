@@ -1,7 +1,7 @@
 {% set order = hookable_metadata.context.order %}
 {% set unit = hookable_metadata.context.unit %}
 
-<td>
+<td class="partial-refund">
     {% set inputName = "sylius_refund_units["~unit.id~"][amount]" %}
     {% set hiddenInputName = "sylius_refund_units["~unit.id~"][partial-id]" %}
 

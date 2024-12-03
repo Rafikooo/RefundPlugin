@@ -2,7 +2,7 @@
 
 {% if credit_memo.from != null %}
     <div class="col-12 col-md-6 mb-3">
-        <div class="card h-full" id="from-address">
+        <div class="card h-full">
             {% hook 'buyer_card' with { credit_memo } %}
         </div>
     </div>

@@ -38,7 +38,7 @@ final class CreditMemoContext implements Context
      */
     public function downloadFirstCreditMemo(): void
     {
-        $this->customerOrderShowPage->downloadCreditMemo(1);
+        $this->customerOrderShowPage->downloadCreditMemo(0);
     }
 
     /**
@@ -46,6 +46,6 @@ final class CreditMemoContext implements Context
      */
     public function iShouldNotBeAbleToDownloadTheFirstCreditMemo(): void
     {
-        $this->customerOrderShowPage->hasDownloadCreditMemoButton(1);
+        $this->customerOrderShowPage->hasDownloadCreditMemoButton(0);
     }
 }
