@@ -5,7 +5,7 @@
         {% set variant = item.variant %}
         {% set product = variant.product %}
         <tr class="unit">
-            {% hook 'items' with { product, variant, unit } %}
+            {% hook 'products' with { product, variant, unit } %}
         </tr>
     {% endfor %}
 {% endfor %}

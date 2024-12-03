@@ -16,7 +16,7 @@
                         <td class="text-center">{% include '@SyliusAdmin/shared/grid/field/channel.html.twig' with {'data': credit_memo.channel} %}</td>
                         <td class="text-end"><strong>{{ money.format(credit_memo.total, credit_memo.currencyCode) }}</strong></td>
                         <td class="w-1">
-                            {% hook 'sylius_admin.order.show.content.sections.credit_memos.credit_memos.item.actions' %}
+                            {% hook 'sylius_admin.order.show.content.sections.credit_memos.credit_memos.items.actions' %}
                         </td>
                     </tr>
                 {% endfor %}
