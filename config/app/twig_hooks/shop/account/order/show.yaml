@@ -1,8 +1,11 @@
 sylius_twig_hooks:
     hooks:
         'sylius_shop.account.order.show.content.main':
-            credit_memos: #TODO: Change this to twig component
-                template: '@SyliusRefundPlugin/shop/order/credit_memos.html.twig'
+            credit_memos:
+                component: 'sylius_refund:account:credit_memos'
+                props:
+                    order: '@=_context.order'
+                    template: '@SyliusRefundPlugin/shop/order/credit_memos.html.twig'
                 priority: -100
 
         'sylius_shop.account.order.show.content.main.credit_memos':

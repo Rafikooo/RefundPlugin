@@ -18,7 +18,7 @@ use Sylius\RefundPlugin\Repository\CreditMemoRepositoryInterface;
 
 class CreditMemoRepository extends EntityRepository implements CreditMemoRepositoryInterface
 {
-    public function findByOrderId(string $orderId): array
+    public function findByOrderId(int $orderId): array
     {
         return $this->createQueryBuilder('o')
             ->andWhere('o.order = :orderId')

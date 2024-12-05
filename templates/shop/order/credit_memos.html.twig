@@ -1,3 +1,25 @@
-{% set order = hookable_metadata.context.order %}
-
-{{ render(url('sylius_refund_plugin_shop_order_credit_memos_partial', {'orderId': order.id})) }}
+{% if credit_memos|length > 0 %}
+    <div class="card border-0 bg-body-tertiary mb-3" id="credit-memos">
+        <div class="card-header">{{ 'sylius_refund.ui.credit_memos'|trans }}</div>
+        <div class="card-body">
+            <table class="table align-middle mb-0">
+                <tbody>
+                    {% for credit_memo in credit_memos %}
+                        <tr>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <strong>{{ credit_memo.issuedAt|date('d-m-Y') }}</strong>
+                                    <span class="text-body-tertiary">{{ credit_memo.number }}</span>
+                                </div>
+                            </td>
+                            <td class="text-end">{{ credit_memo.total|sylius_format_money(credit_memo.currencyCode, credit_memo.localeCode) }}</td>
+                            <td class="w-1">
+                                {% hook 'sylius_shop.account.order.show.content.main.credit_memos' %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}

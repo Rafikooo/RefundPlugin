@@ -51,7 +51,10 @@ sylius_twig_hooks:
                 template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/header.html.twig'
                 priority: 100
             items:
-                template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/items.html.twig'
+                component: 'sylius_refund:admin:credit_memos'
+                props:
+                    order: '@=_context.order'
+                    template: '@SyliusRefundPlugin/admin/order/credit_memo/list.html.twig'
                 priority: 0
 
         'sylius_admin.order.show.content.sections.credit_memos.header':

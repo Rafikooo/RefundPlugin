@@ -19,5 +19,5 @@ use Sylius\RefundPlugin\Entity\CreditMemoInterface;
 interface CreditMemoRepositoryInterface extends RepositoryInterface
 {
     /** @return CreditMemoInterface[] */
-    public function findByOrderId(string $orderId): array;
+    public function findByOrderId(int $orderId): array;
 }
