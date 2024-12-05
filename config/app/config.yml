@@ -17,7 +17,7 @@ sylius_mailer:
     emails:
         units_refunded:
             subject: Units refunded
-            template: "@SyliusRefundPlugin/Email/unitsRefunded.html.twig"
+            template: "@SyliusRefundPlugin/email/units_refunded.html.twig"
 
 framework:
     messenger:
