@@ -9,4 +9,4 @@ sylius_twig_hooks:
             list_action_buttons:
                 template: '@SyliusRefundPlugin/shop/order/download_button.html.twig'
                 enabled: '%sylius_refund.pdf_generator.enabled%'
-                priority: 100
+                priority: 0

@@ -20,7 +20,7 @@ sylius_twig_hooks:
         'sylius_admin.order.show.content.sections.payments.refund_header':
             title:
                 template: '@SyliusRefundPlugin/admin/order/content/sections/payments/header/title.html.twig'
-                priority: 100
+                priority: 0
 
         'sylius_admin.order.show.content.sections.payments.refund_item':
             state:
@@ -39,7 +39,7 @@ sylius_twig_hooks:
         'sylius_admin.order.show.content.sections.payments.refund_item.actions':
             complete:
                 template: '@SyliusRefundPlugin/admin/order/content/sections/payments/item/actions/complete.html.twig'
-                priority: 100
+                priority: 0
 
         'sylius_admin.order.show.content.sections#left':
             credit_memos:
