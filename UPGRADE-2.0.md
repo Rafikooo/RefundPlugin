@@ -139,11 +139,34 @@
    | `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface`             | `sylius_refund.validator.refund_units_command`                  |
 
 1. The following deprecated aliases have been removed, use the service IDs instead:
-
-   | Old alias ID                                                    | Service Id                                           | 
-   |-----------------------------------------------------------------|------------------------------------------------------|
-   | `Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter` | `sylius_refund.converter.line_items.order_item_unit` |
-   | `Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter`      | `sylius_refund.converter.line_items.shipment`        |
+   
+   | Old alias ID                                                     | Service Id                                            | 
+   |------------------------------------------------------------------|-------------------------------------------------------|
+   | `Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculator`       | `sylius_refund.calculator.unit_refund_total`          |
+   | `Sylius\RefundPlugin\Checker\CreditMemoCustomerRelationChecker`  | `sylius_refund.checker.credit_memo_customer_relation` |
+   | `Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalChecker`     | `sylius_refund.checker.order_fully_refunded_total`    |
+   | `Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityChecker`  | `sylius_refund.checker.order_refunding_availability`  |
+   | `Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityChecker`   | `sylius_refund.checker.unit_refunding_availability`   |
+   | `Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter`  | `sylius_refund.converter.line_items.order_item_unit`  |
+   | `Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter`       | `sylius_refund.converter.line_items.shipment`         |
+   | `Sylius\RefundPlugin\Creator\RefundCreator`                      | `sylius_refund.creator.refund`                        |
+   | `Sylius\RefundPlugin\Creator\RefundUnitsCommandCreator`          | `sylius_refund.creator.request_command`               |
+   | `Sylius\RefundPlugin\Factory\CreditMemoSequenceFactory`          | `sylius_refund.factory.credit_memo_sequence`          |
+   | `Sylius\RefundPlugin\Generator\CreditMemoGenerator`              | `sylius_refund.generator.credit_memo`                 |
+   | `Sylius\RefundPlugin\Generator\CreditMemoPdfFileGenerator`       | `sylius_refund.generator.credit_memo_pdf_file`        |
+   | `Sylius\RefundPlugin\Generator\SequentialCreditMemoNumberGenerator`| `sylius_refund.generator.credit_memo_number`          |
+   | `Sylius\RefundPlugin\Generator\UuidCreditMemoIdentifierGenerator`| `sylius_refund.generator.credit_memo_identifier`      |
+   | `Sylius\RefundPlugin\Provider\OrderRefundedTotalProvider`        | `sylius_refund.provider.order_refunded_total`         |
+   | `Sylius\RefundPlugin\Provider\RefundedShipmentFeeProvider`       | `sylius_refund.provider.refunded_shipment_fee`        |
+   | `Sylius\RefundPlugin\Provider\RemainingTotalProvider`            | `sylius_refund.provider.remaining_total`              |
+   | `Sylius\RefundPlugin\Provider\UnitRefundedTotalProvider`         | `sylius_refund.provider.unit_refunded_total`          |
+   | `Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilder` | `sylius_refund.response_builder.credit_memo_file`   |
+   | `Sylius\RefundPlugin\Sender\CreditMemoEmailSender`               | `sylius_refund.email_sender.credit_memo`              |
+   | `Sylius\RefundPlugin\StateResolver\OrderFullyRefundedStateResolver` | `sylius_refund.state_resolver.order_fully_refunded` |
+   | `Sylius\RefundPlugin\StateResolver\OrderPartiallyRefundedStateResolver` | `sylius_refund.state_resolver.order_partially_refunded` |
+   | `Sylius\RefundPlugin\StateResolver\RefundPaymentCompletedStateApplier` | `sylius_refund.state_resolver.refund_payment_completed` |
+   | `Sylius\RefundPlugin\Validator\RefundAmountValidator`            | `sylius_refund.validator.refund_amount`               |
+   | `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator`      | `sylius_refund.validator.refund_units_command`        |
 
 1. The following parameters have been renamed:
 
