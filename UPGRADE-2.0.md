@@ -48,11 +48,15 @@
 1. No need to overwrite templates:  
    Thanks to the use of Twig Hooks and the refactoring of templates, you no longer need to overwrite templates to use plugin features.
 
+1. The following routes have been removed:  
+    - `sylius_refund_order_credit_memos_list`
+    - `sylius_refund_plugin_shop_order_credit_memos_partial`
+
 1. Aliases introduced in RefundPlugin 1.6 have now become the primary service IDs in RefundPlugin 2.0.
    The old service IDs have been removed, and all references must be updated accordingly:
 
    | Old ID                                                                            | New ID                                                                              |
-      |-----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+   |-----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
    | `sylius_refund_plugin.repository.credit_memo_sequence`                            | `sylius_refund.repository.credit_memo_sequence`                                     |
    | `Sylius\RefundPlugin\Action\Admin\DownloadCreditMemoAction`                       | `sylius_refund.controller.admin.download_credit_memo`                               |
    | `Sylius\RefundPlugin\Action\Admin\OrderRefundsListAction`                         | `sylius_refund.controller.admin.order_refunds_list`                                 |
@@ -90,7 +94,7 @@
    the primary service IDs, and the old service IDs remain as aliases:
 
    | Old ID                                                                           | New Id                                                          |
-      |----------------------------------------------------------------------------------|-----------------------------------------------------------------|
+   |----------------------------------------------------------------------------------|-----------------------------------------------------------------|
    | `Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculatorInterface`              | `sylius_refund.calculator.unit_refund_total`                    |
    | `Sylius\RefundPlugin\Checker\CreditMemoCustomerRelationCheckerInterface`         | `sylius_refund.checker.credit_memo_customer_relation`           |
    | `Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalCheckerInterface`            | `sylius_refund.checker.order_fully_refunded_total`              |
@@ -137,14 +141,14 @@
 1. The following deprecated aliases have been removed, use the service IDs instead:
 
    | Old alias ID                                                    | Service Id                                           | 
-      |-----------------------------------------------------------------|------------------------------------------------------|
+   |-----------------------------------------------------------------|------------------------------------------------------|
    | `Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter` | `sylius_refund.converter.line_items.order_item_unit` |
    | `Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter`      | `sylius_refund.converter.line_items.shipment`        |
 
 1. The following parameters have been renamed:
 
    | Old parameter                      | New parameter                      |  
-      |------------------------------------|------------------------------------|
+   |------------------------------------|------------------------------------|
    | `default_logo_file`                | `sylius_refund.default_logo_file`  |
    | `sylius.refund.template.logo_file` | `sylius_refund.template.logo_file` |
 
@@ -348,7 +352,7 @@
            }
            ```   
 
-1. The following classes where deprecated in 1.x and have been removed in 2.0:
+1. The following deprecated classes and interfaces have been removed in 2.0:
 
    - Sylius\RefundPlugin\Converter\LineItemsConverterInterface
    - Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter
