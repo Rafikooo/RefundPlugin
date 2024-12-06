@@ -1,0 +1,3 @@
+{% set to = hookable_metadata.context.to %}
+
+<span>{{ to.countryCode|sylius_country_name|upper }} {{ to.postcode }}</span>

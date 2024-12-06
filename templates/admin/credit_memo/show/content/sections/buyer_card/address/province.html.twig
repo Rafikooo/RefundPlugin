@@ -1,0 +1,5 @@
+{% set from = hookable_metadata.context.from %}
+
+{% if from.provinceName is not empty %}
+    <span>{{ from.provinceName }}</span>
+{% endif %}

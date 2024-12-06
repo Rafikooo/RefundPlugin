@@ -1,0 +1,12 @@
+{% import '@SyliusAdmin/shared/helper/money.html.twig' as money %}
+
+{% set order = hookable_metadata.context.order %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h3 class="mb-0">{{ 'sylius_refund.ui.refunded_total'|trans }}:</h3>
+            <h3 class="mb-0" id="refunded-total">{{ money.format(order_refunded_total(order.number), order.currencyCode) }}</h3>
+        </div>
+    </div>
+</div>

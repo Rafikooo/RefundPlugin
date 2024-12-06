@@ -1,6 +1,6 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_refund.admin.credit_memos':
+        'sylius_refund.admin.credit_memo.show':
             sidebar:
                 template: '@SyliusAdmin/shared/crud/common/sidebar.html.twig'
                 priority: 200
@@ -11,7 +11,7 @@ sylius_twig_hooks:
                 template: '@SyliusAdmin/shared/crud/common/content.html.twig'
                 priority: 0
 
-        'sylius_refund.admin.credit_memos.content':
+        'sylius_refund.admin.credit_memo.show.content':
             flashes:
                 template: '@SyliusAdmin/shared/crud/common/content/flashes.html.twig'
                 priority: 200
@@ -19,38 +19,234 @@ sylius_twig_hooks:
                 template: '@SyliusAdmin/shared/crud/common/content/header.html.twig'
                 priority: 100
             sections:
-                template: '@SyliusRefundPlugin/credit_memos/content/sections.html.twig'
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections.html.twig'
                 priority: 0
 
-        'sylius_refund.admin.credit_memos.content.header':
+        'sylius_refund.admin.credit_memo.show.content.header':
             breadcrumbs:
-                template: '@SyliusRefundPlugin/credit_memos/content/header/breadcrumbs.html.twig'
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/header/breadcrumbs.html.twig'
                 priority: 100
             title_block:
                 template: '@SyliusAdmin/shared/crud/common/content/header/title_block.html.twig'
                 priority: 0
 
-        'sylius_refund.admin.credit_memos.content.header.title_block':
+        'sylius_refund.admin.credit_memo.show.content.header.title_block':
             title:
-                template: '@SyliusRefundPlugin/credit_memos/content/header/title_block/title.html.twig'
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/header/title_block/title.html.twig'
                 priority: 100
             actions:
-                template: '@SyliusRefundPlugin/credit_memos/content/header/title_block/actions.html.twig'
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/header/title_block/actions.html.twig'
                 priority: 0
 
-        'sylius_refund.admin.credit_memos.content.header.title_block.actions':
+        'sylius_refund.admin.credit_memo.show.content.header.title_block.actions':
             download:
-                template: '@SyliusRefundPlugin/credit_memos/content/header/title_block/actions/download.html.twig'
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/header/title_block/actions/download.html.twig'
                 enabled: '%sylius_refund.pdf_generator.enabled%'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections':
+            buyer_card:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/buyer_card.html.twig'
+                priority: 200
+            seller_card:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card.html.twig'
+                priority: 100
+            memo_details:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.buyer_card':
+            header:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/buyer_card/header.html.twig'
+                priority: 100
+            address:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/buyer_card/address.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.buyer_card.address':
+            full_name:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/buyer_card/address/full_name.html.twig'
+                priority: 400
+            street:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/buyer_card/address/street.html.twig'
+                priority: 300
+            city:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/buyer_card/address/city.html.twig'
+                priority: 200
+            province:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/buyer_card/address/province.html.twig'
+                priority: 100
+            country_postcode:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/buyer_card/address/country_postcode.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.seller_card':
+            header:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card/body.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.seller_card.body':
+            channel:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card/body/channel.html.twig'
+                priority: 100
+            address:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card/body/address.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.seller_card.body.address':
+            company:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card/body/address/company.html.twig'
+                priority: 300
+            city:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card/body/address/city.html.twig'
+                priority: 200
+            street:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card/body/address/street.html.twig'
+                priority: 100
+            country_postcode:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/seller_card/body/address/country_postcode.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details':
+            table:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table.html.twig'
+                priority: 100
+            comment:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/comment.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details.table':
+            header:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body.html.twig'
+                priority: 100
+            footer:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer.html.twig'
                 priority: 100
 
-        'sylius_refund.admin.credit_memos.content.sections':
-            buyer:
-                template: '@SyliusRefundPlugin/credit_memos/content/sections/buyer.html.twig'
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details.table.header':
+            number:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/number.html.twig'
+                priority: 800
+            name:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/name.html.twig'
+                priority: 700
+            quantity:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/quantity.html.twig'
+                priority: 600
+            unit_net_price:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/unit_net_price.html.twig'
+                priority: 500
+            net_value:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/net_value.html.twig'
+                priority: 400
+            tax_rate:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/tax_rate.html.twig'
+                priority: 300
+            tax_amount:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/tax_amount.html.twig'
                 priority: 200
-            seller:
-                template: '@SyliusRefundPlugin/credit_memos/content/sections/seller.html.twig'
+            gross_value:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/gross_value.html.twig'
                 priority: 100
-            table:
-                template: '@SyliusRefundPlugin/credit_memos/content/sections/table.html.twig'
+            currency:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/header/currency.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details.table.body':
+            number:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/number.html.twig'
+                priority: 800
+            name:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/name.html.twig'
+                priority: 700
+            quantity:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/quantity.html.twig'
+                priority: 600
+            unit_net_price:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/unit_net_price.html.twig'
+                priority: 500
+            net_value:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/net_value.html.twig'
+                priority: 400
+            tax_rate:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/tax_rate.html.twig'
+                priority: 300
+            tax_amount:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/tax_amount.html.twig'
+                priority: 200
+            gross_value:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/gross_value.html.twig'
+                priority: 100
+            currency:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/body/currency.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details.table.footer':
+            totals:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/totals.html.twig'
+                priority: 200
+            tax_headers:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/tax_headers.html.twig'
+                priority: 100
+            tax_items:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/tax_items.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details.table.footer.totals':
+            net_total:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/totals/net_total.html.twig'
+                priority: 600
+            net_total_value:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/totals/net_total_value.html.twig'
+                priority: 500
+            tax_total:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/totals/tax_total.html.twig'
+                priority: 400
+            tax_total_value:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/totals/tax_total_value.html.twig'
+                priority: 300
+            total:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/totals/total.html.twig'
+                priority: 200
+            total_value:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/totals/total_value.html.twig'
+                priority: 100
+            currency:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/totals/currency.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details.table.footer.tax_headers':
+            tax_rate:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/tax_headers/tax_rate.html.twig'
+                priority: 200
+            tax_amount:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/tax_headers/tax_amount.html.twig'
+                priority: 100
+            currency:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/tax_headers/currency.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details.table.footer.tax_items':
+            item_label:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/tax_items/item_label.html.twig'
+                priority: 200
+            tax_amount:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/tax_items/tax_amount.html.twig'
+                priority: 100
+            currency:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/table/footer/tax_items/currency.html.twig'
+                priority: 0
+
+        'sylius_refund.admin.credit_memo.show.content.sections.memo_details.comment':
+            title:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/comment/title.html.twig'
+                priority: 100
+            text:
+                template: '@SyliusRefundPlugin/admin/credit_memo/show/content/sections/memo_details/comment/text.html.twig'
                 priority: 0

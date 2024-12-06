@@ -1,0 +1,9 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+<tbody>
+    {% for item in credit_memo.lineItems %}
+        <tr>
+            {% hook 'body' with { loop, item } %}
+        </tr>
+    {% endfor %}
+</tbody>

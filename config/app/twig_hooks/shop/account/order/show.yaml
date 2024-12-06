@@ -2,11 +2,11 @@ sylius_twig_hooks:
     hooks:
         'sylius_shop.account.order.show.content.main':
             credit_memos: #TODO: Change this to twig component
-                template: '@SyliusRefundPlugin/order/shop/credit_memos.html.twig'
+                template: '@SyliusRefundPlugin/shop/order/credit_memos.html.twig'
                 priority: -100
 
         'sylius_shop.account.order.show.content.main.credit_memos':
             list_action_buttons:
-                template: '@SyliusRefundPlugin/order/shop/download_button.html.twig'
+                template: '@SyliusRefundPlugin/shop/order/download_button.html.twig'
                 enabled: '%sylius_refund.pdf_generator.enabled%'
-                priority: 100
+                priority: 0

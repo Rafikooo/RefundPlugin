@@ -1,0 +1,5 @@
+{% set item = hookable_metadata.context.item %}
+
+<td>
+    {{ '%0.2f'|format(item.taxAmount/100) }}
+</td>

@@ -2,15 +2,15 @@ sylius_twig_hooks:
     hooks:
         'sylius_admin.order.show.content.header.title_block.actions':
             refunds:
-                template: '@SyliusRefundPlugin/order/admin/content/header/title_block/actions/refunds.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/header/title_block/actions/refunds.html.twig'
                 priority: -100
 
         'sylius_admin.order.show.content.sections.payments':
             refund_header:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/payments/refund_header.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/payments/refund_header.html.twig'
                 priority: -100
             refund_items:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/payments/refund_items.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/payments/refund_items.html.twig'
                 priority: -200
 
         'sylius_admin.order.show.content.sections.payments.item.actions':
@@ -19,48 +19,48 @@ sylius_twig_hooks:
 
         'sylius_admin.order.show.content.sections.payments.refund_header':
             title:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/payments/header/title.html.twig'
-                priority: 100
+                template: '@SyliusRefundPlugin/admin/order/content/sections/payments/header/title.html.twig'
+                priority: 0
 
         'sylius_admin.order.show.content.sections.payments.refund_item':
             state:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/payments/item/state.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/payments/item/state.html.twig'
                 priority: 300
             name:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/payments/item/name.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/payments/item/name.html.twig'
                 priority: 200
             amount:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/payments/item/amount.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/payments/item/amount.html.twig'
                 priority: 100
             actions:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/payments/item/actions.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/payments/item/actions.html.twig'
                 priority: 0
 
         'sylius_admin.order.show.content.sections.payments.refund_item.actions':
             complete:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/payments/item/actions/complete.html.twig'
-                priority: 100
+                template: '@SyliusRefundPlugin/admin/order/content/sections/payments/item/actions/complete.html.twig'
+                priority: 0
 
         'sylius_admin.order.show.content.sections#left':
             credit_memos:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/credit_memos.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos.html.twig'
                 priority: 50
 
         'sylius_admin.order.show.content.sections.credit_memos':
             header:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/credit_memos/header.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/header.html.twig'
                 priority: 100
-            credit_memos:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/credit_memos/items.html.twig'
+            items:
+                template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/items.html.twig'
                 priority: 0
 
         'sylius_admin.order.show.content.sections.credit_memos.header':
             title:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/credit_memos/header/title.html.twig'
-                priority: 100
+                template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/header/title.html.twig'
+                priority: 0
 
-        'sylius_admin.order.show.content.sections.credit_memos.credit_memos.item.actions':
+        'sylius_admin.order.show.content.sections.credit_memos.credit_memos.items.actions':
             download:
-                template: '@SyliusRefundPlugin/order/admin/content/sections/credit_memos/item/actions/download.html.twig'
+                template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/items/actions/download.html.twig'
                 enabled: '%sylius_refund.pdf_generator.enabled%'
-                priority: 100
+                priority: 0

@@ -1,0 +1,3 @@
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+<div {{ sylius_test_html_attribute('credit-memo-channel-name') }}>{{ credit_memo.channel.name }}</div>

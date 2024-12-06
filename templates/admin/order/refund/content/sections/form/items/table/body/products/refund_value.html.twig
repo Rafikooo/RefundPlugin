@@ -1,0 +1,11 @@
+{% set order = hookable_metadata.context.order %}
+{% set unit = hookable_metadata.context.unit %}
+
+<td class="partial-refund">
+    {% set input_name = "sylius_refund_units["~unit.id~"][amount]" %}
+
+    <div class="input-group flex-nowrap">
+        <div class="input-group-text">{{ order.currencyCode|sylius_currency_symbol }}</div>
+        <input data-refund-input type="number" step="0.01" class="form-control" style="min-width: 100px;" name="{{ input_name }}" {% if not can_unit_be_refunded(unit.id, constant('Sylius\\RefundPlugin\\Model\\RefundType::ORDER_ITEM_UNIT')) %} disabled{% endif %}/>
+    </div>
+</td>

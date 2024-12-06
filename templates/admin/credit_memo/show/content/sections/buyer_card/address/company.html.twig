@@ -1,0 +1,5 @@
+{% set from = hookable_metadata.context.from %}
+
+{% if from.company %}
+    <span>{{ from.company }}</span>
+{% endif %}
