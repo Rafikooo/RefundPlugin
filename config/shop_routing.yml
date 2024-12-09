@@ -1,14 +1,3 @@
-sylius_refund_plugin_shop_order_credit_memos_partial:
-    path: /_partial/orders/{orderId}/credit-memos/
-    methods: [GET]
-    defaults:
-        _controller: sylius_refund.controller.credit_memo::indexAction
-        _sylius:
-            template: "@SyliusRefundPlugin/shop/order/_creditMemos.html.twig"
-            repository:
-                method: findByOrder
-                arguments: $orderId
-
 sylius_refund_shop_credit_memo_download:
     path: /credit-memos/{id}/download
     methods: [GET]
