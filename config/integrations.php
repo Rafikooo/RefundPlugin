@@ -8,6 +8,6 @@ use winzou\Bundle\StateMachineBundle\winzouStateMachineBundle;
 
 return static function (ContainerConfigurator $configurator, ContainerBuilder $container): void {
     if (class_exists(winzouStateMachineBundle::class)) {
-        $configurator->import('../integrations/winzou_state_machine.yaml');
+        $configurator->import('integrations/winzou_state_machine.yaml');
     }
 };

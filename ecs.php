@@ -18,7 +18,6 @@ return static function (ECSConfig $containerConfigurator): void
     $containerConfigurator->skip([
         VisibilityRequiredFixer::class => ['*Spec.php'],
         InlineDocCommentDeclarationSniff::class . '.MissingVariable',
-        'src/Resources/config/**',
         '**/var/*',
     ]);
 

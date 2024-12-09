@@ -1,6 +1,6 @@
 imports:
-    - { resource: "@SyliusRefundPlugin/config/app/twig_hooks/**/*.yaml" }
-    - { resource: "@SyliusRefundPlugin/config/app/integrations.php" }
+    - { resource: "@SyliusRefundPlugin/config/twig_hooks/**/*.yaml" }
+    - { resource: "@SyliusRefundPlugin/config/integrations.php" }
 
 parameters:
     sylius_refund.credit_memo_save_path: "%kernel.project_dir%/private/credit_memos/"

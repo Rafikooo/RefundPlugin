@@ -19,15 +19,15 @@
 
     ```yaml
     imports:
-        - { resource: "@SyliusRefundPlugin/config/app/config.yml" }
+        - { resource: "@SyliusRefundPlugin/config/config.yaml" }
     ```
 1. Import routing:
 
     ````yaml
-    sylius_refund:
-        resource: "@SyliusRefundPlugin/config/routing.yml"
+   sylius_refund:
+       resource: "@SyliusRefundPlugin/config/routes.yaml"
     ````
-    
+
 1. Apply migrations to your database:
 
     ```bash
