@@ -1,5 +1,11 @@
 ### UPGRADE FROM 1.X TO 2.0
 
+1. Support for Sylius 2.0 has been added, it is now the recommended Sylius version to use with SyliusRefundPlugin.
+
+1. Support for Sylius 1.X has been dropped, upgrade your application to [Sylius 2.0](https://github.com/Sylius/Sylius/blob/2.0/UPGRADE-2.0.md).
+
+1. The minimum supported version of PHP has been increased to 8.2.
+
 1. The way of customizing resource definition has been changed.
 
     ```diff
@@ -14,11 +20,39 @@
 1. Doctrine migrations have been regenerated, meaning all previous migration files have been removed and their content is now in a single migration file.
    To apply the new migration and get rid of the old entries run migrations as usual:
 
-```bash
-    bin/console doctrine:migrations:migrate --no-interaction
-```
+   ```bash
+       bin/console doctrine:migrations:migrate --no-interaction
+   ```
 
-1. Aliases introduced in RefundPlugin 1.6 have now become the primary service IDs in RefundPlugin 2.0. 
+1. The directories structure has been updated to the current Symfony recommendations:
+   - `@SyliusRefundPlugin/Resources/config` -> `@SyliusRefundPlugin/config`
+   - `@SyliusRefundPlugin/Resources/translations` -> `@SyliusRefundPlugin/translations`
+   - `@SyliusRefundPlugin/Resources/views` -> `@SyliusRefundPlugin/templates`
+
+   You need to adjust the import of configuration file in your end application:
+   ```diff
+   imports:
+   -   - { resource: "@SyliusRefundPlugin/Resources/config/config.yml" }
+   +   - { resource: '@SyliusRefundPlugin/config/config.yaml' }
+   ```
+
+   And the routes configuration paths:
+   ```diff
+   sylius_refund:
+   -   resource: "@SyliusRefundPlugin/Resources/config/routing.yml"
+   +   resource: "@SyliusRefundPlugin/config/routing.yml"
+   ```
+
+   Adjust the paths to assets and templates if you are using them.
+
+1. No need to overwrite templates:  
+   Thanks to the use of Twig Hooks and the refactoring of templates, you no longer need to overwrite templates to use plugin features.
+
+1. The following routes have been removed:  
+    - `sylius_refund_order_credit_memos_list`
+    - `sylius_refund_plugin_shop_order_credit_memos_partial`
+
+1. Aliases introduced in RefundPlugin 1.6 have now become the primary service IDs in RefundPlugin 2.0.
    The old service IDs have been removed, and all references must be updated accordingly:
 
    | Old ID                                                                            | New ID                                                                              |
@@ -56,7 +90,7 @@
    | `Sylius\RefundPlugin\Validator\OrderItemUnitRefundsBelongingToOrderValidator`     | `sylius_refund.validator.order_item_unit_refunds_belonging_to_order`                |
    | `Sylius\RefundPlugin\Validator\ShipmentRefundsBelongingToOrderValidator`          | `sylius_refund.validator.shipment_refunds_belonging_to_order`                       |
 
-1. The following services had new aliases added in RefundPlugin 1.6. In RefundPlugin 2.0, these aliases have become 
+1. The following services had new aliases added in RefundPlugin 1.6. In RefundPlugin 2.0, these aliases have become
    the primary service IDs, and the old service IDs remain as aliases:
 
    | Old ID                                                                           | New Id                                                          |
@@ -105,12 +139,35 @@
    | `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface`             | `sylius_refund.validator.refund_units_command`                  |
 
 1. The following deprecated aliases have been removed, use the service IDs instead:
+   
+   | Old alias ID                                                     | Service Id                                            | 
+   |------------------------------------------------------------------|-------------------------------------------------------|
+   | `Sylius\RefundPlugin\Calculator\UnitRefundTotalCalculator`       | `sylius_refund.calculator.unit_refund_total`          |
+   | `Sylius\RefundPlugin\Checker\CreditMemoCustomerRelationChecker`  | `sylius_refund.checker.credit_memo_customer_relation` |
+   | `Sylius\RefundPlugin\Checker\OrderFullyRefundedTotalChecker`     | `sylius_refund.checker.order_fully_refunded_total`    |
+   | `Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityChecker`  | `sylius_refund.checker.order_refunding_availability`  |
+   | `Sylius\RefundPlugin\Checker\UnitRefundingAvailabilityChecker`   | `sylius_refund.checker.unit_refunding_availability`   |
+   | `Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter`  | `sylius_refund.converter.line_items.order_item_unit`  |
+   | `Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter`       | `sylius_refund.converter.line_items.shipment`         |
+   | `Sylius\RefundPlugin\Creator\RefundCreator`                      | `sylius_refund.creator.refund`                        |
+   | `Sylius\RefundPlugin\Creator\RefundUnitsCommandCreator`          | `sylius_refund.creator.request_command`               |
+   | `Sylius\RefundPlugin\Factory\CreditMemoSequenceFactory`          | `sylius_refund.factory.credit_memo_sequence`          |
+   | `Sylius\RefundPlugin\Generator\CreditMemoGenerator`              | `sylius_refund.generator.credit_memo`                 |
+   | `Sylius\RefundPlugin\Generator\CreditMemoPdfFileGenerator`       | `sylius_refund.generator.credit_memo_pdf_file`        |
+   | `Sylius\RefundPlugin\Generator\SequentialCreditMemoNumberGenerator`| `sylius_refund.generator.credit_memo_number`          |
+   | `Sylius\RefundPlugin\Generator\UuidCreditMemoIdentifierGenerator`| `sylius_refund.generator.credit_memo_identifier`      |
+   | `Sylius\RefundPlugin\Provider\OrderRefundedTotalProvider`        | `sylius_refund.provider.order_refunded_total`         |
+   | `Sylius\RefundPlugin\Provider\RefundedShipmentFeeProvider`       | `sylius_refund.provider.refunded_shipment_fee`        |
+   | `Sylius\RefundPlugin\Provider\RemainingTotalProvider`            | `sylius_refund.provider.remaining_total`              |
+   | `Sylius\RefundPlugin\Provider\UnitRefundedTotalProvider`         | `sylius_refund.provider.unit_refunded_total`          |
+   | `Sylius\RefundPlugin\ResponseBuilder\CreditMemoFileResponseBuilder` | `sylius_refund.response_builder.credit_memo_file`   |
+   | `Sylius\RefundPlugin\Sender\CreditMemoEmailSender`               | `sylius_refund.email_sender.credit_memo`              |
+   | `Sylius\RefundPlugin\StateResolver\OrderFullyRefundedStateResolver` | `sylius_refund.state_resolver.order_fully_refunded` |
+   | `Sylius\RefundPlugin\StateResolver\OrderPartiallyRefundedStateResolver` | `sylius_refund.state_resolver.order_partially_refunded` |
+   | `Sylius\RefundPlugin\StateResolver\RefundPaymentCompletedStateApplier` | `sylius_refund.state_resolver.refund_payment_completed` |
+   | `Sylius\RefundPlugin\Validator\RefundAmountValidator`            | `sylius_refund.validator.refund_amount`               |
+   | `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator`      | `sylius_refund.validator.refund_units_command`        |
 
-   | Old alias ID                                                    | Service Id                                           | 
-   |-----------------------------------------------------------------|------------------------------------------------------|
-   | `Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter` | `sylius_refund.converter.line_items.order_item_unit` |
-   | `Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter`      | `sylius_refund.converter.line_items.shipment`        |
- 
 1. The following parameters have been renamed:
 
    | Old parameter                      | New parameter                      |  
@@ -130,10 +187,203 @@
 1. The buses `sylius_refund_plugin.command_bus` and `sylius_refund_plugin.event_bus` have been replaced
    accordingly by `sylius.command_bus` and `sylius.event_bus`.
 
-1. The visibility of services has been changed to `private` by default. This change enhances the performance 
+1. The visibility of services has been changed to `private` by default. This change enhances the performance
    and maintainability of the application and also follows Symfony's best practices for service encapsulation.
 
    Exceptions:
    - Services required by Symfony to be `public` (e.g., controllers, event listeners) remain public.
 
 1. `_javascript.html.twig` file has been removed, and its code has been moved to `src/Resources/assets/js/refund-button.js`. When upgrading to 2.0, import the `src/Resources/assets/entrypoint.js` file into your application’s main js file.
+
+   1. The following constructor signatures have been changed:
+
+      - `Sylius\RefundPlugin\Action\Admin\OrderRefundsListAction`:
+          ```diff
+          public function __construct(
+          -       private readonly SessionInterface | RequestStack $requestStackOrSession,
+          +       private RequestStack $requestStack,
+                  private OrderRepositoryInterface $orderRepository,
+                  private OrderRefundingAvailabilityCheckerInterface $orderRefundsListAvailabilityChecker,
+                  private RefundPaymentMethodsProviderInterface $refundPaymentMethodsProvider,
+                  private Environment $twig,
+                  private UrlGeneratorInterface $router,
+          ) {
+          }
+          ```
+
+      - `Sylius\RefundPlugin\Action\Admin\RefundUnitsAction`:
+          ```diff
+          public function __construct(
+          -       private readonly SessionInterface|RequestStack $requestStackOrSession,
+          -       private readonly RequestCommandCreatorInterface|RefundUnitsCommandCreatorInterface $commandCreator,
+          +       private RequestStack $requestStack,
+          +       private RequestCommandCreatorInterface $commandCreator,
+                  private MessageBusInterface $commandBus,
+                  private UrlGeneratorInterface $router,
+                  private LoggerInterface $logger,
+                  private CsrfTokenManagerInterface $csrfTokenManager,
+          ) {
+          }
+          ```
+
+      - `Sylius\RefundPlugin\Action\Admin\SendCreditMemoAction`:
+          ```diff
+          public function __construct(
+          -       private readonly SessionInterface | RequestStack $requestStackOrSession,
+          +       private RequestStack $requestStack,
+                  private MessageBusInterface $commandBus,
+                  private RepositoryInterface $creditMemoRepository,
+                  private UrlGeneratorInterface $router,
+          ) {
+          }
+          ```
+
+         - `Sylius\RefundPlugin\CommandHandler\GenerateCreditMemoHandler`:
+             ```diff
+             public function __construct(
+             -       private readonly ObjectManager $creditMemoManager,
+             -       private readonly ?CreditMemoFileResolverInterface $creditMemoFileResolver = null,
+             +       private EntityManagerInterface $creditMemoManager,
+             +       private CreditMemoFileResolverInterface $creditMemoFileResolver,
+                     private CreditMemoIdentifierGeneratorInterface $identifierGenerator,
+                     private CreditMemoNumberGeneratorInterface $numberGenerator,
+                     private CreditMemoPdfFileGeneratorInterface $pdfFileGenerator,
+             ) {
+             }
+             ```
+
+         - `Sylius\RefundPlugin\CommandHandler\RefundUnitsHandler`:
+           ```diff
+           public function __construct(
+           -    private ObjectManager $entityManager,
+           +    private EntityManagerInterface $entityManager,
+               private RefundCreatorInterface $refundCreator,
+               private RemainingTotalProviderInterface $remainingTotalProvider,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Converter\LineItem\OrderItemUnitLineItemsConverter`:
+           ```diff
+           public function __construct(
+               private RepositoryInterface $orderItemUnitRepository,
+               private TaxRateProviderInterface $taxRateProvider,
+           -       private readonly ?LineItemFactoryInterface $lineItemFactory = null,
+           +       private LineItemFactoryInterface $lineItemFactory,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Converter\LineItem\ShipmentLineItemsConverter`:
+           ```diff
+           public function __construct(
+               private RepositoryInterface $adjustmentRepository,
+               private TaxRateProviderInterface $taxRateProvider,
+           -       private readonly ?LineItemFactoryInterface $lineItemFactory = null,
+           +       private LineItemFactoryInterface $lineItemFactory,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Creator\RefundCreator`:
+           ```diff
+           public function __construct(
+               private RefundFactoryInterface $refundFactory,
+               private RemainingTotalProviderInterface $remainingTotalProvider,
+               private OrderRepositoryInterface $orderRepository,
+           -   private ObjectManager $refundManager,
+           +   private EntityManagerInterface $refundManager,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Creator\RefundUnitsCommandCreator`:
+           ```diff
+           public function __construct(
+           -       private RequestToRefundUnitsConverterInterface|RefundUnitsConverterInterface $requestToRefundUnitsConverter,
+           +       private RequestToRefundUnitsConverterInterface $requestToRefundUnitsConverter,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Generator\CreditMemoGenerator`:
+           ```diff
+           public function __construct(
+           -   private LineItemsConverterInterface|LegacyLineItemsConverterInterface $lineItemsConverter,
+           +   private LineItemsConverterInterface $lineItemsConverter,
+               private TaxItemsGeneratorInterface|LineItemsConverterInterface $taxItemsGenerator,
+               private CreditMemoFactoryInterface|TaxItemsGeneratorInterface $creditMemoFactory,
+               private CustomerBillingDataFactoryInterface|CreditMemoFactoryInterface $customerBillingDataFactory,
+               private ShopBillingDataFactoryInterface|CustomerBillingDataFactoryInterface $shopBillingDataFactory,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Provider\RemainingTotalProvider`:
+           ```diff
+           public function __construct(
+           -   private ServiceProviderInterface|RepositoryInterface $refundUnitTotalProvider,
+           +   private ServiceProviderInterface $refundUnitTotalProvider,
+               private RepositoryInterface $refundRepository,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Refunder\OrderItemUnitsRefunder`:
+           ```diff
+           public function __construct(
+               private RefundCreatorInterface $refundCreator,
+               private MessageBusInterface $eventBus,
+           -   private ?UnitRefundFilterInterface $unitRefundFilter = null,
+           +   private UnitRefundFilterInterface $unitRefundFilter,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Refunder\OrderShipmentsRefunder`:
+           ```diff
+           public function __construct(
+               private RefundCreatorInterface $refundCreator,
+               private MessageBusInterface $eventBus,
+           -   private ?UnitRefundFilterInterface $unitRefundFilter = null,
+           +   private UnitRefundFilterInterface $unitRefundFilter,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Sender\CreditMemoEmailSender`:
+           ```diff
+           public function __construct(
+           -       private readonly ?CreditMemoPdfFileGeneratorInterface $creditMemoPdfFileGenerator,
+           -       private readonly ?FileManagerInterface $fileManager,
+           -       private readonly ?CreditMemoFileResolverInterface $creditMemoFileResolver = null,
+           -       private readonly ?CreditMemoFilePathResolverInterface $creditMemoFilePathResolver = null,
+           +       private CreditMemoFileResolverInterface $creditMemoFileResolver,
+           +       private CreditMemoFilePathResolverInterface $creditMemoFilePathResolver,
+           ) {
+           }
+           ```
+
+         - `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator`:
+           ```diff
+           public function __construct(
+               private OrderRefundingAvailabilityCheckerInterface $orderRefundingAvailabilityChecker,
+               private RefundAmountValidatorInterface $refundAmountValidator,
+           -   private ?iterable $refundUnitsBelongingToOrderValidators = null,
+           +   private iterable $refundUnitsBelongingToOrderValidators,
+           ) {
+           }
+           ```   
+
+1. The following deprecated classes and interfaces have been removed in 2.0:
+
+   - Sylius\RefundPlugin\Converter\LineItemsConverterInterface
+   - Sylius\RefundPlugin\Converter\OrderItemUnitLineItemsConverter
+   - Sylius\RefundPlugin\Converter\RequestToOrderItemUnitRefundConverter
+   - Sylius\RefundPlugin\Converter\RequestToRefundUnitsConverterInterface
+   - Sylius\RefundPlugin\Converter\RequestToShipmentRefundConverter
+   - Sylius\RefundPlugin\Converter\ShipmentLineItemsConverter
+   - Sylius\RefundPlugin\Creator\RefundUnitsCommandCreatorInterface
+   - Sylius\RefundPlugin\File\FileManagerInterface
+   - Sylius\RefundPlugin\File\TemporaryFileManager
+   - Sylius\RefundPlugin\Menu\OrderShowMenuListener
