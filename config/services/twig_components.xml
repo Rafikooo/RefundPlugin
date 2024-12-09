@@ -12,16 +12,16 @@
 -->
 
 <container
-        xmlns="http://symfony.com/schema/dic/services"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
         <service id="sylius_refund.twig_component.customer_credit_memos" class="Sylius\RefundPlugin\Twig\Component\OrderCreditMemosComponent">
             <argument type="service" id="sylius_refund.repository.credit_memo" />
             <tag
                 name="sylius.twig_component"
-                key="sylius_refund:account:credit_memos"
+                key="sylius_refund:shop:account:credit_memos"
             />
             <tag
                 name="sylius.twig_component"
