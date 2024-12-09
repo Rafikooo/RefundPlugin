@@ -1,0 +1,5 @@
+{% import '@SyliusAdmin/shared/helper/money.html.twig' as money %}
+
+{% set credit_memo = hookable_metadata.context.credit_memo %}
+
+<td class="text-end"><strong>{{ money.format(credit_memo.total, credit_memo.currencyCode) }}</strong></td>

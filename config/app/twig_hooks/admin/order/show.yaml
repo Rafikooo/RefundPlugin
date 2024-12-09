@@ -50,7 +50,7 @@ sylius_twig_hooks:
             header:
                 template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/header.html.twig'
                 priority: 100
-            items:
+            list:
                 component: 'sylius_refund:admin:credit_memos'
                 props:
                     order: '@=_context.order'
@@ -62,7 +62,29 @@ sylius_twig_hooks:
                 template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/header/title.html.twig'
                 priority: 0
 
-        'sylius_admin.order.show.content.sections.credit_memos.credit_memos.items.actions':
+        'sylius_admin.order.show.content.sections.credit_memos.list':
+            details:
+                template: '@SyliusRefundPlugin/admin/order/credit_memo/list/details.html.twig'
+                priority: 300
+            channel:
+                template: '@SyliusRefundPlugin/admin/order/credit_memo/list/channel.html.twig'
+                priority: 200
+            total:
+                template: '@SyliusRefundPlugin/admin/order/credit_memo/list/total.html.twig'
+                priority: 100
+            actions:
+                template: '@SyliusRefundPlugin/admin/order/credit_memo/list/actions.html.twig'
+                priority: 0
+
+        'sylius_admin.order.show.content.sections.credit_memos.list.details':
+            date:
+                template: '@SyliusRefundPlugin/admin/order/credit_memo/list/details/date.html.twig'
+                priority: 100
+            number:
+                template: '@SyliusRefundPlugin/admin/order/credit_memo/list/details/number.html.twig'
+                priority: 0
+
+        'sylius_admin.order.show.content.sections.credit_memos.list.actions':
             download:
                 template: '@SyliusRefundPlugin/admin/order/content/sections/credit_memos/items/actions/download.html.twig'
                 enabled: '%sylius_refund.pdf_generator.enabled%'
