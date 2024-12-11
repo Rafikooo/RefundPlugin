@@ -21,12 +21,12 @@
     imports:
         - { resource: "@SyliusRefundPlugin/Resources/config/app/config.yml" }
     ```
-1. Import routing:
+1. Import routes:
 
-    ````yaml
+    ```yaml
     sylius_refund:
         resource: "@SyliusRefundPlugin/Resources/config/routing.yml"
-    ````
+    ```
 
 1. Check if you have `wkhtmltopdf` binary. If not, you can download it [here](https://wkhtmltopdf.org/downloads.html).
 
