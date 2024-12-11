@@ -21,7 +21,7 @@
     imports:
         - { resource: "@SyliusRefundPlugin/config/config.yaml" }
     ```
-1. Import routing:
+1. Import routes:
 
     ````yaml
    sylius_refund:
