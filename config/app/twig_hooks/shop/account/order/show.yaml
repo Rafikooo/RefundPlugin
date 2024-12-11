@@ -9,7 +9,30 @@ sylius_twig_hooks:
                 priority: -100
 
         'sylius_shop.account.order.show.content.main.credit_memos':
-            list_action_buttons:
-                template: '@SyliusRefundPlugin/shop/order/download_button.html.twig'
+            header:
+                template: '@SyliusRefundPlugin/shop/order/credit_memos/header.html.twig'
+                priority: 100
+            list:
+                template: '@SyliusRefundPlugin/shop/order/credit_memos/list.html.twig'
+                priority: 0
+
+        'sylius_shop.account.order.show.content.main.credit_memos.list':
+            details:
+                template: '@SyliusRefundPlugin/shop/order/credit_memos/list/details.html.twig'
+                priority: 300
+            total:
+                template: '@SyliusRefundPlugin/shop/order/credit_memos/list/total.html.twig'
+                priority: 100
+            download:
+                template: '@SyliusRefundPlugin/shop/order/credit_memos/list/download.html.twig'
                 enabled: '%sylius_refund.pdf_generator.enabled%'
                 priority: 0
+
+        'sylius_shop.account.order.show.content.main.credit_memos.list.details':
+            date:
+                template: '@SyliusRefundPlugin/shop/order/credit_memos/list/details/date.html.twig'
+                priority: 100
+            number:
+                template: '@SyliusRefundPlugin/shop/order/credit_memos/list/details/number.html.twig'
+                priority: 0
+

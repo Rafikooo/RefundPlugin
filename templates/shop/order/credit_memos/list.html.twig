@@ -1,0 +1,13 @@
+{% set credit_memos = hookable_metadata.context.credit_memos %}
+
+<div class="card-body">
+    <table class="table align-middle mb-0">
+        <tbody>
+        {% for credit_memo in credit_memos %}
+            <tr>
+                {% hook 'list' %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
