@@ -1,4 +1,4 @@
-### Legacy installation (without SymfonyFlex)
+### Legacy installation (without Symfony Flex)
 
 1. Require plugin with composer:
 
@@ -10,8 +10,8 @@
 
     ```php
     $bundles = [
-        new \Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-        new \Sylius\RefundPlugin\SyliusRefundPlugin(),
+        Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
+        Sylius\RefundPlugin\SyliusRefundPlugin::class => ['all' => true],
     ];
     ```
 

@@ -37,6 +37,12 @@ From Administrator's point of view, every Refund request results in creating two
 
 ## Installation
 
+#### Beware!
+
+This installation instruction assumes that you're using Symfony Flex. If you don't, take a look at the
+[legacy installation instruction](docs/legacy_installation.md). However, we strongly encourage you to use
+Symfony Flex, it's much quicker!
+
 1. Require plugin with composer:
 
     ```bash
@@ -67,12 +73,6 @@ From Administrator's point of view, every Refund request results in creating two
    ```
    WKHTMLTOPDF_PATH=/usr/local/bin/wkhtmltopdf # Change this! :)
    ```
-
-#### Beware!
-
-This installation instruction assumes that you're using Symfony Flex. If you don't, take a look at the
-[legacy installation instruction](docs/legacy_installation.md). However, we strongly encourage you to use
-Symfony Flex, it's much quicker! :)
 
 ## Extension points
 
